@@ -10,8 +10,19 @@
     raf: [],
     recording: false,
     framesAtStart: 0,
-    frame() {
+    animTime: 0, // composition seconds advanced (loop wraps unrolled)
+    lastT: null,
+    // t = current composition time in seconds (0..8), if the demo knows it.
+    frame(t) {
       b.frames++;
+      if (typeof t === "number") {
+        if (b.lastT !== null) {
+          let d = t - b.lastT;
+          if (d < -1) d += 8; // wrapped around the 8 s loop
+          if (d > 0) b.animTime += d;
+        }
+        b.lastT = t;
+      }
       if (b.firstRenderAt === null) {
         b.firstRenderAt = performance.now();
         requestAnimationFrame(() => (b.firstFrameAt = performance.now()));
@@ -20,11 +31,12 @@
     start() {
       b.raf = [];
       b.framesAtStart = b.frames;
+      b.animAtStart = b.animTime;
       b.recording = true;
     },
     stop() {
       b.recording = false;
-      return { raf: b.raf, frames: b.frames - b.framesAtStart };
+      return { raf: b.raf, frames: b.frames - b.framesAtStart, animSeconds: b.animTime - b.animAtStart };
     },
   });
   const loop = (ts) => {

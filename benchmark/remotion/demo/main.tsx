@@ -11,12 +11,12 @@ import {
 import { Cfg, loadConfig, mountEditor } from "./editor";
 
 // Optional hooks injected by benchmark/harness/bench-inject.js; no-ops otherwise.
-const bench = (window as any).__bench as { frame?: () => void } | undefined;
+const bench = (window as any).__bench as { frame?: (t: number) => void } | undefined;
 
 // Counts every frame the composition actually renders.
 const Card: React.FC<Cfg> = (props) => {
   const frame = useCurrentFrame();
-  useEffect(() => bench?.frame?.(), [frame, props]);
+  useEffect(() => bench?.frame?.(frame / FPS), [frame, props]);
   return <StatusCard {...props} />;
 };
 

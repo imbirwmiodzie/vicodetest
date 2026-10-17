@@ -28,3 +28,37 @@
 - Finding: during playback the timeline is seeked **twice per display frame** (player posts a `tick` each parent rAF and
   the runtime also runs its own rAF transport): 120 seeks/s at 60 Hz, measured. So "frames rendered" counts seeks.
 - Fix iterations on the animation: 0. Tooling/docs iterations: ~6 (mostly finding the runtime-data receiver).
+
+## Revideo 0.11.0
+- Docs moved: docs.re.video now redirects to midrender.com/revideo/docs. Repo is github.com/midrender/revideo.
+  Last npm publish 2026-07-10 (3 months before this test).
+- Scaffold: `npm init @revideo@latest` is interactive only (name/path prompts). Piped stdin didn't work; driving it
+  through a pseudo-terminal did. The default template contains a remote <Video> and an <Audio> (chill-beat.mp3)
+  from S3 plus a render script -> all removed. `@revideo/create` sends a PostHog telemetry event on create
+  (disabled here with DISABLE_TELEMETRY=true).
+- Dependencies: template depends on @revideo/renderer (puppeteer -> Chrome download, @ffmpeg-installer binaries) and
+  @revideo/cli. For player-only use they were dropped; the player demo needs core, 2d, player-react, react, react-dom.
+  Without @revideo/cli there is no Revideo editor (`npm start`).
+- Player fixes (Revideo-specific problems, in order):
+  1. Nothing played. `<revideo-player>` ignores `playing="true"` set before its project is ready. (Also had a bug of
+     my own: an effect set playing=true on mount.)
+  2. With React 19 (player-react's required peer), the wrapper's `playing` / `looping` / `variables` props stop
+     reaching the custom element after it upgrades: React assigns them as properties, the element only reacts to
+     attributes. Verified in the browser (attribute "false", property "true"). Workaround: drive the core Player
+     from `onPlayerReady`.
+  3. The element calls `togglePlayback(false)` right after firing `playerready`, undoing play() in the callback ->
+     deferred with queueMicrotask.
+  4. "The scene is not available in the current context": a reactive `Txt text={() => ...}` spawns new text nodes,
+     which fails during drawing. Fix: imperative `num().text()` inside a tween, plain strings for title/unit.
+  5. Nested JSX fragments inside `.map()` didn't render (bars missing) -> wrapped in <Node>.
+  6. A variables change (same sequence the element itself uses: setVariables + requestSeek + playback.reload)
+     restarts the loop at frame 0: recalculation leaves playback at the end and the loop logic rewinds. Fix: seek
+     back to the saved frame in `onRecalculated`.
+  7. My play-once stop re-seeked every frame -> guard flag.
+  Total: 7 fix iterations after the first build (cap was ~8). Each needed reading the library source; none of the
+  above is in the docs.
+- Behaviour notes from the source: playback advances a fixed number of frames per tick (not wall-clock based), so a
+  slow device plays slower instead of dropping frames; the rAF loop keeps running while paused (TODO in core); the
+  player logs the project object to the console on load; every frame triggers a React state update in the wrapper.
+- No in/out range in the player: play-once is implemented by pausing in onTimeUpdate (can overshoot one frame).
+- Long titles are not truncated with an ellipsis (canvas text); the other two truncate.

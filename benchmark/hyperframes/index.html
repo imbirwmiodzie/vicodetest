@@ -123,7 +123,7 @@
         paused: true,
         // Benchmark instrumentation only: count rendered frames (no-op outside the harness).
         onUpdate: () => {
-          try { (parent.__bench || window.__bench)?.frame?.(); } catch (e) {}
+          try { (parent.__bench || window.__bench)?.frame?.(tl.time()); } catch (e) {}
         },
       });
 
