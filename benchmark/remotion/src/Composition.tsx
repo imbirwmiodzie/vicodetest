@@ -6,10 +6,10 @@ import {
   defaultConfig,
 } from "./StatusCard";
 import {
-  DURATION_FRAMES as ROUTER_FRAMES,
   FPS as ROUTER_FPS,
   RouterSetup,
   defaultRouterConfig,
+  durationFrames,
 } from "./RouterSetup";
 
 // Studio preview only; the live demos use <Player> in demo/main.tsx and demo/router.tsx.
@@ -28,7 +28,8 @@ export const MyComposition = () => {
       <Composition
         id="RouterSetup"
         component={RouterSetup}
-        durationInFrames={ROUTER_FRAMES}
+        durationInFrames={durationFrames(defaultRouterConfig)}
+        calculateMetadata={({ props }) => ({ durationInFrames: durationFrames(props) })}
         fps={ROUTER_FPS}
         width={1280}
         height={720}

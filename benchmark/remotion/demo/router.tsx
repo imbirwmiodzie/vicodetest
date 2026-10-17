@@ -2,7 +2,7 @@ import { Player, PlayerRef } from "@remotion/player";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { useCurrentFrame } from "remotion";
-import { DURATION_FRAMES, FPS, HOLD_END_FRAME, RouterSetup, type RouterConfig as RouterCfg } from "../src/RouterSetup";
+import { FPS, RouterSetup, durationFrames, holdEndFrame, type RouterConfig as RouterCfg } from "../src/RouterSetup";
 import { MEDIA } from "../../shared/router-scene.js";
 import { loadConfig, mountEditor, preload } from "../../shared/editor.js";
 
@@ -39,13 +39,13 @@ const App: React.FC<{ initial: RouterCfg }> = ({ initial }) => {
       ref={player}
       component={Scene}
       inputProps={cfg}
-      durationInFrames={DURATION_FRAMES}
+      durationInFrames={durationFrames(cfg)}
       fps={FPS}
       compositionWidth={1280}
       compositionHeight={720}
       style={{ width: 1280, height: 720 }}
       loop={cfg.loop}
-      outFrame={cfg.loop ? undefined : HOLD_END_FRAME}
+      outFrame={cfg.loop ? undefined : holdEndFrame(cfg)}
       moveToBeginningWhenEnded={false}
       playbackRate={cfg.speed}
       autoPlay

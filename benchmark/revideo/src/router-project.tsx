@@ -1,13 +1,7 @@
 import {Node, makeScene2D} from '@revideo/2d';
 import {createSignal, makeProject, tween, useScene} from '@revideo/core';
 import {drawFrame} from '../../shared/router-canvas.js';
-import {
-  DEFAULTS,
-  DURATION_S,
-  frameState,
-  normalize,
-  type FrameState,
-} from '../../shared/router-scene.js';
+import {DEFAULTS, frameState, normalize, timeline, type FrameState} from '../../shared/router-scene.js';
 
 // Centro Business 3.0 setup. The scene (timeline maths, geometry, camera) is shared
 // with the Remotion and HyperFrames versions; see benchmark/shared/router-scene.js.
@@ -42,7 +36,10 @@ const scene = makeScene2D('router-setup', function* (view) {
   node.state = () => frameState(t(), normalize(config()));
   view.fill('#FFFFFF');
   view.add(node);
-  yield* tween(DURATION_S, v => t(v * DURATION_S));
+  // The steps are configurable, so the length comes from the config. A config change
+  // reloads the scene, which re-runs this with the new length.
+  const duration = timeline(normalize(config())).duration;
+  yield* tween(duration, v => t(v * duration));
 });
 
 export default makeProject({

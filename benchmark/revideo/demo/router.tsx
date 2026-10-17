@@ -4,10 +4,11 @@ import {Player} from '@revideo/player-react';
 import {useEffect, useRef} from 'react';
 import {createRoot} from 'react-dom/client';
 import {loadConfig, mountEditor, preload} from '../../shared/editor.js';
-import {FPS, HOLD_END_S, MEDIA, type RouterConfig} from '../../shared/router-scene.js';
+import {FPS, MEDIA, timeline, type RouterConfig} from '../../shared/router-scene.js';
 import project, {images} from '../src/router-project';
 
-const HOLD_END_FRAME = Math.round(HOLD_END_S * FPS); // where loop:false stops
+// Where loop:false stops (depends on which steps are on).
+const holdEndFrame = (cfg: RouterConfig) => Math.round(timeline(cfg).holdEnd * FPS);
 
 // Optional hooks injected by benchmark/harness/bench-inject.js; no-ops otherwise.
 const bench = (window as any).__bench as {frame?: (t: number) => void} | undefined;
@@ -59,10 +60,10 @@ function App() {
       }}
       onTimeUpdate={t => {
         bench?.frame?.(t);
-        if (!current.loop && !stoppedOnce && core && t * FPS >= HOLD_END_FRAME) {
+        if (!current.loop && !stoppedOnce && core && t * FPS >= holdEndFrame(current)) {
           stoppedOnce = true;
           core.togglePlayback(false);
-          core.requestSeek(HOLD_END_FRAME);
+          core.requestSeek(holdEndFrame(current));
         }
       }}
     />

@@ -102,3 +102,22 @@
   through a delayed-expansion variable because `call` would expand `%20` again.
 - Local run: `demo.sh` / `demo.cmd` (fetch, npm ci + build x3, serve) and a start page `index.html`.
   Vite configs now use `fileURLToPath` (URL.pathname breaks on Windows drive letters).
+
+## Router demo v3: front USB, extension order, window, optional steps
+- Stick: rounded prism (rounded long edges, 4 facets per corner, rounded end caps) instead of a box with
+  border-radius faces, which looked like separate slabs. Photos are cropped by the corner radius.
+- Front panel: no straight photo of the lying router's front exists in the guide; the standing router's front strip
+  from the ports/LED picture is turned 90 degrees onto the front face (USB 3.0 port, LEDs, logo). Power LED white,
+  Mobile Internet LED green while the stick is connected.
+- Story (each step optional): Ethernet -> stick straight into the chosen USB port -> stick into the extension cable's
+  female end -> male end into the router -> a hand carries the stick to a window, label "up to 10 m" on the cable.
+  Length follows the config (timeline(cfg)); HyperFrames keeps a max-length composition and plays the needed part
+  with range-end, Remotion passes durationInFrames, Revideo's scene length comes from the config.
+- Rendering model: everything is a list of world-space quads (boxes, rounded prisms, camera-facing cable strips,
+  wall). CSS: one matrix3d element per quad in a single preserve-3d world, so the router hides what is behind it
+  when the camera orbits to the front. Canvas: painter's algorithm, with parts ordered around the router box (outside
+  a camera-facing face = in front) because centre-depth sorting failed next to the panel's huge faces.
+- Chrome's CSS depth sorting broke on the 4200 px wall plane (wall drawn over the stick): the wall now lives in its own
+  preserve-3d layer behind the main one. Camera orbits pull back mid-turn so they don't pass through the router.
+- Window: frame bars as thin 3D boxes against the wall rendered badly; the window is one quad with the frame drawn on it.
+- The hand is a 2D cartoon overlay (SVG path / Path2D) anchored to the projected stick, not a 3D object.

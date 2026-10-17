@@ -1,70 +1,70 @@
 // CSS helpers for drawing a router-scene frame with DOM elements and CSS 3D, plus a
 // plain-DOM renderer (used by HyperFrames; Remotion maps the same helpers to JSX).
-import { MEDIA, VIEW, WIDTH, HEIGHT, cssPose, cssWorld, faceFrame, faceCss, cableSegments } from "./router-scene.js";
+// Every quad is one element with a matrix3d transform inside a preserve-3d world, so
+// the browser sorts them in depth (the router hides what is behind it). The wall sits
+// in its own world behind the main one.
+import { HAND, MEDIA, VIEW, WIDTH, HEIGHT, cross3, cssWorld } from "./router-scene.js";
 
-export const FACES = ["front", "back", "right", "left", "top", "bottom"];
 const SHADOW = "radial-gradient(closest-side, rgba(0,0,0,0.28), rgba(0,0,0,0.12) 60%, rgba(0,0,0,0))";
+const radius = (r) => (r === "50%" ? "50%" : Array.isArray(r) ? r.map((v) => `${v}px`).join(" ") : r ? `${r}px` : undefined);
 
-const radius = (r) => (Array.isArray(r) ? r.map((v) => `${v}px`).join(" ") : r ? `${r}px` : undefined);
-
-// Styles of the fixed layers. The two worlds share the camera transform: router first,
-// then the cables as a flat SVG, then the moving parts, so parts never sink into the panel.
 export const layerStyles = {
   root: { position: "relative", width: WIDTH, height: HEIGHT, overflow: "hidden", background: "#FFFFFF", fontFamily: "sans-serif" },
   stage: { position: "absolute", left: 0, top: 0, width: WIDTH, height: HEIGHT, perspective: `${VIEW.perspective}px`, perspectiveOrigin: "50% 50%" },
   world: { position: "absolute", left: WIDTH / 2, top: VIEW.top, transformStyle: "preserve-3d" },
-  panel: { position: "absolute", left: 0, top: 0, transform: "translateZ(1px)" },
-  svg: { position: "absolute", left: 0, top: 0, overflow: "visible" },
+  svg: { position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" },
 };
 
 export const worldTransform = (cam) => cssWorld(cam);
 
-export const boxStyle = (b) => ({
-  position: "absolute",
-  transformStyle: "preserve-3d",
-  transform: `${cssPose(b.pose)} translate3d(${b.c[0]}px, ${b.c[1]}px, ${b.c[2]}px)`,
-});
-
-export function faceStyle(name, b) {
-  const face = b.faces[name];
-  const [fw, fh] = faceFrame(name, ...b.size);
+const f = (v) => +v.toFixed(5);
+export function quadStyle(q) {
+  const n = cross3(q.u, q.v);
+  const face = q.face;
+  const background = face.shadow
+    ? SHADOW
+    : face.gradient
+      ? `linear-gradient(180deg, ${face.gradient.map(([s, c]) => `${c} ${s * 100}%`).join(", ")})`
+      : face.fill;
   return {
     position: "absolute",
-    left: -fw / 2,
-    top: -fh / 2,
-    width: fw,
-    height: fh,
-    transform: faceCss(name, ...b.size),
-    backfaceVisibility: "hidden",
+    left: 0,
+    top: 0,
+    width: q.w,
+    height: q.h,
+    transformOrigin: "0 0",
+    transform: `matrix3d(${[...q.u, 0, ...q.v, 0, ...n, 0, ...q.o, 1].map(f).join(",")})`,
+    backfaceVisibility: q.cull ? "hidden" : "visible",
     boxSizing: "border-box",
-    background: face.shadow ? SHADOW : face.fill,
-    border: face.stroke ? `1px solid ${face.stroke}` : undefined,
+    background,
+    border: face.stroke ? `${face.strokeW ?? 1}px solid ${face.stroke}` : undefined,
     borderRadius: radius(face.radius),
+    boxShadow: face.glow ? `0 0 ${face.fill ? 14 : 18}px ${face.fill ? 6 : 0}px ${face.glow}` : undefined,
     overflow: face.img ? "hidden" : undefined,
-    opacity: b.opacity < 1 ? b.opacity : undefined,
+    opacity: q.opacity < 1 ? q.opacity : undefined,
   };
 }
 
-// Photo inside a face: the source rectangle, turned by `rot`, fills the face.
-export function faceImage(name, b) {
-  const face = b.faces[name];
-  if (!face.img) return null;
-  const [fw, fh] = faceFrame(name, ...b.size);
-  const { media, sx, sy, sw, sh, rot } = face.img;
+// Photo inside a face: the source rectangle, turned by `rot`, stretched to fill the face.
+export function faceImage(q) {
+  const img = q.face.img;
+  if (!img) return null;
+  const { media, sx, sy, sw, sh, rot } = img;
   const m = MEDIA[media];
-  const k = rot % 180 ? fw / sh : fw / sw;
+  const turned = rot % 180 !== 0;
+  const kx = (turned ? q.h : q.w) / sw, ky = (turned ? q.w : q.h) / sh;
   return {
     src: m.src,
     wrap: {
       position: "absolute",
-      left: (fw - sw * k) / 2,
-      top: (fh - sh * k) / 2,
-      width: sw * k,
-      height: sh * k,
+      left: (q.w - sw * kx) / 2,
+      top: (q.h - sh * ky) / 2,
+      width: sw * kx,
+      height: sh * ky,
       overflow: "hidden",
       transform: rot ? `rotate(${rot}deg)` : undefined,
     },
-    img: { position: "absolute", left: -sx * k, top: -sy * k, width: m.w * k, height: m.h * k, maxWidth: "none" },
+    img: { position: "absolute", left: -sx * kx, top: -sy * ky, width: m.w * kx, height: m.h * ky, maxWidth: "none" },
   };
 }
 
@@ -79,36 +79,26 @@ export const dotStyle = (d) => ({
   boxShadow: d.glow ? `0 0 ${d.glowSize ?? 10}px ${(d.glowSize ?? 10) / 2}px ${d.glow}` : undefined,
 });
 
-export function panelStyle(it) {
-  const ring = it.type === "ring";
-  return {
-    position: "absolute",
-    left: ring ? it.x - it.r : it.x,
-    top: ring ? it.y - it.r : it.y,
-    width: ring ? it.r * 2 : it.w,
-    height: ring ? it.r * 2 : it.h,
-    boxSizing: "border-box",
-    borderRadius: ring ? "50%" : it.radius,
-    background: it.fill,
-    border: it.stroke ? `${it.strokeW}px solid ${it.stroke}` : undefined,
-    boxShadow: it.glow ? `0 0 ${it.fill ? 14 : 18}px ${it.fill ? 6 : 0}px ${it.glow}` : undefined,
-    opacity: it.opacity ?? 1,
-  };
-}
+export const handTransform = (o) => `translate(${f(o.x)} ${f(o.y)}) scale(${f(o.s)})`;
+export const HAND_SHAPES = HAND;
 
-// Cable as three passes of round-capped segments: outline, colour, highlight.
-export function cableLines(cam, cable) {
-  const segs = cableSegments(cam, cable);
-  const passes = [
-    { stroke: "rgba(0,0,0,0.25)", width: (w) => w + 3, dy: () => 0 },
-    { stroke: cable.color, width: (w) => w, dy: () => 0 },
-    { stroke: "rgba(255,255,255,0.55)", width: (w) => Math.max(1, w * 0.17), dy: (w) => -w * 0.23 },
-  ];
-  const out = [];
-  for (const p of passes)
-    for (const [x0, y0, x1, y1, w] of segs) out.push({ x0, y0: y0 + p.dy(w), x1, y1: y1 + p.dy(w), w: p.width(w), stroke: p.stroke });
-  return out;
-}
+export const labelStyle = (o) => ({
+  position: "absolute",
+  left: o.x,
+  top: o.y,
+  transform: "translate(-50%, -100%)",
+  padding: "6px 16px",
+  borderRadius: 18,
+  background: "rgba(255,255,255,0.95)",
+  border: "1px solid #D5DAE0",
+  boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+  fontSize: 22,
+  fontWeight: 600,
+  lineHeight: "26px",
+  color: "#1B1D22",
+  whiteSpace: "nowrap",
+  opacity: o.opacity,
+});
 
 export const titleStyle = (opacity) => ({
   position: "absolute",
@@ -165,12 +155,6 @@ export const captionStyles = (c) => ({
 // ---- plain-DOM renderer ------------------------------------------------------------
 
 const SVGNS = "http://www.w3.org/2000/svg";
-const el = (tag, style, parent) => {
-  const e = document.createElement(tag);
-  if (style) Object.assign(e.style, px(style));
-  parent?.appendChild(e);
-  return e;
-};
 // Object.assign(style) needs units on lengths; React adds them, plain DOM doesn't.
 const UNITLESS = new Set(["opacity", "fontWeight", "flex", "zIndex"]);
 function px(style) {
@@ -178,25 +162,41 @@ function px(style) {
   for (const [k, v] of Object.entries(style)) out[k] = typeof v === "number" && !UNITLESS.has(k) ? `${v}px` : v ?? "";
   return out;
 }
+const el = (tag, style, parent) => {
+  const e = document.createElement(tag);
+  if (style) Object.assign(e.style, px(style));
+  parent?.appendChild(e);
+  return e;
+};
 
-// Keeps one element per key and only touches the DOM when a style actually changes.
+// Keeps one element per key and only touches the DOM when something changed.
 export function createDomRenderer(root) {
   Object.assign(root.style, px(layerStyles.root));
   const stage = el("div", layerStyles.stage, root);
-  const routerWorld = el("div", layerStyles.world, stage);
+  const backWorld = el("div", layerStyles.world, stage);
+  const world = el("div", layerStyles.world, stage);
   const svg = document.createElementNS(SVGNS, "svg");
   svg.setAttribute("width", String(WIDTH));
   svg.setAttribute("height", String(HEIGHT));
   Object.assign(svg.style, px(layerStyles.svg));
-  stage.appendChild(svg);
-  const objectsWorld = el("div", layerStyles.world, stage);
-  const panel = el("div", layerStyles.panel, routerWorld);
+  root.appendChild(svg);
+  const hand = document.createElementNS(SVGNS, "g");
+  for (const s of HAND_SHAPES) {
+    const p = document.createElementNS(SVGNS, "path");
+    p.setAttribute("d", s.d);
+    p.setAttribute("fill", s.fill);
+    if (s.stroke) {
+      p.setAttribute("stroke", s.stroke);
+      p.setAttribute("stroke-width", "2");
+    }
+    hand.appendChild(p);
+  }
+  svg.appendChild(hand);
+  const label = el("div", null, root);
   const title = el("div", null, root);
   const captions = el("div", null, root);
 
-  const boxes = new Map();
-  const items = new Map();
-  const lines = [];
+  const quads = new Map();
   const applied = new WeakMap();
   const set = (e, style) => {
     const key = JSON.stringify(style);
@@ -205,86 +205,48 @@ export function createDomRenderer(root) {
     e.removeAttribute("style");
     Object.assign(e.style, px(style));
   };
-
-  function renderBoxes(list, parent, seen) {
-    for (const b of list) {
-      seen.add(b.key);
-      let rec = boxes.get(b.key);
-      if (!rec) {
-        rec = { e: el("div", null, parent), faces: {} };
-        boxes.set(b.key, rec);
-      }
-      rec.e.style.display = "";
-      set(rec.e, boxStyle(b));
-      for (const name of FACES) {
-        const face = b.faces[name];
-        let f = rec.faces[name];
-        if (!face) {
-          if (f) f.e.style.display = "none";
-          continue;
-        }
-        if (!f) f = rec.faces[name] = { e: el("div", null, rec.e), sig: "" };
-        f.e.style.display = "";
-        set(f.e, faceStyle(name, b));
-        const sig = JSON.stringify([face.img, face.dots, b.size]);
-        if (sig !== f.sig) {
-          f.sig = sig;
-          f.e.replaceChildren();
-          const im = faceImage(name, b);
-          if (im) {
-            const wrap = el("div", im.wrap, f.e);
-            const img = el("img", im.img, wrap);
-            img.src = im.src;
-            img.alt = "";
-          }
-          for (const d of face.dots ?? []) el("div", dotStyle(d), f.e);
-        }
-      }
-    }
-  }
+  const hide = (e) => {
+    e.style.display = "none";
+    applied.delete(e);
+  };
 
   return function render(st) {
     stage.style.opacity = String(st.opacity);
-    const world = worldTransform(st.cam);
-    routerWorld.style.transform = world;
-    objectsWorld.style.transform = world;
+    world.style.transform = backWorld.style.transform = worldTransform(st.cam);
 
     const seen = new Set();
-    renderBoxes(st.router, routerWorld, seen);
-    renderBoxes(st.objects, objectsWorld, seen);
-    for (const [k, rec] of boxes) if (!seen.has(k)) rec.e.style.display = "none";
-
-    const seenItems = new Set();
-    for (const it of st.panel) {
-      seenItems.add(it.key);
-      let e = items.get(it.key);
-      if (!e) items.set(it.key, (e = el("div", null, panel)));
-      e.style.display = "";
-      set(e, panelStyle(it));
-    }
-    for (const [k, e] of items) if (!seenItems.has(k)) e.style.display = "none";
-
-    let n = 0;
-    for (const cable of st.cables) {
-      for (const l of cableLines(st.cam, cable)) {
-        let e = lines[n];
-        if (!e) {
-          e = lines[n] = document.createElementNS(SVGNS, "line");
-          e.setAttribute("stroke-linecap", "round");
-          svg.appendChild(e);
+    for (const q of st.quads) {
+      seen.add(q.key);
+      let rec = quads.get(q.key);
+      if (!rec) quads.set(q.key, (rec = { e: el("div", null, q.layer === "back" ? backWorld : world), sig: "" }));
+      set(rec.e, quadStyle(q));
+      const sig = JSON.stringify([q.face.img, q.face.dots, q.w, q.h]);
+      if (sig !== rec.sig) {
+        rec.sig = sig;
+        rec.e.replaceChildren();
+        const im = faceImage(q);
+        if (im) {
+          const wrap = el("div", im.wrap, rec.e);
+          const img = el("img", im.img, wrap);
+          img.src = im.src;
+          img.alt = "";
         }
-        e.setAttribute("x1", l.x0.toFixed(1));
-        e.setAttribute("y1", l.y0.toFixed(1));
-        e.setAttribute("x2", l.x1.toFixed(1));
-        e.setAttribute("y2", l.y1.toFixed(1));
-        e.setAttribute("stroke-width", l.w.toFixed(1));
-        e.setAttribute("stroke", l.stroke);
-        e.setAttribute("opacity", String(cable.opacity));
-        e.style.display = "";
-        n++;
+        for (const d of q.face.dots ?? []) el("div", dotStyle(d), rec.e);
       }
     }
-    for (let i = n; i < lines.length; i++) lines[i].style.display = "none";
+    for (const [k, rec] of quads) if (!seen.has(k)) hide(rec.e);
+
+    const h = st.overlays.find((o) => o.type === "hand");
+    hand.style.display = h ? "" : "none";
+    if (h) {
+      hand.setAttribute("transform", handTransform(h));
+      hand.setAttribute("opacity", String(h.opacity));
+    }
+    const l = st.overlays.find((o) => o.type === "label");
+    if (l) {
+      set(label, labelStyle(l));
+      if (label.textContent !== l.text) label.textContent = l.text;
+    } else hide(label);
 
     set(title, titleStyle(st.title.opacity));
     if (title.textContent !== st.title.text) title.textContent = st.title.text;
@@ -296,11 +258,7 @@ export function createDomRenderer(root) {
     }
     [...captions.children].forEach((pill, i) => {
       const c = st.captions[i];
-      if (!c) {
-        pill.style.display = "none";
-        applied.delete(pill); // so the pill's own display:flex comes back next time
-        return;
-      }
+      if (!c) return hide(pill);
       const s = captionStyles(c);
       set(pill, s.pill);
       set(pill.children[0], s.badge);

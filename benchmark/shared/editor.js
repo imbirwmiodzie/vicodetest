@@ -11,16 +11,20 @@ export async function loadConfig(url = "/config/router.json") {
 export function mountEditor(root, initial, onChange) {
   let cfg = initial;
   root.innerHTML = `
+    <label><input data-k="ethernet" type="checkbox"> Ethernet step</label>
     <label>Port <select data-k="port">${[1, 2, 3, 4, 5]
       .map((p) => `<option value="${p}">${p}${p === 4 ? " (WAN)" : p === 5 ? " (10G)" : ""}</option>`)
       .join("")}</select></label>
+    <label>USB port <select data-k="usbPort"><option value="front">front (USB 3.0)</option><option value="back">back (USB 2.0)</option></select></label>
+    <label><input data-k="direct" type="checkbox"> Stick straight into router</label>
+    <label><input data-k="extension" type="checkbox"> Extension cable + window</label>
     <label>Ethernet cable <input data-k="cableColor" type="color"></label>
     <label>USB cable <input data-k="usbCableColor" type="color"></label>
     <label>Link LED <input data-k="ledColor" type="color"></label>
     <label>Accent <input data-k="accentColor" type="color"></label>
     <label>Speed <input data-k="speed" type="range" min="0.1" max="4" step="0.1"><output data-o="speed"></output></label>
     <label><input data-k="loop" type="checkbox"> Loop</label>
-    <textarea spellcheck="false" rows="15"></textarea>
+    <textarea spellcheck="false" rows="18"></textarea>
     <div class="row"><button data-act="reload">Reload router.json</button><span class="status"></span></div>`;
 
   const q = (s) => root.querySelector(s);
@@ -28,13 +32,15 @@ export function mountEditor(root, initial, onChange) {
   const status = q(".status");
   const field = (k) => q(`[data-k="${k}"]`);
   const COLORS = ["cableColor", "usbCableColor", "ledColor", "accentColor"];
+  const BOOLS = ["ethernet", "direct", "extension", "loop"];
 
   const render = () => {
     field("port").value = String(cfg.port);
+    field("usbPort").value = cfg.usbPort;
+    for (const k of BOOLS) field(k).checked = cfg[k];
     // <input type=color> only accepts #rrggbb; leave it alone for other CSS colours.
     for (const k of COLORS) if (/^#[0-9a-f]{6}$/i.test(cfg[k])) field(k).value = cfg[k];
     field("speed").value = String(cfg.speed);
-    field("loop").checked = cfg.loop;
     q('[data-o="speed"]').value = `${cfg.speed}x`;
     if (document.activeElement !== json) json.value = JSON.stringify(cfg, null, 2);
   };
@@ -57,7 +63,7 @@ export function mountEditor(root, initial, onChange) {
       return;
     }
     const k = el.dataset.k;
-    if (k === "loop") commit({ ...cfg, loop: el.checked });
+    if (BOOLS.includes(k)) commit({ ...cfg, [k]: el.checked });
     else if (k === "port" || k === "speed") commit(normalize({ ...cfg, [k]: Number(el.value) }));
     else if (k) commit(normalize({ ...cfg, [k]: el.value }));
   });

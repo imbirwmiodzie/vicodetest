@@ -8,6 +8,8 @@ set "KOMSA=https://www.komsa.pl/Images/Product/Alternative/xlarge/TCL%%20LINKKEY
 rem URLs go through a variable: "call" would expand the %%20 escapes a second time.
 set "URL=https://cb-guide.swisscom.ch/en/assets/images/CB3_liegend-208f6c6bf6223955e7861e59178eb1bc.png"
 call :get cb3-back.png || exit /b 1
+set "URL=https://cb-guide.swisscom.ch/en/assets/images/CBG_HW_port_led_DE-609af2b08c3417ad0c4047d53cc6fdf3.png"
+call :get cb3-front.png || exit /b 1
 set "URL=!KOMSA!%%20(6).jpeg"
 call :get tcl-ik41-front.jpeg || exit /b 1
 set "URL=!KOMSA!%%20(7).jpeg"

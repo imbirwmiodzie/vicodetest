@@ -1,5 +1,5 @@
 import "@hyperframes/player";
-import { HOLD_END_S, type RouterConfig } from "../../shared/router-scene.js";
+import { timeline, type RouterConfig } from "../../shared/router-scene.js";
 import { loadConfig, mountEditor } from "../../shared/editor.js";
 
 const player = document.createElement("hyperframes-player") as HTMLElement & {
@@ -26,7 +26,9 @@ function apply(cfg: RouterConfig) {
   player.setRuntimeData("config", scene);
   player.playbackRate = speed;
   player.loop = loop;
-  player.rangeEnd = loop ? null : HOLD_END_S;
+  // The composition is as long as the longest config; play only this config's part.
+  const tl = timeline(cfg);
+  player.rangeEnd = loop ? tl.duration : tl.holdEnd;
   if (loop && player.paused) player.play();
 }
 

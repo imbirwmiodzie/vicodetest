@@ -14,6 +14,8 @@ get() {
 
 # Centro Business 3.0 back panel, https://cb-guide.swisscom.ch/en/router/router_installation
 get cb3-back.png "https://cb-guide.swisscom.ch/en/assets/images/CB3_liegend-208f6c6bf6223955e7861e59178eb1bc.png"
+# Centro Business 3.0 front (standing, with LEDs and the USB 3.0 port), https://cb-guide.swisscom.ch/en/router/ports_led
+get cb3-front.png "https://cb-guide.swisscom.ch/en/assets/images/CBG_HW_port_led_DE-609af2b08c3417ad0c4047d53cc6fdf3.png"
 # TCL LinkKey IK41 front (logo, LED) and edge (LTE1/LTE2 antenna sockets), KOMSA product page
 get tcl-ik41-front.jpeg "$KOMSA%20(6).jpeg"
 get tcl-ik41-edge.jpeg "$KOMSA%20(7).jpeg"
