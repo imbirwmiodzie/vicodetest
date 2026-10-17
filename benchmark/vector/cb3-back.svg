@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 260" width="1360" height="260">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3D404A"/><stop offset="0.08" stop-color="#363943"/>
+      <stop offset="0.9" stop-color="#32353E"/><stop offset="1" stop-color="#2B2E35"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#363A3F"/><stop offset="0.1" stop-color="#2E3236"/>
+      <stop offset="0.92" stop-color="#2A2D31"/><stop offset="1" stop-color="#24272B"/>
+    </linearGradient>
+    <linearGradient id="socket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2920"/><stop offset="1" stop-color="#47442F"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9AA1AA"/><stop offset="0.35" stop-color="#EEF1F4"/>
+      <stop offset="0.7" stop-color="#C3C8CF"/><stop offset="1" stop-color="#8E959E"/>
+    </linearGradient>
+    <radialGradient id="button" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#4A4D55"/><stop offset="0.7" stop-color="#2C2E33"/><stop offset="1" stop-color="#1C1D21"/>
+    </radialGradient>
+  </defs>
+  <!-- feet -->
+  <rect x="125" y="226" width="140" height="24" rx="5" fill="#25272D"/>
+  <rect x="1098" y="226" width="152" height="24" rx="5" fill="#25272D"/>
+  <!-- body -->
+  <rect x="49" y="10" width="1256" height="222" rx="16" fill="url(#body)"/>
+  <rect x="49" y="10" width="1256" height="222" rx="16" fill="none" stroke="#4A4E59" stroke-width="2"/>
+  <!-- top lip and bottom rim of the case, as seen in the photo -->
+  <path d="M49 50 V26 a16 16 0 0 1 16 -16 H1289 a16 16 0 0 1 16 16 V50 Z" fill="#3B3E49"/>
+  <path d="M52 50 H1302" stroke="#2B2E35" stroke-width="2"/>
+  <path d="M65 12 H1289" stroke="#555A66" stroke-width="2"/>
+  <path d="M51 204 H1303 V216 a16 16 0 0 1 -16 16 H67 a16 16 0 0 1 -16 -16 Z" fill="#3A3D47"/>
+  <path d="M52 204 H1302" stroke="#2C2F36" stroke-width="1.5"/>
+
+  <!-- labels -->
+  <text x="213" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >Phone</text>
+  <text x="460" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >Ethernet 1.0 Gbit/s</text>
+  <text x="668" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >10 Gbit/s</text>
+  <text x="911" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >Internet</text>
+  <text x="1028" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >USB 2.0</text>
+  <text x="1093" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >Power</text>
+  <text x="1153" y="82" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >On /Off</text>
+
+  <!-- phone sockets -->
+  <rect x="137" y="93" width="152" height="63" rx="3" fill="#E7E9EE" stroke="#C9CDD4" stroke-width="1"/>
+  <path d="M213 96 V153" stroke="#C9CDD4" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M169 101 h12 v4 h8 v8 h8 a2 2 0 0 1 2 2 v30 a2 2 0 0 1 -2 2 h-44 a2 2 0 0 1 -2 -2 v-30 a2 2 0 0 1 2 -2 h8 v-8 h8 z" fill="#2B2C2F" stroke="#16171A" stroke-width="1"/>
+    <rect x="158" y="128" width="34" height="17" rx="1.5" fill="#202124"/><rect x="162" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="167" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="172" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="177" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="182" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="187" y="131" width="2.2" height="13" fill="#C9B458"/><path d="M245 101 h12 v4 h8 v8 h8 a2 2 0 0 1 2 2 v30 a2 2 0 0 1 -2 2 h-44 a2 2 0 0 1 -2 -2 v-30 a2 2 0 0 1 2 -2 h8 v-8 h8 z" fill="#2B2C2F" stroke="#16171A" stroke-width="1"/>
+    <rect x="234" y="128" width="34" height="17" rx="1.5" fill="#202124"/><rect x="238" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="243" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="248" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="253" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="258" y="131" width="2.2" height="13" fill="#C9B458"/><rect x="263" y="131" width="2.2" height="13" fill="#C9B458"/>
+  <text x="175" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >1</text><text x="251" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >2</text>
+
+  <!-- Ethernet 1-4 and 5 (10G) -->
+  <rect x="307" y="93" width="307" height="63" rx="2" fill="#F2E33A" stroke="#CDBE22" stroke-width="1"/>
+  <rect x="630" y="93" width="76" height="63" rx="2" fill="#F2E33A" stroke="#CDBE22" stroke-width="1"/>
+  <path d="M338 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
+    <rect x="323" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="326.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="331.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="336.9" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="342.1" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="347.3" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="352.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="357.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="362.9" y="129" width="2.4" height="14" fill="#C9B458"/><path d="M414.5 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
+    <rect x="399.5" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="403" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="408.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="413.4" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="418.6" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="423.8" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="429" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="434.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="439.4" y="129" width="2.4" height="14" fill="#C9B458"/><path d="M491 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
+    <rect x="476" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="479.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="484.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="489.9" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="495.1" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="500.3" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="505.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="510.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="515.9" y="129" width="2.4" height="14" fill="#C9B458"/><path d="M567 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
+    <rect x="552" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="555.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="560.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="565.9" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="571.1" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="576.3" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="581.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="586.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="591.9" y="129" width="2.4" height="14" fill="#C9B458"/>
+  <path d="M660.5 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
+    <rect x="645.5" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="649" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="654.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="659.4" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="664.6" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="669.8" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="675" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="680.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="685.4" y="129" width="2.4" height="14" fill="#C9B458"/>
+  <rect x="366" y="98" width="14" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="443" y="98" width="13" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="519" y="98" width="14" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="596" y="98" width="13" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="690" y="97" width="11" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/>
+  <text x="345.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >1</text><text x="422" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >2</text><text x="498.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >3</text><text x="574.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >4</text>
+  <text x="574.5" y="198" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >WAN</text>
+  <text x="668" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >5</text><text x="668" y="198" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >SG</text>
+
+  <!-- Internet: SFP slot with module -->
+  <rect x="866" y="100" width="90" height="66" rx="3" fill="#1D1F24" stroke="#4A4E59" stroke-width="1"/>
+  <rect x="874" y="109" width="74" height="51" rx="2" fill="url(#metal)" stroke="#7C838C" stroke-width="1"/>
+  <rect x="880" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/><rect x="893" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/><rect x="906" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/><rect x="919" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/><rect x="932" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/>
+  <rect x="874" y="103" width="70" height="9" rx="2.5" fill="#2E7BD6"/>
+
+  <!-- USB 2.0 -->
+  <rect x="1014" y="88" width="28" height="66" rx="3" fill="url(#metal)" stroke="#7C838C" stroke-width="1"/>
+  <rect x="1018" y="92" width="20" height="58" rx="1.5" fill="#15161A"/>
+  <rect x="1027" y="97" width="8" height="48" rx="1" fill="#EDEFF2"/>
+
+  <!-- Power socket -->
+  <rect x="1071" y="101" width="45" height="57" rx="2" fill="#1C1D21" stroke="#5A5F6A" stroke-width="1.2"/>
+  <circle cx="1093.5" cy="129.5" r="14" fill="#0D0E10" stroke="#2C2E33" stroke-width="2"/>
+  <circle cx="1093.5" cy="129.5" r="3" fill="#E8EAED"/>
+
+  <!-- On/Off button -->
+  <circle cx="1152" cy="128.5" r="22" fill="url(#button)" stroke="#16171A" stroke-width="1.5"/>
+  <path d="M1144.5 121.5 a10.5 10.5 0 1 0 15 0" fill="none" stroke="#5E626B" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M1152 116 V129" stroke="#5E626B" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M1129 178 H1176 M1131 178 V169 H1146 V178 M1149 178 V161 H1170 V178" fill="none" stroke="#D6DAE0" stroke-width="1.6"/>
+
+  <!-- Reset -->
+  <circle cx="1213" cy="137" r="5" fill="#0D0E10" stroke="#2C2E33" stroke-width="1"/>
+  <text x="1213" y="182" font-size="15.5" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >Reset</text>
+</svg>
