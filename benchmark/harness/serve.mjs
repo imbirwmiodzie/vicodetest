@@ -34,7 +34,10 @@ export function startServer(port = 8080) {
       res.end(data);
     });
   });
-  return new Promise((resolve) => server.listen(port, () => resolve(server)));
+  return new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(port, () => resolve(server));
+  });
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

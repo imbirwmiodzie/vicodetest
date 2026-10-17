@@ -1,6 +1,6 @@
 # PLAN: configurable "status card" animation, 3-tool benchmark
 
-Status: **draft, waiting for approval**. Nothing is installed or scaffolded yet.
+Status: **approved** (defaults: 30 fps, `loop:false` stops at 6.6 s, no device). Clarifications added during the build are marked *(build note)*.
 
 The animation is the default "status card" from the handover, since no custom animation was given.
 All three versions (Remotion, HyperFrames, Revideo) follow this spec. Where a tool can't match it
@@ -57,11 +57,11 @@ loop seamless.
 |---|---|---|---|
 | 0.00 - 0.30 | – | empty card (rest) | – |
 | 0.30 - 1.10 | Title | opacity 0 to 1, translateY +40 px to 0 | easeOutCubic |
-| 0.60 - 1.00 | Ring track + bar tracks | opacity 0 to 1 | linear |
+| 0.60 - 1.00 | Ring track + bar tracks + number/unit | opacity 0 to 1 *(build note: number and unit fade in with the tracks)* | linear |
 | 0.80 - 2.80 | Ring fill | progress 0 to 1 (arc 0 to value%) | easeInOutCubic |
 | 0.80 - 2.80 | Number | counts 0 to `value`, same curve as the ring; shown as `Math.round` | easeInOutCubic |
 | 1.20 - 2.70 | Bars | each bar's height goes 0 to target over 0.90 s; bar i starts at 1.20 + i x 0.15 s | easeOutCubic |
-| 2.80 - 6.60 | Hold | everything static except the **ring end dot**, which pulses radius 9 to 13 to 9, two full cycles (period 1.9 s) | sine |
+| 2.80 - 6.60 | Hold | everything static except the **ring end dot**, which fades in over 0.2 s *(build note)* and pulses radius 9 to 13 to 9, two full cycles (period 1.9 s) | sine |
 | 6.60 - 7.60 | Title, ring, number, bars, tracks | opacity 1 to 0; title also translateY 0 to -20 px. Values stay at target while fading. | easeInCubic |
 | 7.60 - 8.00 | – | empty card (rest), identical to t=0 | – |
 
@@ -136,7 +136,8 @@ All runs use **production builds**, a 1280x720 viewport, DPR 1, and the same bro
 | Metric | Method |
 |---|---|
 | Avg FPS, 5th-percentile FPS | rAF timestamps over 30 s after a 5 s warm-up. Avg = frames / time. p5 FPS = 1000 / p95 frame time. Also count long frames (>50 ms). |
-| Animation frames/s | how many distinct animation frames the player actually rendered (from the player's frame/time events), since rAF can run at 60 while the player draws at 30 or less |
+| Animation updates/s | how often the player updated the animation (per-frame hook in each demo), since rAF can run at 60 while the player draws at 30 or less |
+| Playback rate *(build note)* | composition seconds advanced per wall-clock second (ideal 1.00). Added because Revideo advances a fixed number of frames per tick, so a slow CPU makes it play slower instead of dropping frames. |
 | CPU load | (a) CDP `Performance.getMetrics` TaskDuration delta / wall time = main-thread busy %; (b) CPU time from `/proc/<pid>/stat` summed over all Chromium processes (renderer + GPU + browser) / wall time, as % of one core |
 | Memory | after 60 s: `performance.memory.usedJSHeapSize` (with `--enable-precise-memory-info`), JS heap after forced GC through CDP, and total RSS of all Chromium processes from `/proc` |
 | Time to first frame | `performance.now()` (relative to navigation start) at the first rAF after the player signals that its first frame has rendered. Each tool's event is named in RESULTS.md. |
