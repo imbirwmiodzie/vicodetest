@@ -1,0 +1,2810 @@
+[
+ {
+  "tool": "remotion",
+  "throttle": 1,
+  "run": 1,
+  "timestamp": "2026-10-17T20:34:26.828Z",
+  "timing": {
+   "firstFrameMs": 174.5,
+   "firstRenderMs": 169.29999999981374,
+   "domContentLoadedMs": 87.39999999990687,
+   "loadMs": 87.5,
+   "fcpMs": 40
+  },
+  "fps": {
+   "avg": 60.00220008066962,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 30.008336383124522,
+   "playbackRate": 1.0002778794374767
+  },
+  "cpu": {
+   "mainThreadBusyPct": 5.355548826756204,
+   "scriptPct": 2.523368033923069,
+   "layoutPct": 0.16956541863902727,
+   "styleRecalcPct": 0.2870675393489755,
+   "processPctOfOneCore": {
+    "browser": 0.23313912839275439,
+    "zygote": 0,
+    "gpu-process": 2.9975030793354134,
+    "utility": 0.4329726670151152,
+    "renderer": 11.723567599178503,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 15.387182473921786
+  },
+  "memory": {
+   "usedJSHeapMB": 7.076606750488281,
+   "jsHeapAfterGcMB": 4.201301574707031,
+   "totalPssMB": 318.4658203125,
+   "byTypeMB": {
+    "browser": 92.25390625,
+    "zygote": 26.90234375,
+    "gpu-process": 33.169921875,
+    "utility": 38.755859375,
+    "renderer": 92.5703125,
+    "network": 34.8134765625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    17.152099609375,
+    10.51904296875,
+    17.694091796875,
+    18.63330078125,
+    12.94189453125,
+    19.552001953125,
+    26.63818359375,
+    22.13623046875,
+    14.739990234375,
+    25.80908203125
+   ],
+   "medianMs": 17.694091796875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 1,
+  "run": 1,
+  "timestamp": "2026-10-17T20:36:01.147Z",
+  "timing": {
+   "firstFrameMs": 226.89999999990687,
+   "firstRenderMs": 216.20000000018626,
+   "domContentLoadedMs": 37.5,
+   "loadMs": 38.3000000002794,
+   "fcpMs": 56
+  },
+  "fps": {
+   "avg": 60.00240009600384,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 119.96739990554315,
+   "playbackRate": 0.9975012864217188
+  },
+  "cpu": {
+   "mainThreadBusyPct": 8.063920859758554,
+   "scriptPct": 3.38161189267895,
+   "layoutPct": 0.2789891510407476,
+   "styleRecalcPct": 0.6317272786530788,
+   "processPctOfOneCore": {
+    "browser": 0.16652887271730032,
+    "zygote": 0,
+    "gpu-process": 4.396362239736728,
+    "utility": 0.7327270399561213,
+    "renderer": 18.684539518881095,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 23.980157671291245
+  },
+  "memory": {
+   "usedJSHeapMB": 7.99709415435791,
+   "jsHeapAfterGcMB": 4.144428253173828,
+   "totalPssMB": 321.404296875,
+   "byTypeMB": {
+    "browser": 90.619140625,
+    "zygote": 26.7021484375,
+    "gpu-process": 33.37890625,
+    "utility": 37.9833984375,
+    "renderer": 97.4951171875,
+    "network": 35.2255859375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    33.054931640625,
+    38.81103515625,
+    24.60009765625,
+    14.739013671875,
+    28.109130859375,
+    28.1787109375,
+    20.591064453125,
+    22.943115234375,
+    11.60400390625,
+    24.909912109375
+   ],
+   "medianMs": 24.60009765625,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 1,
+  "run": 1,
+  "timestamp": "2026-10-17T20:37:28.199Z",
+  "timing": {
+   "firstFrameMs": 251.89999999990687,
+   "firstRenderMs": 250.89999999990687,
+   "domContentLoadedMs": 132.70000000018626,
+   "loadMs": 132.89999999990687,
+   "fcpMs": 36
+  },
+  "fps": {
+   "avg": 59.96906542928384,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 33.39999999999782
+  },
+  "animation": {
+   "updatesPerSec": 29.9789547358021,
+   "playbackRate": 0.9948571645658699
+  },
+  "cpu": {
+   "mainThreadBusyPct": 17.903341831356805,
+   "scriptPct": 1.2761008422590057,
+   "layoutPct": 0.7765215475566872,
+   "styleRecalcPct": 0.4041662747631719,
+   "processPctOfOneCore": {
+    "browser": 0.19985969823868066,
+    "zygote": 0,
+    "gpu-process": 5.596071550683058,
+    "utility": 0,
+    "renderer": 21.91794690684198,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 27.713878155763716
+  },
+  "memory": {
+   "usedJSHeapMB": 10.44733715057373,
+   "jsHeapAfterGcMB": 7.134159088134766,
+   "totalPssMB": 317.15625,
+   "byTypeMB": {
+    "browser": 91.78515625,
+    "zygote": 30.4794921875,
+    "gpu-process": 36.1787109375,
+    "utility": 11.583984375,
+    "renderer": 109.1220703125,
+    "network": 38.0068359375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    90.8779296875,
+    83.73583984375,
+    79.90771484375,
+    101.760009765625,
+    82.173828125,
+    74.31201171875,
+    70.53173828125,
+    63.5078125,
+    76.368896484375,
+    68.96484375
+   ],
+   "medianMs": 76.368896484375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 4,
+  "run": 1,
+  "timestamp": "2026-10-17T20:38:54.902Z",
+  "timing": {
+   "firstFrameMs": 540.3999999999069,
+   "firstRenderMs": 510.39999999990687,
+   "domContentLoadedMs": 239.20000000018626,
+   "loadMs": 239.39999999990687,
+   "fcpMs": 84
+  },
+  "fps": {
+   "avg": 60.002268012354,
+   "p5": 59.523809523824994,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999995634,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 29.969386028421006,
+   "playbackRate": 0.9989795342806929
+  },
+  "cpu": {
+   "mainThreadBusyPct": 20.35009221528803,
+   "scriptPct": 10.037912857041523,
+   "layoutPct": 0.6933084464497105,
+   "styleRecalcPct": 0.8426458970293325,
+   "processPctOfOneCore": {
+    "browser": 0.19979590685614002,
+    "zygote": 0,
+    "gpu-process": 2.930339967223387,
+    "utility": 0.39959181371228003,
+    "renderer": 94.96965439228524,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 98.49938208007704
+  },
+  "memory": {
+   "usedJSHeapMB": 6.4533491134643555,
+   "jsHeapAfterGcMB": 4.201580047607422,
+   "totalPssMB": 318.6484375,
+   "byTypeMB": {
+    "browser": 91.009765625,
+    "zygote": 27.2626953125,
+    "gpu-process": 33.974609375,
+    "utility": 38.802734375,
+    "renderer": 92.9228515625,
+    "network": 34.67578125
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    25.9853515625,
+    26.34912109375,
+    26.374267578125,
+    25.984130859375,
+    25.56689453125,
+    24.672119140625,
+    23.028076171875,
+    27.672119140625,
+    27.880126953125,
+    19.057861328125
+   ],
+   "medianMs": 25.984130859375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 4,
+  "run": 1,
+  "timestamp": "2026-10-17T20:40:29.644Z",
+  "timing": {
+   "firstFrameMs": 554.7000000001863,
+   "firstRenderMs": 522.7000000001863,
+   "domContentLoadedMs": 87.10000000009313,
+   "loadMs": 87.60000000009313,
+   "fcpMs": 112
+  },
+  "fps": {
+   "avg": 59.93573076256384,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 49.900000000001455
+  },
+  "animation": {
+   "updatesPerSec": 103.83575241128642,
+   "playbackRate": 0.9961372011792424
+  },
+  "cpu": {
+   "mainThreadBusyPct": 29.807184998929166,
+   "scriptPct": 12.25191278134029,
+   "layoutPct": 1.0621684808075627,
+   "styleRecalcPct": 2.497639479328261,
+   "processPctOfOneCore": {
+    "browser": 0.333020373352426,
+    "zygote": 0,
+    "gpu-process": 4.09615059223484,
+    "utility": 0.6327387093696094,
+    "renderer": 101.30479757380799,
+    "network": 0.0666040746704852
+   },
+   "processTotalPctOfOneCore": 106.43331132343535
+  },
+  "memory": {
+   "usedJSHeapMB": 6.493231773376465,
+   "jsHeapAfterGcMB": 4.131137847900391,
+   "totalPssMB": 322.0556640625,
+   "byTypeMB": {
+    "browser": 90.6689453125,
+    "zygote": 27.1083984375,
+    "gpu-process": 33.6826171875,
+    "utility": 38.7578125,
+    "renderer": 96.6552734375,
+    "network": 35.1826171875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    48.2890625,
+    34.388916015625,
+    34.30810546875,
+    44.60595703125,
+    28.60107421875,
+    32.56103515625,
+    24.114013671875,
+    27.820068359375,
+    22.7919921875,
+    36.2880859375
+   ],
+   "medianMs": 32.56103515625,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 4,
+  "run": 1,
+  "timestamp": "2026-10-17T20:41:58.774Z",
+  "timing": {
+   "firstFrameMs": 1062.3000000002794,
+   "firstRenderMs": 1056,
+   "domContentLoadedMs": 371.70000000018626,
+   "loadMs": 371.8000000002794,
+   "fcpMs": 84
+  },
+  "fps": {
+   "avg": 58.80235209408376,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 5,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 116.70000000000073
+  },
+  "animation": {
+   "updatesPerSec": 29.68431132087667,
+   "playbackRate": 0.985039927239847
+  },
+  "cpu": {
+   "mainThreadBusyPct": 64.47406128977437,
+   "scriptPct": 4.253485601761488,
+   "layoutPct": 2.720340839602089,
+   "styleRecalcPct": 1.457323310462667,
+   "processPctOfOneCore": {
+    "browser": 0.33278375920265324,
+    "zygote": 0,
+    "gpu-process": 4.858642884358737,
+    "utility": 0.03327837592026532,
+    "renderer": 102.93001672138064,
+    "network": 0.03327837592026532
+   },
+   "processTotalPctOfOneCore": 108.18800011678256
+  },
+  "memory": {
+   "usedJSHeapMB": 10.212762832641602,
+   "jsHeapAfterGcMB": 7.175785064697266,
+   "totalPssMB": 319.560546875,
+   "byTypeMB": {
+    "browser": 93.365234375,
+    "zygote": 30.6650390625,
+    "gpu-process": 36.3916015625,
+    "utility": 11.896484375,
+    "renderer": 110.3955078125,
+    "network": 36.8466796875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    323.6171875,
+    310.901123046875,
+    232.969970703125,
+    325.04296875,
+    235.501953125,
+    231.0439453125,
+    199.445068359375,
+    197.912841796875,
+    250.19091796875,
+    217.93310546875
+   ],
+   "medianMs": 232.969970703125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 6,
+  "run": 1,
+  "timestamp": "2026-10-17T20:43:24.838Z",
+  "timing": {
+   "firstFrameMs": 1117,
+   "firstRenderMs": 1069.6999999997206,
+   "domContentLoadedMs": 507.6999999997206,
+   "loadMs": 507.89999999990687,
+   "fcpMs": 108
+  },
+  "fps": {
+   "avg": 59.735642266552375,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 1,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 116.70000000000073
+  },
+  "animation": {
+   "updatesPerSec": 29.844901665668758,
+   "playbackRate": 0.9981572463434294
+  },
+  "cpu": {
+   "mainThreadBusyPct": 29.478920656915296,
+   "scriptPct": 14.307383010446731,
+   "layoutPct": 0.9777416034648924,
+   "styleRecalcPct": 1.172651768958375,
+   "processPctOfOneCore": {
+    "browser": 0.3327190821144789,
+    "zygote": 0,
+    "gpu-process": 2.8613841061845187,
+    "utility": 0.3992628985373747,
+    "renderer": 101.67895149418476,
+    "network": 0.06654381642289578
+   },
+   "processTotalPctOfOneCore": 105.33886139744402
+  },
+  "memory": {
+   "usedJSHeapMB": 5.562155723571777,
+   "jsHeapAfterGcMB": 4.20147705078125,
+   "totalPssMB": 318.595703125,
+   "byTypeMB": {
+    "browser": 91.28125,
+    "zygote": 27.2333984375,
+    "gpu-process": 33.6826171875,
+    "utility": 38.705078125,
+    "renderer": 93.1376953125,
+    "network": 34.5556640625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    40.252197265625,
+    27.456298828125,
+    22.960205078125,
+    25.2490234375,
+    28.987060546875,
+    29.59033203125,
+    27.898193359375,
+    27.6533203125,
+    25.53515625,
+    27.457275390625
+   ],
+   "medianMs": 27.457275390625,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 6,
+  "run": 1,
+  "timestamp": "2026-10-17T20:44:59.851Z",
+  "timing": {
+   "firstFrameMs": 826.1999999997206,
+   "firstRenderMs": 776,
+   "domContentLoadedMs": 121.29999999981374,
+   "loadMs": 124.79999999981374,
+   "fcpMs": 152
+  },
+  "fps": {
+   "avg": 59.9689148895011,
+   "p5": 59.523809523824994,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999995634,
+   "frameTimeMaxMs": 33.399999999999636
+  },
+  "animation": {
+   "updatesPerSec": 103.79393237158526,
+   "playbackRate": 0.9955626287090859
+  },
+  "cpu": {
+   "mainThreadBusyPct": 42.96466415763802,
+   "scriptPct": 17.668634318933524,
+   "layoutPct": 1.4815626491037157,
+   "styleRecalcPct": 3.4718720735597195,
+   "processPctOfOneCore": {
+    "browser": 0.16649652289314285,
+    "zygote": 0,
+    "gpu-process": 4.029215854014057,
+    "utility": 0.6326867869939429,
+    "renderer": 108.12284196680697,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 112.95124113070811
+  },
+  "memory": {
+   "usedJSHeapMB": 6.125587463378906,
+   "jsHeapAfterGcMB": 4.130893707275391,
+   "totalPssMB": 322.19140625,
+   "byTypeMB": {
+    "browser": 91.1845703125,
+    "zygote": 27.0546875,
+    "gpu-process": 33.9267578125,
+    "utility": 38.2421875,
+    "renderer": 97.1806640625,
+    "network": 34.6025390625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    45.700927734375,
+    48.423095703125,
+    42.807861328125,
+    45.180908203125,
+    36.22900390625,
+    32.108154296875,
+    30.7919921875,
+    34.424072265625,
+    40.4248046875,
+    59.4248046875
+   ],
+   "medianMs": 40.4248046875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 6,
+  "run": 1,
+  "timestamp": "2026-10-17T20:46:31.260Z",
+  "timing": {
+   "firstFrameMs": 1472.8000000002794,
+   "firstRenderMs": 1465.9000000003725,
+   "domContentLoadedMs": 615.7000000001863,
+   "loadMs": 615.9000000003725,
+   "fcpMs": 96
+  },
+  "fps": {
+   "avg": 41.93501073376269,
+   "p5": 20,
+   "longFrames50ms": 27,
+   "frameTimeP50ms": 16.700000000000728,
+   "frameTimeP95ms": 50,
+   "frameTimeMaxMs": 166.70000000000073
+  },
+  "animation": {
+   "updatesPerSec": 27.346765115938858,
+   "playbackRate": 0.9082400550236963
+  },
+  "cpu": {
+   "mainThreadBusyPct": 92.42928163362912,
+   "scriptPct": 6.354840613885438,
+   "layoutPct": 4.307795856106093,
+   "styleRecalcPct": 2.315955721013466,
+   "processPctOfOneCore": {
+    "browser": 0.26550257394115395,
+    "zygote": 0,
+    "gpu-process": 4.878609796168703,
+    "utility": 0,
+    "renderer": 109.61937521595395,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 114.7634875860638
+  },
+  "memory": {
+   "usedJSHeapMB": 10.094751358032227,
+   "jsHeapAfterGcMB": 7.102741241455078,
+   "totalPssMB": 318.3896484375,
+   "byTypeMB": {
+    "browser": 91.9482421875,
+    "zygote": 30.68359375,
+    "gpu-process": 36.119140625,
+    "utility": 11.6630859375,
+    "renderer": 111.1376953125,
+    "network": 36.837890625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    470.3291015625,
+    422.979248046875,
+    351.441162109375,
+    420.213134765625,
+    314.47314453125,
+    325.60009765625,
+    360.985107421875,
+    385.66015625,
+    277.2412109375,
+    315.232177734375
+   ],
+   "medianMs": 351.441162109375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 1,
+  "run": 2,
+  "timestamp": "2026-10-17T20:47:57.491Z",
+  "timing": {
+   "firstFrameMs": 181,
+   "firstRenderMs": 174.10000000009313,
+   "domContentLoadedMs": 25.5,
+   "loadMs": 25.800000000279397,
+   "fcpMs": 44
+  },
+  "fps": {
+   "avg": 59.96886552506925,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 33.30000000000291
+  },
+  "animation": {
+   "updatesPerSec": 119.93650640109387,
+   "playbackRate": 0.9983414845738345
+  },
+  "cpu": {
+   "mainThreadBusyPct": 7.011105033701388,
+   "scriptPct": 3.0130349190994137,
+   "layoutPct": 0.22560056854045757,
+   "styleRecalcPct": 0.49890588250195017,
+   "processPctOfOneCore": {
+    "browser": 0.13326278489010432,
+    "zygote": 0,
+    "gpu-process": 3.9312521542580767,
+    "utility": 0.7329453168955736,
+    "renderer": 17.15758355460093,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 21.955043810644685
+  },
+  "memory": {
+   "usedJSHeapMB": 5.58995246887207,
+   "jsHeapAfterGcMB": 4.1298828125,
+   "totalPssMB": 322.50390625,
+   "byTypeMB": {
+    "browser": 91.3369140625,
+    "zygote": 27.4228515625,
+    "gpu-process": 33.4140625,
+    "utility": 38.64453125,
+    "renderer": 97.0029296875,
+    "network": 34.6826171875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    36.329833984375,
+    24.85986328125,
+    24.614013671875,
+    15.39697265625,
+    25.776123046875,
+    19.695068359375,
+    23.251953125,
+    23.68310546875,
+    16.48095703125,
+    19.448974609375
+   ],
+   "medianMs": 23.251953125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 1,
+  "run": 2,
+  "timestamp": "2026-10-17T20:49:24.693Z",
+  "timing": {
+   "firstFrameMs": 283.8000000002794,
+   "firstRenderMs": 282.90000000037253,
+   "domContentLoadedMs": 148.60000000009313,
+   "loadMs": 148.70000000018626,
+   "fcpMs": 44
+  },
+  "fps": {
+   "avg": 60.00240009600383,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 30.006593261814842,
+   "playbackRate": 0.9957792880446807
+  },
+  "cpu": {
+   "mainThreadBusyPct": 15.354823371414755,
+   "scriptPct": 1.0997999244419714,
+   "layoutPct": 0.6652338502620412,
+   "styleRecalcPct": 0.34277120957666696,
+   "processPctOfOneCore": {
+    "browser": 0.1665182755927572,
+    "zygote": 0,
+    "gpu-process": 4.7957263370714065,
+    "utility": 0,
+    "renderer": 19.01638707269287,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 23.978631685357033
+  },
+  "memory": {
+   "usedJSHeapMB": 9.739290237426758,
+   "jsHeapAfterGcMB": 7.131046295166016,
+   "totalPssMB": 318.609375,
+   "byTypeMB": {
+    "browser": 94.103515625,
+    "zygote": 30.6044921875,
+    "gpu-process": 36.3740234375,
+    "utility": 11.419921875,
+    "renderer": 108.537109375,
+    "network": 37.5703125
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    88.462890625,
+    69.77001953125,
+    88.646240234375,
+    81.30224609375,
+    83.443115234375,
+    80.6650390625,
+    83.001953125,
+    67.277099609375,
+    91.462158203125,
+    61.621826171875
+   ],
+   "medianMs": 81.30224609375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 1,
+  "run": 2,
+  "timestamp": "2026-10-17T20:50:50.965Z",
+  "timing": {
+   "firstFrameMs": 183.6999999997206,
+   "firstRenderMs": 179,
+   "domContentLoadedMs": 77.29999999981374,
+   "loadMs": 77.39999999990687,
+   "fcpMs": 28
+  },
+  "fps": {
+   "avg": 60.00226801235399,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 29.985701209430204,
+   "playbackRate": 0.9995233736476661
+  },
+  "cpu": {
+   "mainThreadBusyPct": 4.135071509459949,
+   "scriptPct": 1.9843304314906742,
+   "layoutPct": 0.12708939695930166,
+   "styleRecalcPct": 0.19572000353852975,
+   "processPctOfOneCore": {
+    "browser": 0.19990467472953466,
+    "zygote": 0,
+    "gpu-process": 2.532125879907439,
+    "utility": 0.36649190367081363,
+    "renderer": 9.762011615958945,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 12.860534074266733
+  },
+  "memory": {
+   "usedJSHeapMB": 7.87342643737793,
+   "jsHeapAfterGcMB": 4.201923370361328,
+   "totalPssMB": 320.078125,
+   "byTypeMB": {
+    "browser": 92.7255859375,
+    "zygote": 27.0068359375,
+    "gpu-process": 33.5498046875,
+    "utility": 38.796875,
+    "renderer": 93.6171875,
+    "network": 34.3818359375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    23.549072265625,
+    14.93701171875,
+    18.43310546875,
+    13.720947265625,
+    27.215087890625,
+    22.19384765625,
+    17.626953125,
+    15.89599609375,
+    21.939208984375,
+    25.764892578125
+   ],
+   "medianMs": 18.43310546875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 4,
+  "run": 2,
+  "timestamp": "2026-10-17T20:52:24.389Z",
+  "timing": {
+   "firstFrameMs": 537.6000000000931,
+   "firstRenderMs": 503.89999999990687,
+   "domContentLoadedMs": 94.79999999981374,
+   "loadMs": 94.89999999990687,
+   "fcpMs": 68
+  },
+  "fps": {
+   "avg": 59.96926533483118,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 33.30000000000109
+  },
+  "animation": {
+   "updatesPerSec": 119.82520904237865,
+   "playbackRate": 0.9969024690182129
+  },
+  "cpu": {
+   "mainThreadBusyPct": 25.372824919300257,
+   "scriptPct": 10.879193678721846,
+   "layoutPct": 0.8779892629557688,
+   "styleRecalcPct": 1.9950830735995466,
+   "processPctOfOneCore": {
+    "browser": 0.2995630226059466,
+    "network": 0,
+    "utility": 0.5991260452118932,
+    "zygote": 0,
+    "gpu-process": 3.461617150113161,
+    "renderer": 98.48966487677733
+   },
+   "processTotalPctOfOneCore": 102.84997109470832
+  },
+  "memory": {
+   "usedJSHeapMB": 6.537962913513184,
+   "jsHeapAfterGcMB": 4.131019592285156,
+   "totalPssMB": 321.8271484375,
+   "byTypeMB": {
+    "browser": 90.2646484375,
+    "network": 35.2666015625,
+    "utility": 38.787109375,
+    "zygote": 27.0498046875,
+    "gpu-process": 33.337890625,
+    "renderer": 97.12109375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    33.3271484375,
+    26.314208984375,
+    20.52294921875,
+    20.8330078125,
+    19.7529296875,
+    30.19189453125,
+    31.615966796875,
+    32.468994140625,
+    28.156005859375,
+    34.446044921875
+   ],
+   "medianMs": 28.156005859375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 4,
+  "run": 2,
+  "timestamp": "2026-10-17T20:53:53.237Z",
+  "timing": {
+   "firstFrameMs": 868.2999999998137,
+   "firstRenderMs": 863.3999999999069,
+   "domContentLoadedMs": 373.5,
+   "loadMs": 373.5,
+   "fcpMs": 76
+  },
+  "fps": {
+   "avg": 58.23455250115069,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 5,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 100.09999999999854
+  },
+  "animation": {
+   "updatesPerSec": 29.59644253775621,
+   "playbackRate": 0.9821091730751434
+  },
+  "cpu": {
+   "mainThreadBusyPct": 62.61286220921837,
+   "scriptPct": 4.271718804718559,
+   "layoutPct": 2.6808783910696055,
+   "styleRecalcPct": 1.5827804600624618,
+   "processPctOfOneCore": {
+    "browser": 0.16645918187714406,
+    "zygote": 0,
+    "gpu-process": 4.627565256184604,
+    "utility": 0,
+    "renderer": 101.93960298156301,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 106.73362741962477
+  },
+  "memory": {
+   "usedJSHeapMB": 8.528722763061523,
+   "jsHeapAfterGcMB": 7.171882629394531,
+   "totalPssMB": 317.4189453125,
+   "byTypeMB": {
+    "browser": 91.669921875,
+    "zygote": 30.6884765625,
+    "gpu-process": 36.1591796875,
+    "utility": 11.5234375,
+    "renderer": 110.7685546875,
+    "network": 36.609375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    277.225830078125,
+    221.0029296875,
+    294.767822265625,
+    268.885009765625,
+    191.8291015625,
+    188.126953125,
+    305.9248046875,
+    230.93408203125,
+    242.083984375,
+    196.8818359375
+   ],
+   "medianMs": 230.93408203125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 4,
+  "run": 2,
+  "timestamp": "2026-10-17T20:55:19.889Z",
+  "timing": {
+   "firstFrameMs": 540.6999999997206,
+   "firstRenderMs": 514.6000000000931,
+   "domContentLoadedMs": 244.5,
+   "loadMs": 244.60000000009313,
+   "fcpMs": 72
+  },
+  "fps": {
+   "avg": 59.83570196884141,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 1,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 66.70000000000073
+  },
+  "animation": {
+   "updatesPerSec": 29.900052228049514,
+   "playbackRate": 0.9988881590662347
+  },
+  "cpu": {
+   "mainThreadBusyPct": 17.89812464892968,
+   "scriptPct": 8.740238095557649,
+   "layoutPct": 0.6125581746657823,
+   "styleRecalcPct": 0.7660173625431291,
+   "processPctOfOneCore": {
+    "browser": 0.1997776318132484,
+    "zygote": 0,
+    "gpu-process": 2.696998029478854,
+    "utility": 0.3662589916576221,
+    "renderer": 93.3294503287559,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 96.59248498170562
+  },
+  "memory": {
+   "usedJSHeapMB": 5.477338790893555,
+   "jsHeapAfterGcMB": 4.200996398925781,
+   "totalPssMB": 320.2666015625,
+   "byTypeMB": {
+    "browser": 93.3466796875,
+    "zygote": 27.0888671875,
+    "gpu-process": 33.5908203125,
+    "utility": 38.4619140625,
+    "renderer": 92.517578125,
+    "network": 35.2607421875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    36.194091796875,
+    25.77587890625,
+    25.9619140625,
+    25.64697265625,
+    27.627197265625,
+    24.56396484375,
+    28.817138671875,
+    18.80517578125,
+    21.077880859375,
+    26.531982421875
+   ],
+   "medianMs": 25.77587890625,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 6,
+  "run": 2,
+  "timestamp": "2026-10-17T20:56:55.129Z",
+  "timing": {
+   "firstFrameMs": 974.1999999992549,
+   "firstRenderMs": 892,
+   "domContentLoadedMs": 152.8999999994412,
+   "loadMs": 153.5,
+   "fcpMs": 88
+  },
+  "fps": {
+   "avg": 59.93556176664821,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 33.29999999999927
+  },
+  "animation": {
+   "updatesPerSec": 103.7325038458473,
+   "playbackRate": 0.995981891259555
+  },
+  "cpu": {
+   "mainThreadBusyPct": 45.51971418233098,
+   "scriptPct": 19.055650966192854,
+   "layoutPct": 1.681965105696968,
+   "styleRecalcPct": 3.537544788857925,
+   "processPctOfOneCore": {
+    "browser": 0.19980578589890333,
+    "zygote": 0,
+    "gpu-process": 4.1293195752440015,
+    "utility": 0.6660192863296778,
+    "renderer": 109.19386199375066,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 114.18900664122324
+  },
+  "memory": {
+   "usedJSHeapMB": 6.212815284729004,
+   "jsHeapAfterGcMB": 4.164222717285156,
+   "totalPssMB": 323.41796875,
+   "byTypeMB": {
+    "browser": 92.0234375,
+    "zygote": 27.078125,
+    "gpu-process": 33.3837890625,
+    "utility": 38.5947265625,
+    "renderer": 97.810546875,
+    "network": 34.52734375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    43.97705078125,
+    35.782958984375,
+    42.805908203125,
+    49.0419921875,
+    48.081787109375,
+    45.681884765625,
+    40.94482421875,
+    42.5869140625,
+    37.498046875,
+    30.546875
+   ],
+   "medianMs": 42.5869140625,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 6,
+  "run": 2,
+  "timestamp": "2026-10-17T20:58:31.365Z",
+  "timing": {
+   "firstFrameMs": 1298,
+   "firstRenderMs": 1290.199999999255,
+   "domContentLoadedMs": 458.09999999962747,
+   "loadMs": 458.29999999981374,
+   "fcpMs": 88
+  },
+  "fps": {
+   "avg": 48.79578148295149,
+   "p5": 29.94011976047774,
+   "longFrames50ms": 25,
+   "frameTimeP50ms": 16.700000000000728,
+   "frameTimeP95ms": 33.400000000001455,
+   "frameTimeMaxMs": 266.59999999999854
+  },
+  "animation": {
+   "updatesPerSec": 28.112084833108486,
+   "playbackRate": 0.9326336625106176
+  },
+  "cpu": {
+   "mainThreadBusyPct": 86.0391382160616,
+   "scriptPct": 5.659368555525997,
+   "layoutPct": 3.772232579107955,
+   "styleRecalcPct": 2.0998330083275247,
+   "processPctOfOneCore": {
+    "browser": 0.2328811761322597,
+    "zygote": 0,
+    "gpu-process": 4.491279825407865,
+    "utility": 0,
+    "renderer": 107.62437211255143,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 112.34853311409155
+  },
+  "memory": {
+   "usedJSHeapMB": 13.42866039276123,
+   "jsHeapAfterGcMB": 7.146942138671875,
+   "totalPssMB": 319.6513671875,
+   "byTypeMB": {
+    "browser": 91.96484375,
+    "zygote": 30.5263671875,
+    "gpu-process": 36.23828125,
+    "utility": 11.380859375,
+    "renderer": 112.90625,
+    "network": 36.634765625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    386.177001953125,
+    397.177001953125,
+    379.803955078125,
+    342.780029296875,
+    310.744873046875,
+    411.375244140625,
+    285.06787109375,
+    282.513916015625,
+    355.234130859375,
+    324.058837890625
+   ],
+   "medianMs": 342.780029296875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 6,
+  "run": 2,
+  "timestamp": "2026-10-17T20:59:58.443Z",
+  "timing": {
+   "firstFrameMs": 842.5,
+   "firstRenderMs": 787.5999999996275,
+   "domContentLoadedMs": 359.09999999962747,
+   "loadMs": 359.20000000018626,
+   "fcpMs": 100
+  },
+  "fps": {
+   "avg": 59.935930556990805,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 33.39999999999782
+  },
+  "animation": {
+   "updatesPerSec": 29.93564817724301,
+   "playbackRate": 0.9989649002416952
+  },
+  "cpu": {
+   "mainThreadBusyPct": 27.434659632295894,
+   "scriptPct": 13.507650413470213,
+   "layoutPct": 0.8536188371395353,
+   "styleRecalcPct": 1.0379212014681278,
+   "processPctOfOneCore": {
+    "browser": 0.3329883000805674,
+    "zygote": 0,
+    "gpu-process": 2.7305040606606523,
+    "utility": 0.3662871300886242,
+    "renderer": 101.49483386455695,
+    "network": 0.033298830008056744
+   },
+   "processTotalPctOfOneCore": 104.95791218539485
+  },
+  "memory": {
+   "usedJSHeapMB": 8.459210395812988,
+   "jsHeapAfterGcMB": 4.142974853515625,
+   "totalPssMB": 319.779296875,
+   "byTypeMB": {
+    "browser": 91.419921875,
+    "zygote": 26.966796875,
+    "gpu-process": 33.6064453125,
+    "utility": 39.103515625,
+    "renderer": 94.306640625,
+    "network": 34.3759765625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    22.079833984375,
+    33.141845703125,
+    39.688232421875,
+    28.003173828125,
+    29.32421875,
+    28.860107421875,
+    31.10498046875,
+    26.965087890625,
+    38.10791015625,
+    24.023193359375
+   ],
+   "medianMs": 28.860107421875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 1,
+  "run": 3,
+  "timestamp": "2026-10-17T21:01:25.448Z",
+  "timing": {
+   "firstFrameMs": 239.79999999981374,
+   "firstRenderMs": 238.90000000037253,
+   "domContentLoadedMs": 118.29999999981374,
+   "loadMs": 118.40000000037253,
+   "fcpMs": 44
+  },
+  "fps": {
+   "avg": 60.00260011267156,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 30.014106713768616,
+   "playbackRate": 0.9960286245745562
+  },
+  "cpu": {
+   "mainThreadBusyPct": 14.51343289662316,
+   "scriptPct": 1.0172383712389992,
+   "layoutPct": 0.6126875208904748,
+   "styleRecalcPct": 0.3153379988611281,
+   "processPctOfOneCore": {
+    "browser": 0.1665599706646427,
+    "zygote": 0,
+    "gpu-process": 4.497119207945353,
+    "utility": 0,
+    "renderer": 18.088412814180195,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 22.75209199279019
+  },
+  "memory": {
+   "usedJSHeapMB": 9.753628730773926,
+   "jsHeapAfterGcMB": 7.114185333251953,
+   "totalPssMB": 318.6337890625,
+   "byTypeMB": {
+    "browser": 94.3056640625,
+    "zygote": 30.2529296875,
+    "gpu-process": 35.6669921875,
+    "utility": 11.44140625,
+    "renderer": 109.353515625,
+    "network": 37.61328125
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    61.306884765625,
+    77.4599609375,
+    88.116943359375,
+    92.2490234375,
+    86.974853515625,
+    89.982177734375,
+    72.3349609375,
+    76.403076171875,
+    69.466064453125,
+    63.543212890625
+   ],
+   "medianMs": 76.403076171875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 1,
+  "run": 3,
+  "timestamp": "2026-10-17T21:02:51.659Z",
+  "timing": {
+   "firstFrameMs": 185.3999999994412,
+   "firstRenderMs": 177.79999999981374,
+   "domContentLoadedMs": 94.70000000018626,
+   "loadMs": 94.8999999994412,
+   "fcpMs": 36
+  },
+  "fps": {
+   "avg": 60.002268012354,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 29.985180094604925,
+   "playbackRate": 0.9995060031534901
+  },
+  "cpu": {
+   "mainThreadBusyPct": 3.980585964545639,
+   "scriptPct": 1.8866108928790297,
+   "layoutPct": 0.11138494899142574,
+   "styleRecalcPct": 0.18652114693515134,
+   "processPctOfOneCore": {
+    "browser": 0.1999012006306995,
+    "zygote": 0,
+    "gpu-process": 2.4654481411119606,
+    "utility": 0.36648553448961574,
+    "renderer": 9.42867329641466,
+    "network": 0.033316866771783256
+   },
+   "processTotalPctOfOneCore": 12.493825039418718
+  },
+  "memory": {
+   "usedJSHeapMB": 7.236469268798828,
+   "jsHeapAfterGcMB": 4.201427459716797,
+   "totalPssMB": 318.9921875,
+   "byTypeMB": {
+    "browser": 91.5673828125,
+    "zygote": 27.150390625,
+    "gpu-process": 33.8759765625,
+    "utility": 38.638671875,
+    "renderer": 92.7802734375,
+    "network": 34.9794921875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    14.805908203125,
+    23.291748046875,
+    25.041748046875,
+    22.034912109375,
+    23.47314453125,
+    17.385009765625,
+    10.940185546875,
+    27.350830078125,
+    25.665771484375,
+    26.7900390625
+   ],
+   "medianMs": 23.291748046875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 1,
+  "run": 3,
+  "timestamp": "2026-10-17T21:04:17.870Z",
+  "timing": {
+   "firstFrameMs": 165.5,
+   "firstRenderMs": 157.69999999925494,
+   "domContentLoadedMs": 30.399999999441206,
+   "loadMs": 30.399999999441206,
+   "fcpMs": 28
+  },
+  "fps": {
+   "avg": 60.00246813932313,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 119.9360742603187,
+   "playbackRate": 0.9972351418983649
+  },
+  "cpu": {
+   "mainThreadBusyPct": 6.376904453250215,
+   "scriptPct": 2.7527028137128497,
+   "layoutPct": 0.20312173643270473,
+   "styleRecalcPct": 0.4420976959540082,
+   "processPctOfOneCore": {
+    "browser": 0.13326230473368747,
+    "zygote": 0,
+    "gpu-process": 3.3981887707090297,
+    "utility": 0.6329959474850154,
+    "renderer": 15.591689653841431,
+    "network": 0.03331557618342187
+   },
+   "processTotalPctOfOneCore": 19.789452252952586
+  },
+  "memory": {
+   "usedJSHeapMB": 6.020455360412598,
+   "jsHeapAfterGcMB": 4.132518768310547,
+   "totalPssMB": 322.779296875,
+   "byTypeMB": {
+    "browser": 91.9326171875,
+    "zygote": 27.171875,
+    "gpu-process": 33.3984375,
+    "utility": 38.19140625,
+    "renderer": 96.9365234375,
+    "network": 35.1484375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    18.654052734375,
+    14.48388671875,
+    24.89306640625,
+    20.630126953125,
+    22.040771484375,
+    20.178955078125,
+    20.59912109375,
+    17.64892578125,
+    21.81494140625,
+    13.9072265625
+   ],
+   "medianMs": 20.178955078125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 4,
+  "run": 3,
+  "timestamp": "2026-10-17T21:05:46.285Z",
+  "timing": {
+   "firstFrameMs": 800.9000000003725,
+   "firstRenderMs": 794,
+   "domContentLoadedMs": 275.1000000005588,
+   "loadMs": 275.29999999981374,
+   "fcpMs": 96
+  },
+  "fps": {
+   "avg": 58.90161495820854,
+   "p5": 59.523809523812105,
+   "longFrames50ms": 5,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999999272,
+   "frameTimeMaxMs": 83.29999999999927
+  },
+  "animation": {
+   "updatesPerSec": 29.761547794538494,
+   "playbackRate": 0.9876128835622326
+  },
+  "cpu": {
+   "mainThreadBusyPct": 58.441576255771544,
+   "scriptPct": 3.820007846523536,
+   "layoutPct": 2.4737372410699847,
+   "styleRecalcPct": 1.3480416505795798,
+   "processPctOfOneCore": {
+    "browser": 0.23303225342479805,
+    "zygote": 0,
+    "gpu-process": 4.3610321712355065,
+    "utility": 0,
+    "renderer": 100.70322380143057,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 105.29728822609087
+  },
+  "memory": {
+   "usedJSHeapMB": 11.740581512451172,
+   "jsHeapAfterGcMB": 7.156597137451172,
+   "totalPssMB": 317.22265625,
+   "byTypeMB": {
+    "browser": 92.7353515625,
+    "zygote": 30.474609375,
+    "gpu-process": 35.8671875,
+    "utility": 11.4619140625,
+    "renderer": 109.6923828125,
+    "network": 36.9912109375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    283.64404296875,
+    280.13916015625,
+    234.0703125,
+    238.255126953125,
+    209.46630859375,
+    209.60009765625,
+    214.84130859375,
+    244.941162109375,
+    216.991943359375,
+    196.5712890625
+   ],
+   "medianMs": 216.991943359375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 4,
+  "run": 3,
+  "timestamp": "2026-10-17T21:07:12.876Z",
+  "timing": {
+   "firstFrameMs": 534,
+   "firstRenderMs": 511.40000000037253,
+   "domContentLoadedMs": 249.40000000037253,
+   "loadMs": 250.70000000018626,
+   "fcpMs": 88
+  },
+  "fps": {
+   "avg": 59.86885552094242,
+   "p5": 59.523809523824994,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.799999999995634,
+   "frameTimeMaxMs": 50
+  },
+  "animation": {
+   "updatesPerSec": 29.911891854122977,
+   "playbackRate": 0.9992836922312722
+  },
+  "cpu": {
+   "mainThreadBusyPct": 14.41665916592939,
+   "scriptPct": 7.247388251548377,
+   "layoutPct": 0.38671612700222374,
+   "styleRecalcPct": 0.4753992237421091,
+   "processPctOfOneCore": {
+    "browser": 0.16654728203854666,
+    "zygote": 0,
+    "gpu-process": 2.3982808613550715,
+    "utility": 0.3330945640770933,
+    "renderer": 91.73424294683147,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 94.63216565430218
+  },
+  "memory": {
+   "usedJSHeapMB": 5.503818511962891,
+   "jsHeapAfterGcMB": 4.200569152832031,
+   "totalPssMB": 321.037109375,
+   "byTypeMB": {
+    "browser": 93.123046875,
+    "zygote": 27.2783203125,
+    "gpu-process": 33.82421875,
+    "utility": 38.9365234375,
+    "renderer": 93.0859375,
+    "network": 34.7890625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    25.329345703125,
+    26.0390625,
+    17.56298828125,
+    27.103271484375,
+    28.533935546875,
+    19.64501953125,
+    23.9482421875,
+    14.591064453125,
+    20.152099609375,
+    15.363037109375
+   ],
+   "medianMs": 20.152099609375,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 4,
+  "run": 3,
+  "timestamp": "2026-10-17T21:08:46.199Z",
+  "timing": {
+   "firstFrameMs": 486.29999999981374,
+   "firstRenderMs": 459,
+   "domContentLoadedMs": 93.90000000037253,
+   "loadMs": 94.90000000037253,
+   "fcpMs": 68
+  },
+  "fps": {
+   "avg": 60.00246813932313,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 119.89986790741156,
+   "playbackRate": 0.9968541628859927
+  },
+  "cpu": {
+   "mainThreadBusyPct": 24.573800991156975,
+   "scriptPct": 10.548783717390297,
+   "layoutPct": 0.9585261717782565,
+   "styleRecalcPct": 1.926108114135409,
+   "processPctOfOneCore": {
+    "browser": 0.26644415090535906,
+    "zygote": 0,
+    "gpu-process": 3.363857405180158,
+    "utility": 0.7327214149897373,
+    "renderer": 97.88491993885627,
+    "network": 0.03330551886316988
+   },
+   "processTotalPctOfOneCore": 102.2812484287947
+  },
+  "memory": {
+   "usedJSHeapMB": 5.537583351135254,
+   "jsHeapAfterGcMB": 4.130634307861328,
+   "totalPssMB": 323.8486328125,
+   "byTypeMB": {
+    "browser": 91.52734375,
+    "zygote": 27.1591796875,
+    "gpu-process": 34.205078125,
+    "utility": 39.017578125,
+    "renderer": 97.0224609375,
+    "network": 34.9169921875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    37.64404296875,
+    25.780029296875,
+    27.15283203125,
+    25.2529296875,
+    35.620849609375,
+    32.400146484375,
+    29.68017578125,
+    33.8291015625,
+    27.005126953125,
+    30.84912109375
+   ],
+   "medianMs": 29.68017578125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "revideo",
+  "throttle": 6,
+  "run": 3,
+  "timestamp": "2026-10-17T21:10:22.416Z",
+  "timing": {
+   "firstFrameMs": 1325.4000000003725,
+   "firstRenderMs": 1318.2999999998137,
+   "domContentLoadedMs": 461.40000000037253,
+   "loadMs": 462.29999999981374,
+   "fcpMs": 88
+  },
+  "fps": {
+   "avg": 45.501971752109256,
+   "p5": 20,
+   "longFrames50ms": 39,
+   "frameTimeP50ms": 16.700000000000728,
+   "frameTimeP95ms": 50,
+   "frameTimeMaxMs": 166.6999999999971
+  },
+  "animation": {
+   "updatesPerSec": 27.42202789862305,
+   "playbackRate": 0.9096303752779473
+  },
+  "cpu": {
+   "mainThreadBusyPct": 89.98817334294552,
+   "scriptPct": 6.174339142571555,
+   "layoutPct": 4.024355645755303,
+   "styleRecalcPct": 1.8615962793877365,
+   "processPctOfOneCore": {
+    "browser": 0.23295412049801137,
+    "zygote": 0,
+    "gpu-process": 4.659082409960226,
+    "utility": 0,
+    "renderer": 108.58989931214444,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 113.48193584260268
+  },
+  "memory": {
+   "usedJSHeapMB": 13.624881744384766,
+   "jsHeapAfterGcMB": 7.064674377441406,
+   "totalPssMB": 322.201171875,
+   "byTypeMB": {
+    "browser": 91.6162109375,
+    "zygote": 30.7138671875,
+    "gpu-process": 37.9306640625,
+    "utility": 11.666015625,
+    "renderer": 113.1904296875,
+    "network": 37.083984375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    378.1298828125,
+    379.983642578125,
+    327.574951171875,
+    456.390869140625,
+    352.5107421875,
+    275.93896484375,
+    348.141845703125,
+    303.7587890625,
+    316.759033203125,
+    399.30078125
+   ],
+   "medianMs": 348.141845703125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-Bc1Pv77n.css",
+    "status": 200,
+    "bytes": 11322,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/",
+    "status": 200,
+    "bytes": 607,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/index-K_4ptqz8.js",
+    "status": 200,
+    "bytes": 1140553,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/revideo/dist-demo/assets/internal-BFxFHk1z.js",
+    "status": 200,
+    "bytes": 16060,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "remotion",
+  "throttle": 6,
+  "run": 3,
+  "timestamp": "2026-10-17T21:11:49.266Z",
+  "timing": {
+   "firstFrameMs": 737.3999999994412,
+   "firstRenderMs": 696.3999999994412,
+   "domContentLoadedMs": 348.70000000018626,
+   "loadMs": 350.29999999981374,
+   "fcpMs": 96
+  },
+  "fps": {
+   "avg": 60.002400096003846,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 29.99178221039814,
+   "playbackRate": 0.9997260736799306
+  },
+  "cpu": {
+   "mainThreadBusyPct": 26.360975724518674,
+   "scriptPct": 12.921371845975996,
+   "layoutPct": 0.8501122401073197,
+   "styleRecalcPct": 1.0138420726914321,
+   "processPctOfOneCore": {
+    "browser": 0.36615938325680303,
+    "zygote": 0,
+    "gpu-process": 2.729551766096168,
+    "utility": 0.3994465999165124,
+    "renderer": 101.12656421219705,
+    "network": 0.033287216659709365
+   },
+   "processTotalPctOfOneCore": 104.65500917812625
+  },
+  "memory": {
+   "usedJSHeapMB": 5.472170829772949,
+   "jsHeapAfterGcMB": 4.200736999511719,
+   "totalPssMB": 320.22265625,
+   "byTypeMB": {
+    "browser": 92.6728515625,
+    "zygote": 27.11328125,
+    "gpu-process": 33.541015625,
+    "utility": 38.5234375,
+    "renderer": 93.6259765625,
+    "network": 34.74609375
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    31.50390625,
+    21.794921875,
+    23.403076171875,
+    27.220947265625,
+    28.614990234375,
+    26.90283203125,
+    32.52783203125,
+    23.927734375,
+    25.469970703125,
+    25.022705078125
+   ],
+   "medianMs": 25.469970703125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ },
+ {
+  "tool": "hyperframes",
+  "throttle": 6,
+  "run": 3,
+  "timestamp": "2026-10-17T21:13:24.331Z",
+  "timing": {
+   "firstFrameMs": 864,
+   "firstRenderMs": 805.4000000003725,
+   "domContentLoadedMs": 135,
+   "loadMs": 138.59999999962747,
+   "fcpMs": 176
+  },
+  "fps": {
+   "avg": 59.96891488950109,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 33.29999999999927
+  },
+  "animation": {
+   "updatesPerSec": 103.7724487375343,
+   "playbackRate": 0.9961222592100906
+  },
+  "cpu": {
+   "mainThreadBusyPct": 33.93598856012272,
+   "scriptPct": 13.824038765827467,
+   "layoutPct": 1.2691543656702318,
+   "styleRecalcPct": 2.768010178926277,
+   "processPctOfOneCore": {
+    "browser": 0.2331216755977985,
+    "zygote": 0,
+    "gpu-process": 3.29700655488315,
+    "utility": 0.5661526407375107,
+    "renderer": 104.97136021203725,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 109.06764108325571
+  },
+  "memory": {
+   "usedJSHeapMB": 5.867281913757324,
+   "jsHeapAfterGcMB": 4.1192626953125,
+   "totalPssMB": 323.2568359375,
+   "byTypeMB": {
+    "browser": 92.267578125,
+    "zygote": 27.3935546875,
+    "gpu-process": 34.11328125,
+    "utility": 38.5244140625,
+    "renderer": 96.603515625,
+    "network": 34.3544921875
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    60.19287109375,
+    29.2041015625,
+    26.800048828125,
+    30.64892578125,
+    32.47802734375,
+    28.819091796875,
+    34.273193359375,
+    31.5048828125,
+    29.26416015625,
+    35.9970703125
+   ],
+   "medianMs": 30.64892578125,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/assets/index-CrCznR8p.js",
+    "status": 200,
+    "bytes": 110944,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/",
+    "status": 200,
+    "bytes": 613,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/gsap.min.js",
+    "status": 200,
+    "bytes": 72927,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/index.html",
+    "status": 200,
+    "bytes": 6500,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/hyperframes/dist-demo/composition/vendor/hyperframe.runtime.iife.js",
+    "status": 200,
+    "bytes": 529892,
+    "external": false
+   }
+  ],
+  "errors": []
+ }
+]

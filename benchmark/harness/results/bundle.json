@@ -1,0 +1,115 @@
+{
+ "remotion": {
+  "distBytes": 542612,
+  "distGzip": 169051,
+  "loadedBytes": 542612,
+  "loadedGzip": 169051,
+  "loadedFiles": [
+   {
+    "file": "assets/index-BkqwMCrM.css",
+    "bytes": 762,
+    "gzip": 405
+   },
+   {
+    "file": "assets/index-CiEZfXWF.js",
+    "bytes": 541246,
+    "gzip": 168300
+   },
+   {
+    "file": "index.html",
+    "bytes": 604,
+    "gzip": 346
+   }
+  ],
+  "externalRequests": [],
+  "dependencies": {
+   "@remotion/cli": "4.0.536",
+   "@remotion/player": "4.0.536",
+   "react": "19.2.3",
+   "react-dom": "19.2.3",
+   "remotion": "4.0.536"
+  },
+  "prodPackagesInstalled": 256
+ },
+ "hyperframes": {
+  "distBytes": 721638,
+  "distGzip": 230672,
+  "loadedBytes": 721638,
+  "loadedGzip": 230672,
+  "loadedFiles": [
+   {
+    "file": "assets/index-BkqwMCrM.css",
+    "bytes": 762,
+    "gzip": 405
+   },
+   {
+    "file": "assets/index-CrCznR8p.js",
+    "bytes": 110944,
+    "gzip": 31638
+   },
+   {
+    "file": "composition/index.html",
+    "bytes": 6500,
+    "gzip": 2369
+   },
+   {
+    "file": "composition/vendor/gsap.min.js",
+    "bytes": 72927,
+    "gzip": 28375
+   },
+   {
+    "file": "composition/vendor/hyperframe.runtime.iife.js",
+    "bytes": 529892,
+    "gzip": 167533
+   },
+   {
+    "file": "index.html",
+    "bytes": 613,
+    "gzip": 352
+   }
+  ],
+  "externalRequests": [],
+  "dependencies": {
+   "@hyperframes/player": "0.8.169",
+   "gsap": "3.15.0"
+  },
+  "prodPackagesInstalled": 63
+ },
+ "revideo": {
+  "distBytes": 1210528,
+  "distGzip": 362018,
+  "loadedBytes": 1168542,
+  "loadedGzip": 344234,
+  "loadedFiles": [
+   {
+    "file": "assets/index-Bc1Pv77n.css",
+    "bytes": 11322,
+    "gzip": 2739
+   },
+   {
+    "file": "assets/index-K_4ptqz8.js",
+    "bytes": 1140553,
+    "gzip": 336134
+   },
+   {
+    "file": "assets/internal-BFxFHk1z.js",
+    "bytes": 16060,
+    "gzip": 5011
+   },
+   {
+    "file": "index.html",
+    "bytes": 607,
+    "gzip": 350
+   }
+  ],
+  "externalRequests": [],
+  "dependencies": {
+   "@revideo/core": "0.11.0",
+   "@revideo/2d": "0.11.0",
+   "@revideo/player-react": "0.11.0",
+   "react": "^19.2.0",
+   "react-dom": "^19.2.0"
+  },
+  "prodPackagesInstalled": 39
+ }
+}
