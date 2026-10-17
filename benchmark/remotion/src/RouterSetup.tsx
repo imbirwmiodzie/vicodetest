@@ -8,7 +8,7 @@ import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig } from "remotion";
 
 export type RouterConfig = {
   title: string;
-  step1: string;
+  step1: string; // "{port}" is replaced by the port number
   step2: string;
   done: string;
   port: number;
@@ -26,7 +26,7 @@ export const HOLD_END_FRAME = Math.round(11.6 * FPS); // where loop:false stops
 
 export const defaultRouterConfig: RouterConfig = {
   title: "Centro Business 3.0",
-  step1: "Connect the Ethernet cable to port 1",
+  step1: "Connect the Ethernet cable to port {port}",
   step2: "Plug the TCL LinkKey IK41 into the USB 2.0 port",
   done: "Ethernet and mobile backup connected",
   port: 1,
@@ -88,7 +88,8 @@ export const RouterSetup: React.FC<RouterConfig> = (cfg) => {
   const { fps } = useVideoConfig();
   const t = frame / fps;
 
-  const port = PORTS[clamp(Math.round(cfg.port) || 1, 1, 5) - 1];
+  const portN = clamp(Math.round(cfg.port) || 1, 1, 5);
+  const port = { ...PORTS[portN - 1], n: portN };
   const P1 = portCam(port.x);
 
   // Camera path: overview -> port -> USB -> overview.
@@ -173,7 +174,7 @@ export const RouterSetup: React.FC<RouterConfig> = (cfg) => {
       >
         {cfg.title}
       </div>
-      <Caption n="1" text={cfg.step1} opacity={cap1 * fadeOut} accent={cfg.accentColor} />
+      <Caption n="1" text={cfg.step1.split("{port}").join(String(port.n))} opacity={cap1 * fadeOut} accent={cfg.accentColor} />
       <Caption n="2" text={cfg.step2} opacity={cap2 * fadeOut} accent={cfg.accentColor} />
       <Caption n="✓" text={cfg.done} opacity={cap3 * fadeOut} accent={cfg.ledColor} />
     </AbsoluteFill>

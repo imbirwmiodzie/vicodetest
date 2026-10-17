@@ -1,6 +1,6 @@
 {
   "title": "Centro Business 3.0",
-  "step1": "Connect the Ethernet cable to port 1",
+  "step1": "Connect the Ethernet cable to port {port}",
   "step2": "Plug the TCL LinkKey IK41 into the USB 2.0 port",
   "done": "Ethernet and mobile backup connected",
   "port": 1,
