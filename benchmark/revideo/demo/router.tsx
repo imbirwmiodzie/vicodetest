@@ -70,7 +70,8 @@ function App() {
   );
 }
 
-Promise.all([loadConfig(), preload(Object.values(MEDIA).map(m => m.src))]).then(([initial, loaded]) => {
+// SVG panels pre-rendered at 3x so the canvas can draw them sharply in close-ups.
+Promise.all([loadConfig(), preload(Object.values(MEDIA).map(m => m.src), {svgScale: 3})]).then(([initial, loaded]) => {
   Object.assign(images, loaded);
   current = initial;
   createRoot(document.getElementById('player')!).render(<App />);

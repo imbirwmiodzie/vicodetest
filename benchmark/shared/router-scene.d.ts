@@ -5,6 +5,7 @@ export type RouterConfig = {
   direct: boolean;
   extension: boolean;
   usbPort: "front" | "back";
+  panelStyle: "vector" | "photo";
   stepEthernet: string;
   stepDirect: string;
   stepExtension: string;
@@ -32,6 +33,7 @@ export type Face = {
   shadow?: boolean;
   img?: { media: keyof typeof MEDIA; sx: number; sy: number; sw: number; sh: number; rot: number };
   dots?: Dot[];
+  res?: number;
 };
 export type Quad = { key: string; o: Vec3; u: Vec3; v: Vec3; w: number; h: number; face: Face; opacity: number; cull: boolean; ground?: boolean; layer?: "back"; solid?: "router" };
 export type Overlay =
@@ -51,7 +53,10 @@ export const FPS: number;
 export const WIDTH: number;
 export const HEIGHT: number;
 export const MAX_DURATION_S: number;
-export const MEDIA: Record<"router" | "routerFront" | "stickFront" | "stickEdge", { src: string; w: number; h: number }>;
+export const MEDIA: Record<
+  "router" | "routerFront" | "stickFront" | "stickEdge" | "backVector" | "frontVector" | "ledGreen" | "guideWhite" | "guideGreen",
+  { src: string; w: number; h: number }
+>;
 export const DEFAULTS: RouterConfig;
 export const HAND: { d: string; fill: string; stroke?: string }[];
 export function normalize(raw: unknown, isColor?: (c: string) => boolean): RouterConfig;

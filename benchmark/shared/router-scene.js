@@ -21,6 +21,12 @@ export const MEDIA = {
   routerFront: { src: "/media/cb3-front.png", w: 1790, h: 1042 },
   stickFront: { src: "/media/tcl-ik41-front.jpeg", w: 540, h: 946 },
   stickEdge: { src: "/media/tcl-ik41-edge.jpeg", w: 444, h: 936 },
+  // Clean vector redraw of the panels and lit-LED sprites (benchmark/vector, committed).
+  backVector: { src: "/vector/cb3-back.svg", w: 1360, h: 260 },
+  frontVector: { src: "/vector/cb3-front.svg", w: 1256, h: 222 },
+  ledGreen: { src: "/vector/led-green.svg", w: 38, h: 33 },
+  guideWhite: { src: "/vector/guide-white.svg", w: 46, h: 71 },
+  guideGreen: { src: "/vector/guide-green.svg", w: 46, h: 71 },
 };
 
 export const DEFAULTS = {
@@ -30,6 +36,7 @@ export const DEFAULTS = {
   direct: true,
   extension: true,
   usbPort: "front",
+  panelStyle: "vector",
   stepEthernet: "Connect the Ethernet cable to port {port}",
   stepDirect: "Plug the TCL LinkKey IK41 into the {usb}",
   stepExtension: "Plug the IK41 into the USB extension cable",
@@ -58,6 +65,7 @@ export function normalize(raw, isColor = (c) => typeof CSS === "undefined" || CS
   for (const k of COLOR_KEYS) if (typeof r[k] === "string" && isColor(r[k])) out[k] = r[k];
   for (const k of BOOL_KEYS) if (typeof r[k] === "boolean") out[k] = r[k];
   out.usbPort = r.usbPort === "back" ? "back" : "front";
+  out.panelStyle = r.panelStyle === "photo" ? "photo" : "vector";
   out.port = Math.min(5, Math.max(1, Math.round(num(r.port, 1))));
   out.speed = Math.min(4, Math.max(0.1, num(r.speed, 1)));
   return out;
@@ -294,6 +302,10 @@ function frontRect(x0, y0, x1, y1) {
   return [u0, (x0 - FRONT_IMG.sx) * kv, u1 - u0, (x1 - x0) * kv];
 }
 const FRONT_LEDS = { mobile: frontRect(479, 434, 497, 445), power: frontRect(479, 539, 497, 550) };
+// Top-left of the lit-guide sprites on the vector front panel (guide at u + 13..27,
+// v 9..48 next to the icon at u, plus the sprite's 16 px glow margin).
+const VECTOR_GUIDES = { power: [523 + 13 - 16, 9 - 16], mobile: [670 + 13 - 16, 9 - 16] };
+const sprite = (media) => ({ img: { media, sx: 0, sy: 0, sw: MEDIA[media].w, sh: MEDIA[media].h, rot: 0 } });
 const usbFront = frontRect(510, 811, 557, 835);
 
 export const USB = {
@@ -364,15 +376,24 @@ const portCam = (x) => ({ fx: x + 40, fy: PORT_Y + 10, fz: 110, zoom: 900, rotY:
 
 // ---- static scene -----------------------------------------------------------------
 
-function routerQuads() {
+// Router box with either the photos or the vector redraw on its back and front panels.
+function routerQuads(style) {
   const origin = { x: 0, y: 0, z: 0 };
+  const panels = style === "photo"
+    ? {
+        front: { fill: "#363944", radius: 10, img: { media: "router", sx: BODY.x0, sy: BODY.y0, sw: FW, sh: FH, rot: 0 } },
+        back: { fill: "#2C3034", radius: 10, img: { media: "routerFront", ...FRONT_IMG, rot: 90 } },
+      }
+    : {
+        front: { fill: "#363944", radius: 14, img: { media: "backVector", sx: BODY.x0, sy: BODY.y0, sw: FW, sh: FH, rot: 0 }, res: 3 },
+        back: { fill: "#2C3034", radius: 12, img: { media: "frontVector", sx: 0, sy: 0, sw: FW, sh: FH, rot: 0 }, res: 3 },
+      };
   const quads = [
     ...box("router-shadow", origin, BODY.x0 + FW / 2, DESK, FRONT_Z - 200, 200, FW + 280, 0, {
       top: { shadow: true, ground: true },
     }),
     ...box("router", origin, BODY.x0 + FW / 2, BODY.y0 + FH / 2, FRONT_Z, 0, FW, FH, {
-      front: { fill: "#363944", radius: 10, img: { media: "router", sx: BODY.x0, sy: BODY.y0, sw: FW, sh: FH, rot: 0 } },
-      back: { fill: "#2C3034", radius: 10, img: { media: "routerFront", ...FRONT_IMG, rot: 90 } },
+      ...panels,
       top: { fill: "#3D404B", radius: 10 },
       right: { fill: "#30333B" },
       left: { fill: "#30333B" },
@@ -504,7 +525,7 @@ export const HAND = [
 
 // ---- the frame ---------------------------------------------------------------------
 
-const ROUTER = routerQuads();
+const ROUTER = { photo: routerQuads("photo"), vector: routerQuads("vector") };
 
 export function frameState(t, cfg) {
   const tl = timeline(cfg);
@@ -539,7 +560,8 @@ export function frameState(t, cfg) {
   move(L("window"), 0, 1.4, C.window);
   move(L("done"), 0, 1.0, C.final);
 
-  const quads = [...ROUTER];
+  const quads = [...ROUTER[cfg.panelStyle]];
+  const vector = cfg.panelStyle === "vector";
   const cables = [];
   const overlays = [];
 
@@ -556,7 +578,9 @@ export function frameState(t, cfg) {
     ripple(quads, "rp-port", "back", port.x, PORT_Y, prog(le, 2.7, 3.2), accent);
     if (le >= 2.9 && Math.floor((le - 2.9) * 8) % 6 !== 3) {
       const [x, y, w, h] = port.led;
-      quads.push(panelQuad("led", "back", x, y, w, h, { fill: cfg.ledColor, radius: 2, glow: cfg.ledColor }));
+      quads.push(vector
+        ? panelQuad("led", "back", x - 12, y - 12, w + 24, h + 24, sprite("ledGreen"))
+        : panelQuad("led", "back", x, y, w, h, { fill: cfg.ledColor, radius: 2, glow: cfg.ledColor }));
     }
   }
 
@@ -635,14 +659,19 @@ export function frameState(t, cfg) {
     quads.push(...extensionMale(male.pose, male.ins, cfg.usbCableColor));
     cables.push(["ext-cable", extensionCablePts(male.pose, dockPose), 10, cfg.usbCableColor, 1]);
   }
-  if (mobileLed) {
-    const [u, v, w, h] = FRONT_LEDS.mobile;
-    quads.push(panelQuad("led-mobile", "front", BODY.x1 - u - w, BODY.y0 + v, w, h, { fill: cfg.ledColor, radius: 3, glow: cfg.ledColor }));
-  }
-  {
-    const [u, v, w, h] = FRONT_LEDS.power;
-    quads.push(panelQuad("led-power", "front", BODY.x1 - u - w, BODY.y0 + v, w, h, { fill: "#F4F6F8", radius: 3, glow: "#FFFFFF" }));
-  }
+  // Front LEDs: power always on, Mobile Internet while the stick is connected.
+  const frontLed = (key, name, color, media) => {
+    if (vector) {
+      // Lit light-guide sprite over the vector panel's guide (see vector/build-panels.mjs).
+      const [u, v] = VECTOR_GUIDES[name];
+      quads.push(panelQuad(key, "front", BODY.x1 - u - 46, BODY.y0 + v, 46, 71, sprite(media)));
+    } else {
+      const [u, v, w, h] = FRONT_LEDS[name];
+      quads.push(panelQuad(key, "front", BODY.x1 - u - w, BODY.y0 + v, w, h, { fill: color, radius: 3, glow: color }));
+    }
+  };
+  if (mobileLed) frontLed("led-mobile", "mobile", cfg.ledColor, "guideGreen");
+  frontLed("led-power", "power", "#F4F6F8", "guideWhite");
 
   if (lw !== null || (cfg.extension && L("done") !== null)) quads.push(...wallQuads(cam, winZ, lw === null ? 1 : easeOutCubic(prog(lw, 0, 0.8))));
   for (const [key, pts, r, color, opacity] of cables) quads.push(...cable(key, pts, r, color, cam, opacity));

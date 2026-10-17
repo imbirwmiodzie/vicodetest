@@ -121,3 +121,15 @@
   preserve-3d layer behind the main one. Camera orbits pull back mid-turn so they don't pass through the router.
 - Window: frame bars as thin 3D boxes against the wall rendered badly; the window is one quad with the frame drawn on it.
 - The hand is a 2D cartoon overlay (SVG path / Path2D) anchored to the projected stick, not a 3D object.
+
+## Vector panels in the animation
+- `panelStyle: "vector"` (new default) puts vector/cb3-back.svg and vector/cb3-front.svg on the router box; `"photo"`
+  keeps the guide's photos. Lit LEDs in vector mode are small lit-LED sprites (vector/led-green.svg,
+  guide-white.svg, guide-green.svg, generated with the panels) laid over the unlit LEDs, so they match the approved
+  lit SVGs; in photo mode the old glow rectangles stay.
+- Sharpness: CSS lays vector faces out 3x larger and scales them back in the matrix (`res: 3`), so Chrome rasterises
+  them crisply in close-ups. The canvas renderer gets SVGs pre-rendered at 3x (preload svgScale) because drawImage
+  rasterises an SVG at its own size; its triangle grid is finer on these faces (64 px cells).
+- Canvas seams fixed along the way: triangles grown by offsetting each edge outwards (not from the centre), base
+  colour painted for all pieces before the image (it tinted the overlaps), and plain opaque faces get a hairline in
+  their own colour (anti-aliasing gaps between the stick's facets).

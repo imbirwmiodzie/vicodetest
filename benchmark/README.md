@@ -37,7 +37,10 @@ The script downloads the product photos, installs and builds the three demos, an
 | `tcl-ik41-front.jpeg` | TCL LinkKey IK41 front, [komsa.pl product page](https://www.komsa.pl/producenci/TCL/TCL-Router-przeno%C5%9Bny-IK41-czarny-IK41VE1-2ALCPL2/) |
 | `tcl-ik41-edge.jpeg` | TCL LinkKey IK41 edge with the LTE antenna sockets, same page |
 
-They belong to Swisscom and TCL/KOMSA and are not committed to this repo.
+They belong to Swisscom and TCL/KOMSA and are not committed to this repo. The router panels are
+also available as a clean vector redraw (`vector/`, committed, made from measured positions:
+`node vector/build-panels.mjs` regenerates the SVGs and the lit-LED sprites); the USB stick still
+uses the photos.
 
 ## Live config
 
@@ -54,6 +57,7 @@ Router demo (`config/router.json`):
 | `direct` | `false` leaves out plugging the stick straight into the router |
 | `extension` | `false` leaves out the extension cable and the window |
 | `usbPort` | `"front"` (USB 3.0) or `"back"` (USB 2.0); used by both USB steps (`{usb}` in the texts) |
+| `panelStyle` | `"vector"` (default: the clean redraw in `vector/`) or `"photo"` (the guide's photos) for the router's back and front panels |
 | `step*`, `done`, `cableLabel`, `title` | caption texts; `cableLabel` is shown along the extension cable |
 | `cableColor`, `usbCableColor`, `ledColor`, `accentColor` | colours |
 | `speed`, `loop` | playback speed, loop or play once |

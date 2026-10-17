@@ -15,6 +15,7 @@ export function mountEditor(root, initial, onChange) {
     <label>Port <select data-k="port">${[1, 2, 3, 4, 5]
       .map((p) => `<option value="${p}">${p}${p === 4 ? " (WAN)" : p === 5 ? " (10G)" : ""}</option>`)
       .join("")}</select></label>
+    <label>Panels <select data-k="panelStyle"><option value="vector">vector drawing</option><option value="photo">photos</option></select></label>
     <label>USB port <select data-k="usbPort"><option value="front">front (USB 3.0)</option><option value="back">back (USB 2.0)</option></select></label>
     <label><input data-k="direct" type="checkbox"> Stick straight into router</label>
     <label><input data-k="extension" type="checkbox"> Extension cable + window</label>
@@ -37,6 +38,7 @@ export function mountEditor(root, initial, onChange) {
   const render = () => {
     field("port").value = String(cfg.port);
     field("usbPort").value = cfg.usbPort;
+    field("panelStyle").value = cfg.panelStyle;
     for (const k of BOOLS) field(k).checked = cfg[k];
     // <input type=color> only accepts #rrggbb; leave it alone for other CSS colours.
     for (const k of COLORS) if (/^#[0-9a-f]{6}$/i.test(cfg[k])) field(k).value = cfg[k];
@@ -76,14 +78,24 @@ export function mountEditor(root, initial, onChange) {
   return { set: (c) => commit(normalize(c)) };
 }
 
-// Decodes the photos before the first frame; warns if media/ hasn't been fetched yet.
-export function preload(srcs) {
+// Decodes the images before the first frame; warns if media/ hasn't been fetched yet.
+// svgScale > 1 returns SVGs pre-rendered to a canvas that many times larger, which a
+// 2D canvas needs to draw them sharply when zoomed in (drawImage rasterises an SVG
+// image at its own size).
+export function preload(srcs, { svgScale = 1 } = {}) {
   return Promise.all(
     srcs.map((src) => {
       const img = new Image();
       img.src = src;
       return img.decode().then(
-        () => [src, img],
+        () => {
+          if (svgScale === 1 || !src.endsWith(".svg")) return [src, img];
+          const c = document.createElement("canvas");
+          c.width = img.naturalWidth * svgScale;
+          c.height = img.naturalHeight * svgScale;
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          return [src, c];
+        },
         () => (console.warn(`${src} missing: run media/fetch.sh (or media\\fetch.cmd)`), [src, null]),
       );
     }),

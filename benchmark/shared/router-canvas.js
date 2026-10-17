@@ -7,7 +7,8 @@ import { BODY, HAND, MEDIA, WIDTH, HEIGHT, eye, toView, viewToScreen, project } 
 
 const at = (q, s, t) => [q.o[0] + q.u[0] * s + q.v[0] * t, q.o[1] + q.u[1] * s + q.v[1] * t, q.o[2] + q.u[2] * s + q.v[2] * t];
 
-// images: { [src]: HTMLImageElement } (already loaded). The context's current
+// images: { [src]: image or canvas } (already loaded; SVGs best pre-rendered larger,
+// see preload() in editor.js). The context's current
 // transform maps the 1280x720 frame to the canvas.
 export function drawFrame(ctx, st, images) {
   const base = ctx.getTransform();
@@ -62,9 +63,11 @@ function drawQuads(ctx, base, cam, quads, images, alpha) {
       ctx.closePath();
       ctx.fillStyle = face.fill;
       ctx.fill();
-      if (face.stroke) {
-        ctx.strokeStyle = face.stroke;
-        ctx.lineWidth = 1;
+      if (face.stroke || (face.fill && !face.fill.startsWith("rgba"))) {
+        // An outline in the face's own colour closes the anti-aliasing seams between
+        // neighbouring faces (e.g. the facets of rounded parts).
+        ctx.strokeStyle = face.stroke ?? face.fill;
+        ctx.lineWidth = face.stroke ? 1 : 0.9;
         ctx.stroke();
       }
     } else if (face.img || face.gradient || face.shadow || big) {
@@ -86,8 +89,10 @@ const affine = (p0, p1, p3, w, h) =>
   new DOMMatrix([(p1[0] - p0[0]) / w, (p1[1] - p0[1]) / w, (p3[0] - p0[0]) / h, (p3[1] - p0[1]) / h, p0[0], p0[1]]);
 
 function drawGrid(ctx, base, cam, q, images) {
-  const nu = Math.max(1, Math.min(12, Math.ceil(q.w / 140)));
-  const nv = Math.max(1, Math.min(8, Math.ceil(q.h / 140)));
+  // Finer grid for crisp vector panels (res > 1): smaller pieces, smaller perspective error.
+  const cell = q.face.res ? 64 : 140;
+  const nu = Math.max(1, Math.min(24, Math.ceil(q.w / cell)));
+  const nv = Math.max(1, Math.min(8, Math.ceil(q.h / cell)));
   const grid = [];
   for (let j = 0; j <= nv; j++) {
     for (let i = 0; i <= nu; i++) {
@@ -97,17 +102,22 @@ function drawGrid(ctx, base, cam, q, images) {
     }
   }
   const g = (i, j) => grid[j * (nu + 1) + i];
-  for (let j = 0; j < nv; j++) {
-    for (let i = 0; i < nu; i++) {
-      drawTriangle(ctx, base, q, images, g(i, j), g(i + 1, j), g(i, j + 1));
-      drawTriangle(ctx, base, q, images, g(i + 1, j + 1), g(i, j + 1), g(i + 1, j));
+  // Base colour for every piece first, then the image: painting the base under each
+  // piece's image would tint the strips where pieces overlap.
+  const passes = q.face.img || q.face.dots?.length ? ["base", "content"] : ["all"];
+  for (const pass of passes) {
+    for (let j = 0; j < nv; j++) {
+      for (let i = 0; i < nu; i++) {
+        drawTriangle(ctx, base, q, images, g(i, j), g(i + 1, j), g(i, j + 1), pass);
+        drawTriangle(ctx, base, q, images, g(i + 1, j + 1), g(i, j + 1), g(i + 1, j), pass);
+      }
     }
   }
 }
 
-// Clips to the screen triangle (grown by ~1 px to hide anti-aliasing seams) and
+// Clips to the screen triangle (grown slightly to hide anti-aliasing seams) and
 // draws the face content through the affine map that takes a, b, c to the screen.
-function drawTriangle(ctx, base, q, images, a, b, c) {
+function drawTriangle(ctx, base, q, images, a, b, c, pass) {
   const du1 = b.u - a.u, dv1 = b.v - a.v, du2 = c.u - a.u, dv2 = c.v - a.v;
   const det = du1 * dv2 - du2 * dv1;
   if (Math.abs(det) < 1e-9) return;
@@ -115,19 +125,29 @@ function drawTriangle(ctx, base, q, images, a, b, c) {
   const m11 = (dx1 * dv2 - dx2 * dv1) / det, m12 = (dx2 * du1 - dx1 * du2) / det;
   const m21 = (dy1 * dv2 - dy2 * dv1) / det, m22 = (dy2 * du1 - dy1 * du2) / det;
   const tx = a.x - m11 * a.u - m12 * a.v, ty = a.y - m21 * a.u - m22 * a.v;
-  const cx = (a.x + b.x + c.x) / 3, cy = (a.y + b.y + c.y) / 3;
   ctx.save();
   ctx.setTransform(base);
   ctx.beginPath();
-  [a, b, c].forEach((p, k) => {
-    const dx = p.x - cx, dy = p.y - cy, len = Math.hypot(dx, dy) || 1;
-    const x = p.x + (dx / len) * 1.1, y = p.y + (dy / len) * 1.1;
-    if (k) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+  // Grow the triangle by moving every edge 0.8 px outwards (mitred corners), so
+  // neighbouring pieces overlap and anti-aliased edges don't let the background through.
+  const pts = [a, b, c];
+  pts.forEach((p, k) => {
+    const prev = pts[(k + 2) % 3], next = pts[(k + 1) % 3];
+    const e1x = p.x - prev.x, e1y = p.y - prev.y, l1 = Math.hypot(e1x, e1y) || 1;
+    const e2x = p.x - next.x, e2y = p.y - next.y, l2 = Math.hypot(e2x, e2y) || 1;
+    let bx = e1x / l1 + e2x / l2, by = e1y / l1 + e2y / l2;
+    const bl = Math.hypot(bx, by) || 1;
+    bx /= bl;
+    by /= bl;
+    // sin of half the corner angle = distance of the bisector from either edge.
+    const sinHalf = Math.abs(bx * (e1y / l1) - by * (e1x / l1)) || 1;
+    const m = Math.min(0.8 / sinHalf, 4);
+    if (k) ctx.lineTo(p.x + bx * m, p.y + by * m); else ctx.moveTo(p.x + bx * m, p.y + by * m);
   });
   ctx.closePath();
   ctx.clip();
   ctx.setTransform(base.multiply(new DOMMatrix([m11, m21, m12, m22, tx, ty])));
-  drawFaceContent(ctx, q.face, q.w, q.h, images, true);
+  drawFaceContent(ctx, q.face, q.w, q.h, images, true, pass);
   ctx.restore();
 }
 
@@ -137,7 +157,8 @@ function shapePath(ctx, face, w, h) {
   else ctx.roundRect(0, 0, w, h, Array.isArray(face.radius) ? face.radius : [face.radius ?? 0]);
 }
 
-function drawFaceContent(ctx, face, w, h, images, clipped) {
+// pass: "base" (fill only), "content" (image, dots, stroke) or "all".
+function drawFaceContent(ctx, face, w, h, images, clipped, pass = "all") {
   if (face.shadow) {
     // Same as CSS radial-gradient(closest-side, ...): a unit circle scaled to the face.
     ctx.translate(w / 2, h / 2);
@@ -150,6 +171,12 @@ function drawFaceContent(ctx, face, w, h, images, clipped) {
     ctx.fillRect(-1, -1, 2, 2);
     return;
   }
+  if (pass !== "content") drawFaceBase(ctx, face, w, h);
+  if (pass === "base") return;
+  drawFaceDetails(ctx, face, w, h, images, clipped);
+}
+
+function drawFaceBase(ctx, face, w, h) {
   shapePath(ctx, face, w, h);
   if (face.gradient) {
     const g = ctx.createLinearGradient(0, 0, 0, h);
@@ -166,6 +193,9 @@ function drawFaceContent(ctx, face, w, h, images, clipped) {
     ctx.fill();
     ctx.restore();
   }
+}
+
+function drawFaceDetails(ctx, face, w, h, images, clipped) {
   if (face.img || face.dots?.length) {
     ctx.save();
     if (!clipped || face.radius) {
@@ -178,10 +208,12 @@ function drawFaceContent(ctx, face, w, h, images, clipped) {
       if (img) {
         const turned = rot % 180 !== 0;
         const kx = (turned ? h : w) / sw, ky = (turned ? w : h) / sh;
+        // Source pixels: the image may be a pre-rendered (larger) copy, e.g. an SVG at 3x.
+        const ks = img.width / MEDIA[media].w;
         ctx.save();
         ctx.translate(w / 2, h / 2);
         ctx.rotate((rot * Math.PI) / 180);
-        ctx.drawImage(img, sx, sy, sw, sh, (-sw * kx) / 2, (-sh * ky) / 2, sw * kx, sh * ky);
+        ctx.drawImage(img, sx * ks, sy * ks, sw * ks, sh * ks, (-sw * kx) / 2, (-sh * ky) / 2, sw * kx, sh * ky);
         ctx.restore();
       }
     }

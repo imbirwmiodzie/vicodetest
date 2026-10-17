@@ -5,6 +5,7 @@
   "direct": true,
   "extension": true,
   "usbPort": "front",
+  "panelStyle": "vector",
   "stepEthernet": "Connect the Ethernet cable to port {port}",
   "stepDirect": "Plug the TCL LinkKey IK41 into the {usb}",
   "stepExtension": "Plug the IK41 into the USB extension cable",

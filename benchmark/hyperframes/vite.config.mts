@@ -14,7 +14,7 @@ const compositionFiles = [
   "vendor/router-scene.js",
   "vendor/router-dom.js",
 ];
-const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg" };
+const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg", ".svg": "image/svg+xml" };
 
 export default defineConfig({
   root: "demo",
@@ -34,7 +34,7 @@ export default defineConfig({
       configureServer(server) {
         // In dev, serve benchmark/config/*.json and benchmark/media/*; in production the
         // harness server serves benchmark/ so the same URLs work.
-        for (const dir of ["config", "media"]) {
+        for (const dir of ["config", "media", "vector"]) {
           server.middlewares.use(`/${dir}`, (req, res, next) => {
             const file = path.join(benchmarkDir, dir, path.basename((req.url ?? "").split("?")[0]));
             if (!fs.existsSync(file)) return next();

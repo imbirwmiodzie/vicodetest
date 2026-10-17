@@ -18,9 +18,14 @@ export const layerStyles = {
 export const worldTransform = (cam) => cssWorld(cam);
 
 const f = (v) => +v.toFixed(5);
+// A face with `res` is laid out `res` times larger and scaled back down by its matrix,
+// so the browser rasterises it (e.g. a vector panel) sharply in close-ups.
+const scale = (r, k) => (typeof r === "number" ? r * k : Array.isArray(r) ? r.map((v) => v * k) : r);
 export function quadStyle(q) {
-  const n = cross3(q.u, q.v);
   const face = q.face;
+  const R = face.res ?? 1;
+  const n = cross3(q.u, q.v);
+  const u = q.u.map((c) => c / R), v = q.v.map((c) => c / R);
   const background = face.shadow
     ? SHADOW
     : face.gradient
@@ -30,15 +35,15 @@ export function quadStyle(q) {
     position: "absolute",
     left: 0,
     top: 0,
-    width: q.w,
-    height: q.h,
+    width: q.w * R,
+    height: q.h * R,
     transformOrigin: "0 0",
-    transform: `matrix3d(${[...q.u, 0, ...q.v, 0, ...n, 0, ...q.o, 1].map(f).join(",")})`,
+    transform: `matrix3d(${[...u, 0, ...v, 0, ...n, 0, ...q.o, 1].map(f).join(",")})`,
     backfaceVisibility: q.cull ? "hidden" : "visible",
     boxSizing: "border-box",
     background,
-    border: face.stroke ? `${face.strokeW ?? 1}px solid ${face.stroke}` : undefined,
-    borderRadius: radius(face.radius),
+    border: face.stroke ? `${(face.strokeW ?? 1) * R}px solid ${face.stroke}` : undefined,
+    borderRadius: radius(scale(face.radius, R)),
     boxShadow: face.glow ? `0 0 ${face.fill ? 14 : 18}px ${face.fill ? 6 : 0}px ${face.glow}` : undefined,
     overflow: face.img ? "hidden" : undefined,
     opacity: q.opacity < 1 ? q.opacity : undefined,
@@ -51,14 +56,16 @@ export function faceImage(q) {
   if (!img) return null;
   const { media, sx, sy, sw, sh, rot } = img;
   const m = MEDIA[media];
+  const R = q.face.res ?? 1;
+  const w = q.w * R, h = q.h * R;
   const turned = rot % 180 !== 0;
-  const kx = (turned ? q.h : q.w) / sw, ky = (turned ? q.w : q.h) / sh;
+  const kx = (turned ? h : w) / sw, ky = (turned ? w : h) / sh;
   return {
     src: m.src,
     wrap: {
       position: "absolute",
-      left: (q.w - sw * kx) / 2,
-      top: (q.h - sh * ky) / 2,
+      left: (w - sw * kx) / 2,
+      top: (h - sh * ky) / 2,
       width: sw * kx,
       height: sh * ky,
       overflow: "hidden",

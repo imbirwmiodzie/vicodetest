@@ -233,4 +233,14 @@ fs.writeFileSync(path.join(DIR, "cb3-front.svg"), front());
 // Lit examples: link on ports 1 and 4; power, internet, mobile internet and WLAN on.
 fs.writeFileSync(path.join(DIR, "cb3-back-lit.svg"), back({ 1: "green", 4: "green" }));
 fs.writeFileSync(path.join(DIR, "cb3-front-lit.svg"), front({ power: "white", internet: "white", mobile: "green", wlan: "blue" }));
-console.log("wrote cb3-back.svg, cb3-front.svg, cb3-back-lit.svg, cb3-front-lit.svg");
+
+// Lit-LED sprites for the animation, laid over the unlit LEDs of the panels above.
+// Each one is the lit LED plus a transparent margin for its glow.
+const sprite = (w, h, body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${defs}${body}</svg>\n`;
+export const SPRITES = { ledMargin: 12, ledW: 14, ledH: 9, guideMargin: 16, guideW: 14, guideH: 39 };
+const { ledMargin: lm, ledW, ledH, guideMargin: gm, guideW, guideH } = SPRITES;
+fs.writeFileSync(path.join(DIR, "led-green.svg"), sprite(ledW + 2 * lm, ledH + 2 * lm, ledLens(lm, lm, ledW, ledH, "green")));
+for (const color of ["white", "green", "blue"]) {
+  fs.writeFileSync(path.join(DIR, `guide-${color}.svg`), sprite(guideW + 2 * gm, guideH + 2 * gm, lightGuide(gm + guideW, gm, gm, gm + guideH, color)));
+}
+console.log("wrote cb3-back.svg, cb3-front.svg, cb3-back-lit.svg, cb3-front-lit.svg and the lit-LED sprites");

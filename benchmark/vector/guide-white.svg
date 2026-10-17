@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 71" width="46" height="71">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3D404A"/><stop offset="0.08" stop-color="#363943"/>
+      <stop offset="0.9" stop-color="#32353E"/><stop offset="1" stop-color="#2B2E35"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#363A3F"/><stop offset="0.1" stop-color="#2E3236"/>
+      <stop offset="0.92" stop-color="#2A2D31"/><stop offset="1" stop-color="#24272B"/>
+    </linearGradient>
+    <linearGradient id="socket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2920"/><stop offset="1" stop-color="#47442F"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9AA1AA"/><stop offset="0.35" stop-color="#EEF1F4"/>
+      <stop offset="0.7" stop-color="#C3C8CF"/><stop offset="1" stop-color="#8E959E"/>
+    </linearGradient>
+    <radialGradient id="button" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#4A4D55"/><stop offset="0.7" stop-color="#2C2E33"/><stop offset="1" stop-color="#1C1D21"/>
+    </radialGradient>
+    <!-- LEDs: unlit and lit lenses, blur filters for soft edges and glow -->
+    <linearGradient id="lens-off" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#B9F8E6"/><stop offset="0.5" stop-color="#8CEFD3"/><stop offset="1" stop-color="#72DDBF"/>
+    </linearGradient>
+    
+    <radialGradient id="lens-green" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#F2FFF6"/><stop offset="0.55" stop-color="#5BFF9C"/><stop offset="1" stop-color="#1FC765"/>
+    </radialGradient>
+    <radialGradient id="lens-white" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F1F5FA"/><stop offset="1" stop-color="#B9C3CE"/>
+    </radialGradient>
+    <radialGradient id="lens-blue" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#EAF3FF"/><stop offset="0.55" stop-color="#5FA2FF"/><stop offset="1" stop-color="#2369E0"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.6"/></filter>
+    <filter id="glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="glow-wide" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs><path d="M30 16 Q18 20 16 55" fill="none" stroke="#F1F5FA" stroke-width="16" stroke-linecap="round" opacity="0.3" filter="url(#glow-wide)"/><path d="M30 16 Q18 20 16 55" fill="none" stroke="#F1F5FA" stroke-width="8" stroke-linecap="round" opacity="0.75" filter="url(#glow)"/>
+    <path d="M30 16 Q18 20 16 55" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M30 16 Q18 20 16 55" fill="none" stroke="#B9C3CE" stroke-width="4.6" stroke-linecap="round" /><path d="M30 16 Q18 20 16 55" fill="none" stroke="#F1F5FA" stroke-width="3.4" stroke-linecap="round" /><path d="M30 16 Q18 20 16 55" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#soft)"/></svg>

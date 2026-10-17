@@ -9,7 +9,7 @@ import {DEFAULTS, frameState, normalize, timeline, type FrameState} from '../../
 // boxes, cables and photos itself (benchmark/shared/router-canvas.js).
 
 // Photos, loaded by the demo page before the player starts (keyed by URL).
-export const images: Record<string, HTMLImageElement> = {};
+export const images: Record<string, HTMLImageElement | HTMLCanvasElement> = {};
 
 class RouterCanvas extends Node {
   public state: () => FrameState | null = () => null;
