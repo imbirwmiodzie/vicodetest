@@ -62,3 +62,19 @@
   player logs the project object to the console on load; every frame triggers a React state update in the wrapper.
 - No in/out range in the player: play-once is implemented by pausing in onTimeUpdate (can overshoot one frame).
 - Long titles are not truncated with an ellipsis (canvas text); the other two truncate.
+
+## Router setup demo (Remotion only so far)
+- Request: a more realistic demo. The Centro Business 3.0 back panel (photo from cb-guide.swisscom.ch), an Ethernet
+  cable going into port 1, then a TCL LinkKey IK41 USB stick (photo from komsa.pl) going into the USB 2.0 port.
+- Photos are not committed (public repo, third-party images): `node media/fetch.mjs` downloads them into `media/`.
+  With Node 22 behind a proxy, use `NODE_USE_ENV_PROXY=1`.
+- Approach: CSS 3D. The router is a box whose front face is the back-panel photo, seen at rotateX(-14) rotateY(-32).
+  The plug, boot and stick are CSS boxes that move along the panel normal into the measured socket positions.
+  The cable is an SVG path in the vertical plane through the port. Camera = translateZ zoom + focus point.
+- Timeline 13 s (390 frames @30): overview, zoom to port, plug in + click + link LED, pan to USB, stick in + LED,
+  zoom out, hold, fade. `loop:false` stops at 11.6 s.
+- Config: `config/router.json` (title, step texts, port 1-5, cable/LED/accent colours, speed, loop), live editor
+  on `remotion/demo/router.html`; `window.__seek(frame)` gives frame-exact screenshots.
+- Remotion lint rejects CSS background-image (it doesn't wait for loading when rendering) -> `<Img>` inside faces.
+- Porting note: HyperFrames can reuse the same DOM/CSS 3D. Revideo draws on canvas 2D (no CSS 3D), so it would
+  need its own projection of the boxes.

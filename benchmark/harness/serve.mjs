@@ -15,6 +15,7 @@ const TYPES = {
   ".json": "application/json",
   ".svg": "image/svg+xml",
   ".png": "image/png",
+  ".jpeg": "image/jpeg",
   ".wasm": "application/wasm",
   ".woff2": "font/woff2",
 };
