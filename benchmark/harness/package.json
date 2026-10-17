@@ -1,0 +1,12 @@
+{
+  "name": "benchmark-harness",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "bench": "node run.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
