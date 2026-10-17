@@ -1,0 +1,9 @@
+{
+  "title": "System status",
+  "value": 78,
+  "unit": "%",
+  "accentColor": "#3D8BFF",
+  "bars": [30, 55, 80, 45, 65],
+  "speed": 1.0,
+  "loop": true
+}
