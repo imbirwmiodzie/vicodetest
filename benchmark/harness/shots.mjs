@@ -13,6 +13,7 @@ const browser = await chromium.launch({ executablePath: CHROME, args: launchArgs
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 const logs = [];
 page.on("console", (m) => logs.push(`[${m.type()}] ${m.text()}`));
+page.on("request", (r) => { if (!r.url().startsWith("http://localhost")) logs.push(`[external request] ${r.url()}`); });
 page.on("pageerror", (e) => logs.push(`[pageerror] ${e.message}`));
 await page.addInitScript({ path: "bench-inject.js" });
 await page.goto(`http://localhost:8091${TOOLS[tool].path}`);

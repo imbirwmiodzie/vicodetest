@@ -2,6 +2,7 @@
 // Demo pages call window.__bench?.frame?.() each time the player renders an
 // animation frame; everything else here is passive measurement.
 (() => {
+  if (window !== window.top) return; // compositions in iframes report to the top window
   const b = (window.__bench = {
     frames: 0, // animation frames rendered by the player
     firstRenderAt: null, // performance.now() when the first animation frame was rendered

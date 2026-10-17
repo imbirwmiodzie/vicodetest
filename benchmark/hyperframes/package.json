@@ -1,0 +1,21 @@
+{
+  "name": "hyperframes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.169 preview",
+    "check": "npx --yes hyperframes@0.8.169 check",
+    "render": "npx --yes hyperframes@0.8.169 render",
+    "publish": "npx --yes hyperframes@0.8.169 publish",
+    "vendor": "node scripts/vendor.mjs",
+    "demo": "npm run vendor && vite",
+    "build:demo": "npm run vendor && vite build"
+  },
+  "dependencies": {
+    "@hyperframes/player": "0.8.169",
+    "gsap": "3.15.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.4"
+  }
+}

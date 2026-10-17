@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #0b0d11; color: #d8dde6; font: 14px/1.4 sans-serif; }
+.stage { width: 1280px; height: 720px; overflow: hidden; }
+.panel { padding: 16px; max-width: 1280px; }
+.panel h1 { font-size: 18px; margin: 0 0 12px; }
+.panel h1 small { color: #8a93a3; font-weight: 400; }
+.editor { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 16px; align-items: center; }
+.editor label { display: flex; gap: 8px; align-items: center; }
+.editor fieldset { border: 1px solid #2a2f3a; display: flex; gap: 4px; }
+.editor fieldset input { width: 40px; }
+.editor textarea { grid-column: 1 / -1; width: 100%; font: 12px monospace; background: #12161c; color: inherit; border: 1px solid #2a2f3a; }
+.editor .row { grid-column: 1 / -1; display: flex; gap: 12px; align-items: center; }
+.editor .status { color: #ff8a8a; }
