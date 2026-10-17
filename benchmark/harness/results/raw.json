@@ -1,0 +1,98 @@
+[
+ {
+  "tool": "remotion",
+  "throttle": 1,
+  "run": 1,
+  "timestamp": "2026-10-17T20:34:26.828Z",
+  "timing": {
+   "firstFrameMs": 174.5,
+   "firstRenderMs": 169.29999999981374,
+   "domContentLoadedMs": 87.39999999990687,
+   "loadMs": 87.5,
+   "fcpMs": 40
+  },
+  "fps": {
+   "avg": 60.00220008066962,
+   "p5": 59.88023952094243,
+   "longFrames50ms": 0,
+   "frameTimeP50ms": 16.69999999999891,
+   "frameTimeP95ms": 16.700000000004366,
+   "frameTimeMaxMs": 16.80000000000291
+  },
+  "animation": {
+   "updatesPerSec": 30.008336383124522,
+   "playbackRate": 1.0002778794374767
+  },
+  "cpu": {
+   "mainThreadBusyPct": 5.355548826756204,
+   "scriptPct": 2.523368033923069,
+   "layoutPct": 0.16956541863902727,
+   "styleRecalcPct": 0.2870675393489755,
+   "processPctOfOneCore": {
+    "browser": 0.23313912839275439,
+    "zygote": 0,
+    "gpu-process": 2.9975030793354134,
+    "utility": 0.4329726670151152,
+    "renderer": 11.723567599178503,
+    "network": 0
+   },
+   "processTotalPctOfOneCore": 15.387182473921786
+  },
+  "memory": {
+   "usedJSHeapMB": 7.076606750488281,
+   "jsHeapAfterGcMB": 4.201301574707031,
+   "totalPssMB": 318.4658203125,
+   "byTypeMB": {
+    "browser": 92.25390625,
+    "zygote": 26.90234375,
+    "gpu-process": 33.169921875,
+    "utility": 38.755859375,
+    "renderer": 92.5703125,
+    "network": 34.8134765625
+   }
+  },
+  "latency": {
+   "samplesMs": [
+    17.152099609375,
+    10.51904296875,
+    17.694091796875,
+    18.63330078125,
+    12.94189453125,
+    19.552001953125,
+    26.63818359375,
+    22.13623046875,
+    14.739990234375,
+    25.80908203125
+   ],
+   "medianMs": 17.694091796875,
+   "missed": 0
+  },
+  "requests": [
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/",
+    "status": 200,
+    "bytes": 604,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-BkqwMCrM.css",
+    "status": 200,
+    "bytes": 762,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/remotion/dist-demo/assets/index-CiEZfXWF.js",
+    "status": 200,
+    "bytes": 541246,
+    "external": false
+   },
+   {
+    "url": "http://localhost:8090/config/config.json",
+    "status": 200,
+    "bytes": 153,
+    "external": false
+   }
+  ],
+  "errors": []
+ }
+]
