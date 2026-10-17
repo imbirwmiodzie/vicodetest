@@ -16,6 +16,43 @@ const text = (x, y, s, size = 15.5, extra = "") =>
 
 // ---- shared parts ------------------------------------------------------------------
 
+// Lit LED colours: [core, middle, edge]; the glow uses the middle colour.
+const LIT = {
+  green: ["#F2FFF6", "#5BFF9C", "#1FC765"],
+  white: ["#FFFFFF", "#F1F5FA", "#B9C3CE"],
+  blue: ["#EAF3FF", "#5FA2FF", "#2369E0"],
+};
+
+// Back-panel link LED: a flat mint light pipe flush with the yellow frame, lighter at
+// the top, with a soft shadow on the frame; when lit a saturated core and a glow.
+function ledLens(x, y, w, h, lit) {
+  const shadow = `<rect x="${x + 0.8}" y="${y + 1}" width="${w}" height="${h}" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>`;
+  if (!lit) {
+    return `${shadow}
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="${x + 0.5}" y="${y + 0.5}" width="${w - 1}" height="${h - 1}" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M${x + 1.6} ${y + 1.4} H${x + w - 1.6}" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/>`;
+  }
+  const [core, mid] = LIT[lit];
+  return `<rect x="${x - 3}" y="${y - 3}" width="${w + 6}" height="${h + 6}" rx="5" fill="${mid}" opacity="0.7" filter="url(#glow)"/>
+    <rect x="${x - 9}" y="${y - 9}" width="${w + 18}" height="${h + 18}" rx="10" fill="${mid}" opacity="0.25" filter="url(#glow-wide)"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1.6" fill="url(#lens-${lit})"/>
+    <rect x="${x + 2}" y="${y + 1.8}" width="${w - 4}" height="${h - 3.6}" rx="1.4" fill="${core}" opacity="0.55" filter="url(#soft)"/>`;
+}
+
+// Front light guide: a curved, matte grey pipe in a shallow groove (as in the photo);
+// when lit, a coloured core with glow spilling onto the panel.
+function lightGuide(x1, y1, x2, y2, lit) {
+  // Bows out to the upper left like the real guides.
+  const d = `M${x1} ${y1} Q${x2 + 2} ${y1 + 4} ${x2} ${y2}`;
+  const seg = (color, width, extra = "") => `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" ${extra}/>`;
+  const groove = seg("#16181B", 6.6, 'opacity="0.7"');
+  if (!lit) return `${groove}${seg("#767C84", 4.6)}${seg("#959BA3", 2.4, 'filter="url(#soft)"')}`;
+  const [core, mid, edge] = LIT[lit];
+  return `${seg(mid, 16, 'opacity="0.3" filter="url(#glow-wide)"')}${seg(mid, 8, 'opacity="0.75" filter="url(#glow)"')}
+    ${groove}${seg(edge, 4.6)}${seg(mid, 3.4)}${seg(core, 1.8, 'opacity="0.9" filter="url(#soft)"')}`;
+}
+
 const defs = `
   <defs>
     <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
@@ -36,6 +73,17 @@ const defs = `
     <radialGradient id="button" cx="0.4" cy="0.35" r="0.7">
       <stop offset="0" stop-color="#4A4D55"/><stop offset="0.7" stop-color="#2C2E33"/><stop offset="1" stop-color="#1C1D21"/>
     </radialGradient>
+    <!-- LEDs: unlit and lit lenses, blur filters for soft edges and glow -->
+    <linearGradient id="lens-off" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#B9F8E6"/><stop offset="0.5" stop-color="#8CEFD3"/><stop offset="1" stop-color="#72DDBF"/>
+    </linearGradient>
+    ${Object.entries(LIT).map(([name, [core, mid, edge]]) => `
+    <radialGradient id="lens-${name}" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="${core}"/><stop offset="0.55" stop-color="${mid}"/><stop offset="1" stop-color="${edge}"/>
+    </radialGradient>`).join("")}
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.6"/></filter>
+    <filter id="glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="glow-wide" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
   </defs>`;
 
 // RJ45 socket opening, 63 x 50, top-left at (x, y): latch notch, upper step, main
@@ -57,7 +105,7 @@ function rj11(x, y) {
 
 // ---- back panel --------------------------------------------------------------------
 
-function back() {
+function back(lit = {}) {
   const ports = [345.5, 422, 498.5, 574.5];
   const leds = [[366, 98, 14, 9], [443, 98, 13, 9], [519, 98, 14, 9], [596, 98, 13, 9], [690, 97, 11, 9]];
   const sfpRibs = Array.from({ length: 5 }, (_, i) => `<rect x="${880 + i * 13}" y="117" width="8" height="38" rx="1.5" fill="#B9BFC7" stroke="#8E959E" stroke-width="0.8"/>`).join("");
@@ -95,7 +143,7 @@ function back() {
   <rect x="630" y="93" width="76" height="63" rx="2" fill="#F2E33A" stroke="#CDBE22" stroke-width="1"/>
   ${ports.map((x) => rj45(x - 31.5, 96)).join("")}
   ${rj45(668 - 31.5, 96)}
-  ${leds.map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/>`).join("")}
+  ${leds.map(([x, y, w, h], i) => ledLens(x, y, w, h, lit[i + 1])).join("")}
   ${ports.map((x, i) => text(x, 182, String(i + 1), 16)).join("")}
   ${text(574.5, 198, "WAN", 16)}
   ${text(668, 182, "5", 16)}${text(668, 198, "SG", 16)}
@@ -133,7 +181,7 @@ function back() {
 
 // The lying router's front: left end = the power side. Text and icons are turned 90
 // degrees, as on the real device when it lies on its side.
-function front() {
+function front(lit = {}) {
   const W = 1256, H = 222;
   const rot = (u, v, inner) => `<g transform="translate(${u} ${v}) rotate(90)">${inner}</g>`;
   const stroke = `fill="none" stroke="${LABEL}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"`;
@@ -149,7 +197,7 @@ function front() {
   };
   // Icon centres along the panel (measured: standing photo y -> u).
   const row = [["power", 523], ["internet", 596], ["mobile", 670], ["backup", 744], ["phone", 819], ["service", 893], ["wlan", 967]];
-  const slits = row.map(([, u]) => `<path d="M${u + 27} 9 L${u + 13} 48" stroke="#959BA4" stroke-width="3.6" stroke-linecap="round"/>`).join("");
+  const slits = row.map(([name, u]) => lightGuide(u + 27, 9, u + 13, 48, lit[name])).join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${defs}
   <rect width="${W}" height="${H}" rx="12" fill="url(#front)"/>
   <rect width="${W}" height="${H}" rx="12" fill="none" stroke="#454A51" stroke-width="2"/>
@@ -182,4 +230,7 @@ function front() {
 
 fs.writeFileSync(path.join(DIR, "cb3-back.svg"), back());
 fs.writeFileSync(path.join(DIR, "cb3-front.svg"), front());
-console.log("wrote cb3-back.svg, cb3-front.svg");
+// Lit examples: link on ports 1 and 4; power, internet, mobile internet and WLAN on.
+fs.writeFileSync(path.join(DIR, "cb3-back-lit.svg"), back({ 1: "green", 4: "green" }));
+fs.writeFileSync(path.join(DIR, "cb3-front-lit.svg"), front({ power: "white", internet: "white", mobile: "green", wlan: "blue" }));
+console.log("wrote cb3-back.svg, cb3-front.svg, cb3-back-lit.svg, cb3-front-lit.svg");

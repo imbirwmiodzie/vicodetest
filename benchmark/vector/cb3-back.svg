@@ -18,6 +18,23 @@
     <radialGradient id="button" cx="0.4" cy="0.35" r="0.7">
       <stop offset="0" stop-color="#4A4D55"/><stop offset="0.7" stop-color="#2C2E33"/><stop offset="1" stop-color="#1C1D21"/>
     </radialGradient>
+    <!-- LEDs: unlit and lit lenses, blur filters for soft edges and glow -->
+    <linearGradient id="lens-off" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#B9F8E6"/><stop offset="0.5" stop-color="#8CEFD3"/><stop offset="1" stop-color="#72DDBF"/>
+    </linearGradient>
+    
+    <radialGradient id="lens-green" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#F2FFF6"/><stop offset="0.55" stop-color="#5BFF9C"/><stop offset="1" stop-color="#1FC765"/>
+    </radialGradient>
+    <radialGradient id="lens-white" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F1F5FA"/><stop offset="1" stop-color="#B9C3CE"/>
+    </radialGradient>
+    <radialGradient id="lens-blue" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#EAF3FF"/><stop offset="0.55" stop-color="#5FA2FF"/><stop offset="1" stop-color="#2369E0"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.6"/></filter>
+    <filter id="glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="glow-wide" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
   </defs>
   <!-- feet -->
   <rect x="125" y="226" width="140" height="24" rx="5" fill="#25272D"/>
@@ -59,7 +76,22 @@
     <rect x="552" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="555.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="560.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="565.9" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="571.1" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="576.3" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="581.5" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="586.7" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="591.9" y="129" width="2.4" height="14" fill="#C9B458"/>
   <path d="M660.5 96 h15 v4 h11 v10 h11 a2 2 0 0 1 2 2 v32 a2 2 0 0 1 -2 2 h-59 a2 2 0 0 1 -2 -2 v-32 a2 2 0 0 1 2 -2 h11 v-10 h11 z" fill="url(#socket)" stroke="#1E1D16" stroke-width="1"/>
     <rect x="645.5" y="126" width="45" height="18" rx="1.5" fill="#2E2D22"/><rect x="649" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="654.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="659.4" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="664.6" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="669.8" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="675" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="680.2" y="129" width="2.4" height="14" fill="#C9B458"/><rect x="685.4" y="129" width="2.4" height="14" fill="#C9B458"/>
-  <rect x="366" y="98" width="14" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="443" y="98" width="13" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="519" y="98" width="14" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="596" y="98" width="13" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/><rect x="690" y="97" width="11" height="9" rx="1.5" fill="#A6E8CC" stroke="#7FC9AC" stroke-width="0.8"/>
+  <rect x="366.8" y="99" width="14" height="9" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>
+    <rect x="366" y="98" width="14" height="9" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="366.5" y="98.5" width="13" height="8" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M367.6 99.4 H378.4" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/><rect x="443.8" y="99" width="13" height="9" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>
+    <rect x="443" y="98" width="13" height="9" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="443.5" y="98.5" width="12" height="8" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M444.6 99.4 H454.4" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/><rect x="519.8" y="99" width="14" height="9" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>
+    <rect x="519" y="98" width="14" height="9" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="519.5" y="98.5" width="13" height="8" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M520.6 99.4 H531.4" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/><rect x="596.8" y="99" width="13" height="9" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>
+    <rect x="596" y="98" width="13" height="9" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="596.5" y="98.5" width="12" height="8" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M597.6 99.4 H607.4" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/><rect x="690.8" y="98" width="11" height="9" rx="1.6" fill="#8A7E00" opacity="0.35" filter="url(#soft)"/>
+    <rect x="690" y="97" width="11" height="9" rx="1.6" fill="url(#lens-off)"/>
+    <rect x="690.5" y="97.5" width="10" height="8" rx="1.2" fill="none" stroke="#5FC6A6" stroke-width="0.7" opacity="0.8"/>
+    <path d="M691.6 98.4 H699.4" stroke="#F2FFFA" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
   <text x="345.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >1</text><text x="422" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >2</text><text x="498.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >3</text><text x="574.5" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >4</text>
   <text x="574.5" y="198" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >WAN</text>
   <text x="668" y="182" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >5</text><text x="668" y="198" font-size="16" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" >SG</text>

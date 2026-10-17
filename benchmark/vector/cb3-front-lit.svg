@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1256 222" width="1256" height="222">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3D404A"/><stop offset="0.08" stop-color="#363943"/>
+      <stop offset="0.9" stop-color="#32353E"/><stop offset="1" stop-color="#2B2E35"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#363A3F"/><stop offset="0.1" stop-color="#2E3236"/>
+      <stop offset="0.92" stop-color="#2A2D31"/><stop offset="1" stop-color="#24272B"/>
+    </linearGradient>
+    <linearGradient id="socket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2920"/><stop offset="1" stop-color="#47442F"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9AA1AA"/><stop offset="0.35" stop-color="#EEF1F4"/>
+      <stop offset="0.7" stop-color="#C3C8CF"/><stop offset="1" stop-color="#8E959E"/>
+    </linearGradient>
+    <radialGradient id="button" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#4A4D55"/><stop offset="0.7" stop-color="#2C2E33"/><stop offset="1" stop-color="#1C1D21"/>
+    </radialGradient>
+    <!-- LEDs: unlit and lit lenses, blur filters for soft edges and glow -->
+    <linearGradient id="lens-off" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#B9F8E6"/><stop offset="0.5" stop-color="#8CEFD3"/><stop offset="1" stop-color="#72DDBF"/>
+    </linearGradient>
+    
+    <radialGradient id="lens-green" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#F2FFF6"/><stop offset="0.55" stop-color="#5BFF9C"/><stop offset="1" stop-color="#1FC765"/>
+    </radialGradient>
+    <radialGradient id="lens-white" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F1F5FA"/><stop offset="1" stop-color="#B9C3CE"/>
+    </radialGradient>
+    <radialGradient id="lens-blue" cx="0.5" cy="0.45" r="0.65">
+      <stop offset="0" stop-color="#EAF3FF"/><stop offset="0.55" stop-color="#5FA2FF"/><stop offset="1" stop-color="#2369E0"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.6"/></filter>
+    <filter id="glow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="glow-wide" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1256" height="222" rx="12" fill="url(#front)"/>
+  <rect width="1256" height="222" rx="12" fill="none" stroke="#454A51" stroke-width="2"/>
+  <path d="M14 3 H1242" stroke="#4E535B" stroke-width="2"/>
+
+  <!-- "3.0" -->
+  <g transform="translate(52 104) rotate(90)"><text x="0" y="14" font-size="40" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">3.0</text></g>
+
+  <!-- USB 3.0 -->
+  <rect x="133" y="63" width="33" height="79" rx="3" fill="url(#metal)" stroke="#7C838C" stroke-width="1"/>
+  <rect x="138" y="68" width="23" height="69" rx="1.5" fill="#121317"/>
+  <rect x="149" y="74" width="8" height="57" rx="1" fill="#2F6FD8"/>
+  <g transform="translate(184 102) rotate(90)"><text x="0" y="5" font-size="13" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">USB 3.0</text></g>
+
+  <!-- WLAN (WPS) button -->
+  <rect x="296" y="63" width="30" height="77" rx="4" fill="#1D2024" stroke="#121417" stroke-width="1.2"/>
+  <path d="M300 68 V135" stroke="#3A3E44" stroke-width="1.5"/>
+  <g transform="translate(342 102) rotate(90)"><text x="0" y="5" font-size="13" text-anchor="middle" fill="#D6DAE0" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">WLAN</text></g>
+
+  <!-- LED light guides and icons: Power, Internet, Mobile Internet, Internet Backup,
+       Telephony, Service, WLAN -->
+  <path d="M550 9 Q538 13 536 48" fill="none" stroke="#F1F5FA" stroke-width="16" stroke-linecap="round" opacity="0.3" filter="url(#glow-wide)"/><path d="M550 9 Q538 13 536 48" fill="none" stroke="#F1F5FA" stroke-width="8" stroke-linecap="round" opacity="0.75" filter="url(#glow)"/>
+    <path d="M550 9 Q538 13 536 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M550 9 Q538 13 536 48" fill="none" stroke="#B9C3CE" stroke-width="4.6" stroke-linecap="round" /><path d="M550 9 Q538 13 536 48" fill="none" stroke="#F1F5FA" stroke-width="3.4" stroke-linecap="round" /><path d="M550 9 Q538 13 536 48" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#soft)"/><path d="M623 9 Q611 13 609 48" fill="none" stroke="#F1F5FA" stroke-width="16" stroke-linecap="round" opacity="0.3" filter="url(#glow-wide)"/><path d="M623 9 Q611 13 609 48" fill="none" stroke="#F1F5FA" stroke-width="8" stroke-linecap="round" opacity="0.75" filter="url(#glow)"/>
+    <path d="M623 9 Q611 13 609 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M623 9 Q611 13 609 48" fill="none" stroke="#B9C3CE" stroke-width="4.6" stroke-linecap="round" /><path d="M623 9 Q611 13 609 48" fill="none" stroke="#F1F5FA" stroke-width="3.4" stroke-linecap="round" /><path d="M623 9 Q611 13 609 48" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#soft)"/><path d="M697 9 Q685 13 683 48" fill="none" stroke="#5BFF9C" stroke-width="16" stroke-linecap="round" opacity="0.3" filter="url(#glow-wide)"/><path d="M697 9 Q685 13 683 48" fill="none" stroke="#5BFF9C" stroke-width="8" stroke-linecap="round" opacity="0.75" filter="url(#glow)"/>
+    <path d="M697 9 Q685 13 683 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M697 9 Q685 13 683 48" fill="none" stroke="#1FC765" stroke-width="4.6" stroke-linecap="round" /><path d="M697 9 Q685 13 683 48" fill="none" stroke="#5BFF9C" stroke-width="3.4" stroke-linecap="round" /><path d="M697 9 Q685 13 683 48" fill="none" stroke="#F2FFF6" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#soft)"/><path d="M771 9 Q759 13 757 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M771 9 Q759 13 757 48" fill="none" stroke="#767C84" stroke-width="4.6" stroke-linecap="round" /><path d="M771 9 Q759 13 757 48" fill="none" stroke="#959BA3" stroke-width="2.4" stroke-linecap="round" filter="url(#soft)"/><path d="M846 9 Q834 13 832 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M846 9 Q834 13 832 48" fill="none" stroke="#767C84" stroke-width="4.6" stroke-linecap="round" /><path d="M846 9 Q834 13 832 48" fill="none" stroke="#959BA3" stroke-width="2.4" stroke-linecap="round" filter="url(#soft)"/><path d="M920 9 Q908 13 906 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M920 9 Q908 13 906 48" fill="none" stroke="#767C84" stroke-width="4.6" stroke-linecap="round" /><path d="M920 9 Q908 13 906 48" fill="none" stroke="#959BA3" stroke-width="2.4" stroke-linecap="round" filter="url(#soft)"/><path d="M994 9 Q982 13 980 48" fill="none" stroke="#5FA2FF" stroke-width="16" stroke-linecap="round" opacity="0.3" filter="url(#glow-wide)"/><path d="M994 9 Q982 13 980 48" fill="none" stroke="#5FA2FF" stroke-width="8" stroke-linecap="round" opacity="0.75" filter="url(#glow)"/>
+    <path d="M994 9 Q982 13 980 48" fill="none" stroke="#16181B" stroke-width="6.6" stroke-linecap="round" opacity="0.7"/><path d="M994 9 Q982 13 980 48" fill="none" stroke="#2369E0" stroke-width="4.6" stroke-linecap="round" /><path d="M994 9 Q982 13 980 48" fill="none" stroke="#5FA2FF" stroke-width="3.4" stroke-linecap="round" /><path d="M994 9 Q982 13 980 48" fill="none" stroke="#EAF3FF" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#soft)"/>
+  <g transform="translate(523 108) rotate(90)"><g transform="scale(1.35)"><path d="M-6 -7 a9.5 9.5 0 1 0 12 0" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 -11 V-1" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(596 108) rotate(90)"><g transform="scale(1.35)"><circle r="10" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><ellipse rx="4.5" ry="10" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-10 0 H10 M-8.5 -5 H8.5 M-8.5 5 H8.5" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(670 108) rotate(90)"><g transform="scale(1.35)"><circle cx="-2" r="9" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="-2" rx="4" ry="9" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-11 0 H7" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 -6 a8 8 0 0 1 0 12 M12.5 -9 a12.5 12.5 0 0 1 0 18" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(744 108) rotate(90)"><g transform="scale(1.35)"><path d="M-7 4 C-12 -6 -2 -12 4 -8 C10 -4 8 6 2 8 L-4 8" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-3 4 L1 8 L-3 12" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(819 108) rotate(90)"><g transform="scale(1.35)"><path d="M-9 -9 C-11 -3 -6 6 3 10 C6 11 9 9 9 6 L5 3 L2 5 C-1 4 -4 1 -5 -2 L-3 -5 L-6 -9 Z" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(893 108) rotate(90)"><g transform="scale(1.35)"><path d="M-11 -9 H11 V7 H1 L-5 12 V7 H-11 Z" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 -4 V-3 M0 0 V4" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g><g transform="translate(967 108) rotate(90)"><g transform="scale(1.35)"><path d="M-11 -3 a15.5 15.5 0 0 1 22 0 M-7 1 a10 10 0 0 1 14 0 M-3 5 a4.5 4.5 0 0 1 6 0" fill="none" stroke="#D6DAE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cy="9" r="1.4" fill="#D6DAE0"/></g></g>
+
+  <!-- logo area: the operator's logo is not redrawn; drop the official SVG in here -->
+  <circle cx="1165" cy="105" r="26" fill="none" stroke="#4A4F57" stroke-width="2" stroke-dasharray="4 4"/>
+</svg>
