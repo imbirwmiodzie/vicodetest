@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Animation demos</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root { color-scheme: light dark; --bg: #f6f7f9; --fg: #1b1d22; --muted: #5d6573; --card: #fff; --line: #dfe3e8; --link: #0f6fde; }
+      @media (prefers-color-scheme: dark) { :root { --bg: #0e1116; --fg: #e6eaf2; --muted: #8a93a3; --card: #171b22; --line: #2a2f3a; --link: #6aa8ff; } }
+      body { margin: 0; padding: 32px 16px; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+      main { max-width: 880px; margin: 0 auto; }
+      h1 { font-size: 24px; margin: 0 0 4px; }
+      p { color: var(--muted); margin: 0 0 24px; }
+      table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+      th, td { text-align: left; padding: 12px 16px; border-top: 1px solid var(--line); }
+      th { border-top: 0; font-weight: 600; }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code { font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Animation demos</h1>
+      <p>The same animations built with three tools. Each page has a live config editor below the player
+        (<code>config/router.json</code> and <code>config/config.json</code> are read at runtime).</p>
+      <table>
+        <tr><th>Tool</th><th>Centro Business 3.0 setup</th><th>Status card</th></tr>
+        <tr><td>Remotion</td><td><a href="remotion/dist-demo/router.html">router demo</a></td><td><a href="remotion/dist-demo/">status card</a></td></tr>
+        <tr><td>HyperFrames</td><td><a href="hyperframes/dist-demo/router.html">router demo</a></td><td><a href="hyperframes/dist-demo/">status card</a></td></tr>
+        <tr><td>Revideo</td><td><a href="revideo/dist-demo/router.html">router demo</a></td><td><a href="revideo/dist-demo/">status card</a></td></tr>
+      </table>
+    </main>
+  </body>
+</html>

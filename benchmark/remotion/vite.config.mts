@@ -1,8 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
-const benchmarkDir = path.resolve(__dirname, "..");
+const here = path.dirname(fileURLToPath(import.meta.url));
+
+const benchmarkDir = path.resolve(here, "..");
 const TYPES: Record<string, string> = {
   ".json": "application/json",
   ".png": "image/png",
@@ -12,13 +15,15 @@ const TYPES: Record<string, string> = {
 export default defineConfig({
   root: "demo",
   base: "./",
+  // The router demo imports the shared scene from ../shared.
+  server: { fs: { allow: [benchmarkDir] } },
   build: {
     outDir: "../dist-demo",
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, "demo/index.html"),
-        router: path.resolve(__dirname, "demo/router.html"),
+        main: path.resolve(here, "demo/index.html"),
+        router: path.resolve(here, "demo/router.html"),
       },
     },
   },

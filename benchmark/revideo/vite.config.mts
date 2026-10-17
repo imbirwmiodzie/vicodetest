@@ -1,24 +1,38 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
-const here = path.dirname(new URL(import.meta.url).pathname);
-const configFile = path.resolve(here, "../config/config.json");
+const here = path.dirname(fileURLToPath(import.meta.url));
+const benchmarkDir = path.resolve(here, "..");
+const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg" };
 
 export default defineConfig({
   root: "demo",
   base: "./",
-  build: { outDir: "../dist-demo", emptyOutDir: true },
+  // The router demo imports the shared scene from ../shared.
+  server: { fs: { allow: [benchmarkDir] } },
+  build: {
+    outDir: "../dist-demo",
+    emptyOutDir: true,
+    rollupOptions: {
+      input: { main: path.resolve(here, "demo/index.html"), router: path.resolve(here, "demo/router.html") },
+    },
+  },
   plugins: [
     {
-      // In dev, serve the shared benchmark/config/config.json at /config/config.json.
-      // In production the harness server serves benchmark/ so the same URL works.
-      name: "shared-config",
+      // In dev, serve benchmark/config/*.json and benchmark/media/*.
+      // In production the harness server serves benchmark/ so the same URLs work.
+      name: "shared-files",
       configureServer(server) {
-        server.middlewares.use("/config/config.json", (_req, res) => {
-          res.setHeader("Content-Type", "application/json");
-          res.end(fs.readFileSync(configFile));
-        });
+        for (const dir of ["config", "media"]) {
+          server.middlewares.use(`/${dir}`, (req, res, next) => {
+            const file = path.join(benchmarkDir, dir, path.basename((req.url ?? "").split("?")[0]));
+            if (!fs.existsSync(file)) return next();
+            res.setHeader("Content-Type", TYPES[path.extname(file)] ?? "application/octet-stream");
+            res.end(fs.readFileSync(file));
+          });
+        }
       },
     },
   ],

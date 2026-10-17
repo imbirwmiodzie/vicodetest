@@ -1,0 +1,14 @@
+import type { Box, Cam, Cable, Caption, FaceName, FrameState, PanelItem } from "./router-scene";
+type Style = Record<string, string | number | undefined>;
+export const FACES: FaceName[];
+export const layerStyles: { root: Style; stage: Style; world: Style; panel: Style; svg: Style };
+export function worldTransform(cam: Cam): string;
+export function boxStyle(b: Box): Style;
+export function faceStyle(name: FaceName, b: Box): Style;
+export function faceImage(name: FaceName, b: Box): { src: string; wrap: Style; img: Style } | null;
+export function dotStyle(d: NonNullable<Box["faces"][FaceName]>["dots"] extends (infer D)[] | undefined ? D : never): Style;
+export function panelStyle(it: PanelItem): Style;
+export function cableLines(cam: Cam, cable: Cable): { x0: number; y0: number; x1: number; y1: number; w: number; stroke: string }[];
+export function titleStyle(opacity: number): Style;
+export function captionStyles(c: Caption): { pill: Style; badge: Style; text: Style };
+export function createDomRenderer(root: HTMLElement): (st: FrameState) => void;

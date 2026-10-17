@@ -1,24 +1,47 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
-const here = path.dirname(new URL(import.meta.url).pathname);
-const configFile = path.resolve(here, "../config/config.json");
-// The composition is the project-root index.html plus its vendored scripts.
-const compositionFiles = ["index.html", "vendor/gsap.min.js", "vendor/hyperframe.runtime.iife.js"];
+const here = path.dirname(fileURLToPath(import.meta.url));
+const benchmarkDir = path.resolve(here, "..");
+// The compositions are project-root HTML files plus their vendored scripts.
+const compositionFiles = [
+  "index.html",
+  "router.html",
+  "vendor/gsap.min.js",
+  "vendor/hyperframe.runtime.iife.js",
+  "vendor/router-scene.js",
+  "vendor/router-dom.js",
+];
+const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg" };
 
 export default defineConfig({
   root: "demo",
   base: "./",
-  build: { outDir: "../dist-demo", emptyOutDir: true },
+  // The router demo page imports the shared editor from ../shared.
+  server: { fs: { allow: [benchmarkDir] } },
+  build: {
+    outDir: "../dist-demo",
+    emptyOutDir: true,
+    rollupOptions: {
+      input: { main: path.resolve(here, "demo/index.html"), router: path.resolve(here, "demo/router.html") },
+    },
+  },
   plugins: [
     {
       name: "composition-and-config",
       configureServer(server) {
-        server.middlewares.use("/config/config.json", (_req, res) => {
-          res.setHeader("Content-Type", "application/json");
-          res.end(fs.readFileSync(configFile));
-        });
+        // In dev, serve benchmark/config/*.json and benchmark/media/*; in production the
+        // harness server serves benchmark/ so the same URLs work.
+        for (const dir of ["config", "media"]) {
+          server.middlewares.use(`/${dir}`, (req, res, next) => {
+            const file = path.join(benchmarkDir, dir, path.basename((req.url ?? "").split("?")[0]));
+            if (!fs.existsSync(file)) return next();
+            res.setHeader("Content-Type", TYPES[path.extname(file)] ?? "application/octet-stream");
+            res.end(fs.readFileSync(file));
+          });
+        }
         server.middlewares.use("/composition", (req, res, next) => {
           const rel = (req.url ?? "/").split("?")[0].replace(/^\/$/, "/index.html").slice(1);
           if (!compositionFiles.includes(rel)) return next();

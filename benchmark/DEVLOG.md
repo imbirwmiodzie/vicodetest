@@ -78,3 +78,27 @@
 - Remotion lint rejects CSS background-image (it doesn't wait for loading when rendering) -> `<Img>` inside faces.
 - Porting note: HyperFrames can reuse the same DOM/CSS 3D. Revideo draws on canvas 2D (no CSS 3D), so it would
   need its own projection of the boxes.
+
+## Router demo v2: shared scene, extension cable, all three tools
+- Stick fix: the LTE1/LTE2 antenna caps were drawn on the wide face (the first photo was a perspective shot).
+  Now the stick is a box with the straight front photo (logo, LED) on the wide face and the edge photo (LTE caps)
+  on the narrow edge. The CB3 USB port is vertical, so that edge points up while the stick is in the router and
+  sideways once it stands on the extension cable.
+- New continuation (13 s -> 17.5 s): stick unplugged, extension cable's male end into USB 2.0, stick flies over and
+  goes down into the cable's standing female end on the desk, LED back on, zoom out. No hands are drawn.
+- Shared scene in `shared/router-scene.js` (plain JS + .d.ts): `frameState(t, cfg)` returns camera, textured boxes,
+  cables (3D polylines), panel items and captions. Renderers: `shared/router-dom.js` (CSS 3D; plain-DOM renderer for
+  HyperFrames, style helpers that Remotion maps to JSX) and `shared/router-canvas.js` (Revideo).
+  The projection maths reproduces the CSS perspective exactly, so cables are drawn as a flat SVG/canvas layer
+  between the router and the moving parts. Moving parts are cut at the panel (z = 0) instead of relying on depth
+  sorting, which keeps the painter's algorithm in the canvas renderer simple.
+- HyperFrames: second composition `router.html`; one linear GSAP tween drives the scene clock (no per-element tweens,
+  so the motion is identical to the other two). Shared modules are vendored next to it by `scripts/vendor.mjs`.
+  The composition loads them with `<script type="module">` and the runtime picked up `window.__timelines` fine.
+- Revideo: a custom `Node` subclass overriding `draw()`; the whole config is one project variable (`config`).
+  Photo faces are drawn as a grid of triangles, each with an exact affine map (first try used one affine per cell
+  -> visible seams). Worked without new player workarounds (reuses the status-card ones).
+- Photos: Node fetch script replaced by curl scripts (`media/fetch.sh`, `media/fetch.cmd`). In the .cmd, URLs go
+  through a delayed-expansion variable because `call` would expand `%20` again.
+- Local run: `demo.sh` / `demo.cmd` (fetch, npm ci + build x3, serve) and a start page `index.html`.
+  Vite configs now use `fileURLToPath` (URL.pathname breaks on Windows drive letters).

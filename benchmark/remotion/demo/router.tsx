@@ -2,14 +2,9 @@ import { Player, PlayerRef } from "@remotion/player";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { useCurrentFrame } from "remotion";
-import {
-  DURATION_FRAMES,
-  FPS,
-  HOLD_END_FRAME,
-  MEDIA,
-  RouterSetup,
-} from "../src/RouterSetup";
-import { RouterCfg, loadConfig, mountEditor } from "./router-editor";
+import { DURATION_FRAMES, FPS, HOLD_END_FRAME, RouterSetup, type RouterConfig as RouterCfg } from "../src/RouterSetup";
+import { MEDIA } from "../../shared/router-scene.js";
+import { loadConfig, mountEditor, preload } from "../../shared/editor.js";
 
 // Optional hooks injected by benchmark/harness/bench-inject.js; no-ops otherwise.
 const bench = (window as any).__bench as { frame?: (t: number) => void } | undefined;
@@ -61,14 +56,8 @@ const App: React.FC<{ initial: RouterCfg }> = ({ initial }) => {
 };
 
 // Decode the photos before the first frame so the opening frames are complete.
-const preload = (src: string) => {
-  const img = new Image();
-  img.src = src;
-  return img.decode().catch(() => console.warn(`${src} missing: run node media/fetch.mjs`));
-};
-
-Promise.all([loadConfig(), preload(MEDIA.router), preload(MEDIA.stick)]).then(([initial]) => {
+Promise.all([loadConfig(), preload(Object.values(MEDIA).map((m) => m.src))]).then(([initial]) => {
   createRoot(document.getElementById("player")!).render(<App initial={initial} />);
   const editor = mountEditor(document.getElementById("editor")!, initial, (c) => setConfig(c));
-  (window as any).__benchApply = (c: RouterCfg) => editor.set(c);
+  (window as any).__benchApply = (c: Partial<RouterCfg>) => editor.set(c);
 });

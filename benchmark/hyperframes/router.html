@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <!-- Local copies (see scripts/vendor.mjs) so nothing is fetched from a CDN at runtime. -->
+    <script src="./vendor/gsap.min.js"></script>
+    <script src="./vendor/hyperframe.runtime.iife.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1280px; height: 720px; overflow: hidden; background: #fff; font-family: sans-serif; }
+      #root { position: relative; width: 1280px; height: 720px; }
+      .clip { position: absolute; inset: 0; visibility: hidden; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="router-setup"
+      data-start="0"
+      data-duration="17.5"
+      data-width="1280"
+      data-height="720"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="17.5" data-track-index="0"></div>
+    </div>
+    <script type="module">
+      // The scene (timeline maths, geometry, camera) is shared with the Remotion and
+      // Revideo versions; see benchmark/shared/router-scene.js. Here one linear GSAP
+      // tween drives the scene clock and the plain-DOM renderer draws each frame.
+      import { DEFAULTS, DURATION_S, frameState, normalize } from "./vendor/router-scene.js";
+      import { createDomRenderer } from "./vendor/router-dom.js";
+
+      const render = createDomRenderer(document.getElementById("scene"));
+      let cfg = DEFAULTS;
+      const clock = { t: 0 };
+      const draw = () => render(frameState(clock.t, cfg));
+
+      const tl = gsap.timeline({
+        paused: true,
+        // Benchmark instrumentation only: count rendered frames (no-op outside the harness).
+        onUpdate: () => {
+          try { (parent.__bench || window.__bench)?.frame?.(tl.time()); } catch (e) {}
+        },
+      });
+      tl.to(clock, { t: DURATION_S, duration: DURATION_S, ease: "none", onUpdate: draw }, 0);
+
+      window.__hyperframes?.registerRuntimeDataHandler?.("config", (next) => {
+        cfg = normalize({ ...cfg, ...next });
+        draw();
+      });
+      draw();
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["router-setup"] = tl;
+    </script>
+  </body>
+</html>
