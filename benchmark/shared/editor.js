@@ -15,6 +15,7 @@ export function mountEditor(root, initial, onChange) {
     <label>Port <select data-k="port">${[1, 2, 3, 4, 5]
       .map((p) => `<option value="${p}">${p}${p === 4 ? " (WAN)" : p === 5 ? " (10G)" : ""}</option>`)
       .join("")}</select></label>
+    <label>Modem <select data-k="modem"><option value="stick">USB stick (TCL IK41)</option><option value="receiver">5G Receiver (window)</option></select></label>
     <label>Panels <select data-k="panelStyle"><option value="vector">vector drawing</option><option value="photo">photos</option></select></label>
     <label>USB port <select data-k="usbPort"><option value="front">front (USB 3.0)</option><option value="back">back (USB 2.0)</option></select></label>
     <label><input data-k="direct" type="checkbox"> Stick straight into router</label>
@@ -25,7 +26,7 @@ export function mountEditor(root, initial, onChange) {
     <label>Accent <input data-k="accentColor" type="color"></label>
     <label>Speed <input data-k="speed" type="range" min="0.1" max="4" step="0.1"><output data-o="speed"></output></label>
     <label><input data-k="loop" type="checkbox"> Loop</label>
-    <textarea spellcheck="false" rows="18"></textarea>
+    <textarea spellcheck="false" rows="20"></textarea>
     <div class="row"><button data-act="reload">Reload router.json</button><span class="status"></span></div>`;
 
   const q = (s) => root.querySelector(s);
@@ -39,6 +40,7 @@ export function mountEditor(root, initial, onChange) {
     field("port").value = String(cfg.port);
     field("usbPort").value = cfg.usbPort;
     field("panelStyle").value = cfg.panelStyle;
+    field("modem").value = cfg.modem;
     for (const k of BOOLS) field(k).checked = cfg[k];
     // <input type=color> only accepts #rrggbb; leave it alone for other CSS colours.
     for (const k of COLORS) if (/^#[0-9a-f]{6}$/i.test(cfg[k])) field(k).value = cfg[k];

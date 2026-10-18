@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="120" height="70">
+  <defs>
+    <linearGradient id="poe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4E8EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="70" rx="6" fill="url(#poe)"/>
+  <rect x="0.5" y="0.5" width="119" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
+  <text x="34" y="16" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">LAN</text>
+  <text x="86" y="16" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">POE/WAN</text>
+  <!-- LAN socket (silver) and POE/WAN socket (blue) -->
+  <rect x="17" y="22" width="34" height="30" rx="2" fill="#C5CAD1" stroke="#8E959E" stroke-width="1"/>
+  <path d="M27 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#2A2C30"/>
+  <rect x="69" y="22" width="34" height="30" rx="2" fill="#2F6FD8" stroke="#1F4FA0" stroke-width="1"/>
+  <path d="M79 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#14233E"/>
+</svg>

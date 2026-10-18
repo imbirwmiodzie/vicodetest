@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 23" width="378" height="23">
+  <defs>
+    <linearGradient id="ike" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2C31"/><stop offset="0.5" stop-color="#34373D"/><stop offset="1" stop-color="#2A2C31"/>
+    </linearGradient>
+  </defs>
+  <rect width="378" height="23" fill="url(#ike)"/>
+  <path d="M352 0 V23" stroke="#1E2023" stroke-width="1.5"/>
+  
+  <rect x="76" y="3" width="28" height="17" rx="3" fill="#24262A" stroke="#4A4D54" stroke-width="1"/>
+  <text x="90" y="11.5" font-size="7" text-anchor="middle" dominant-baseline="central" fill="#7D828A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">LTE1</text>
+  <rect x="237" y="3" width="28" height="17" rx="3" fill="#24262A" stroke="#4A4D54" stroke-width="1"/>
+  <text x="251" y="11.5" font-size="7" text-anchor="middle" dominant-baseline="central" fill="#7D828A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">LTE2</text>
+</svg>

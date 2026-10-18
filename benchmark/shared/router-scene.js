@@ -27,6 +27,10 @@ export const MEDIA = {
   ledGreen: { src: "/vector/led-green.svg", w: 38, h: 33 },
   guideWhite: { src: "/vector/guide-white.svg", w: 46, h: 71 },
   guideGreen: { src: "/vector/guide-green.svg", w: 46, h: 71 },
+  stickFrontVector: { src: "/vector/ik41-front.svg", w: 378, h: 114 },
+  stickEdgeVector: { src: "/vector/ik41-edge.svg", w: 378, h: 23 },
+  receiverFront: { src: "/vector/receiver-front.svg", w: 240, h: 340 },
+  poeFront: { src: "/vector/poe-front.svg", w: 120, h: 70 },
 };
 
 export const DEFAULTS = {
@@ -37,12 +41,18 @@ export const DEFAULTS = {
   extension: true,
   usbPort: "front",
   panelStyle: "vector",
+  modem: "stick",
   stepEthernet: "Connect the Ethernet cable to port {port}",
   stepDirect: "Plug the TCL LinkKey IK41 into the {usb}",
   stepExtension: "Plug the IK41 into the USB extension cable",
   stepExtensionRouter: "Connect the extension cable to the {usb}",
   stepWindow: "Place the stick near a window for better reception",
   cableLabel: "USB extension cable: up to 10 m",
+  stepMount: "Mount the 5G Receiver on the outside of the window",
+  stepPoe: "Run the flat cable under the window to the PoE adapter (POE/WAN)",
+  stepWan: "Connect the PoE adapter (LAN) to port 4 (WAN) of the router",
+  stepReady: "The 5G Receiver flashes green, then glows steadily: ready",
+  flatCableLabel: "Flat cable: 3 m or 10 m",
   done: "Ready: mobile backup connected",
   cableColor: "#E4E7EB",
   usbCableColor: "#2B2D33",
@@ -53,7 +63,10 @@ export const DEFAULTS = {
 };
 
 const COLOR_KEYS = ["cableColor", "usbCableColor", "ledColor", "accentColor"];
-const TEXT_KEYS = ["title", "stepEthernet", "stepDirect", "stepExtension", "stepExtensionRouter", "stepWindow", "cableLabel", "done"];
+const TEXT_KEYS = [
+  "title", "stepEthernet", "stepDirect", "stepExtension", "stepExtensionRouter", "stepWindow", "cableLabel",
+  "stepMount", "stepPoe", "stepWan", "stepReady", "flatCableLabel", "done",
+];
 const BOOL_KEYS = ["ethernet", "direct", "extension", "loop"];
 
 // Validates a raw config object; invalid or missing fields fall back to DEFAULTS.
@@ -66,6 +79,7 @@ export function normalize(raw, isColor = (c) => typeof CSS === "undefined" || CS
   for (const k of BOOL_KEYS) if (typeof r[k] === "boolean") out[k] = r[k];
   out.usbPort = r.usbPort === "back" ? "back" : "front";
   out.panelStyle = r.panelStyle === "photo" ? "photo" : "vector";
+  out.modem = r.modem === "receiver" ? "receiver" : "stick";
   out.port = Math.min(5, Math.max(1, Math.round(num(r.port, 1))));
   out.speed = Math.min(4, Math.max(0.1, num(r.speed, 1)));
   return out;
@@ -73,9 +87,17 @@ export function normalize(raw, isColor = (c) => typeof CSS === "undefined" || CS
 
 // ---- timeline ---------------------------------------------------------------------
 
-const ACT = { intro: 1.1, ethernet: 3.4, direct: 4.2, extPlug: 3.8, extRouter: 3.4, window: 4.6, done: 2.8, outro: 1.4 };
+const ACT = {
+  intro: 1.1, ethernet: 3.4,
+  // USB stick: straight into the router, onto the extension cable, to the window.
+  direct: 4.2, extPlug: 3.8, extRouter: 3.4, window: 4.6,
+  // 5G Receiver: on the window, flat cable to the PoE adapter, adapter to port 4, ready.
+  rcvMount: 4.0, rcvPoe: 3.8, rcvWan: 3.8, rcvReady: 3.2,
+  done: 2.8, outro: 1.4,
+};
 // Longest possible animation (every step on), e.g. for a fixed-length composition.
-export const MAX_DURATION_S = Object.values(ACT).reduce((a, b) => a + b, 0);
+export const MAX_DURATION_S =
+  ACT.intro + ACT.ethernet + Math.max(ACT.direct + ACT.extPlug + ACT.extRouter + ACT.window, ACT.rcvMount + ACT.rcvPoe + ACT.rcvWan + ACT.rcvReady) + ACT.done + ACT.outro;
 
 // Start time of each enabled step, total duration and where loop:false stops.
 export function timeline(cfg) {
@@ -88,10 +110,15 @@ export function timeline(cfg) {
   };
   add("intro", true);
   add("ethernet", cfg.ethernet);
-  add("direct", cfg.direct);
-  add("extPlug", cfg.extension);
-  add("extRouter", cfg.extension);
-  add("window", cfg.extension);
+  const stick = cfg.modem !== "receiver";
+  add("direct", stick && cfg.direct);
+  add("extPlug", stick && cfg.extension);
+  add("extRouter", stick && cfg.extension);
+  add("window", stick && cfg.extension);
+  add("rcvMount", !stick);
+  add("rcvPoe", !stick);
+  add("rcvWan", !stick);
+  add("rcvReady", !stick);
   add("done", true);
   const holdEnd = t;
   add("outro", true);
@@ -161,7 +188,8 @@ const poseDir = (pose, d) => poseApply({ ...pose, x: 0, y: 0, z: 0 }, d);
 //   img: { media, sx, sy, sw, sh, rot } (source rect turned by rot, stretched to fill),
 //   dots: [{ x, y, w, h, fill, glow?, glowSize?, stripes? }] (in face pixels).
 // ground: drawn before everything else (shadows); layer "back": the wall, drawn behind
-// everything; cull: hide the back side.
+// everything; layer "outside": things outside the window, drawn even before the wall;
+// cull: hide the back side.
 function quad(key, o, u, v, w, h, face, opacity = 1, extra = {}) {
   return { key, o, u, v, w, h, face, opacity, cull: true, ...extra };
 }
@@ -365,11 +393,13 @@ function cams(side, cfg) {
       ? { fx: 2150, fy: -230, fz: 300, zoom: -1350, rotY: 66, rotX: -12 }
       : { fx: 2150, fy: -230, fz: FRONT_Z - 350, zoom: -1350, rotY: 114, rotX: -12 },
   };
-  c.final = cfg.extension
-    ? { ...c.window, zoom: c.window.zoom - 150 }
-    : cfg.direct && !back
-      ? { fx: 800, fy: 160, fz: FRONT_Z - 160, zoom: -560, rotY: FRONT_Y, rotX: RX }
-      : overview;
+  c.rcvMount = { fx: 2800, fy: -330, fz: 380, zoom: -1150, rotY: 62, rotX: -10 };
+  c.rcvPoe = { fx: 2700, fy: -60, fz: 760, zoom: -1450, rotY: 50, rotX: -14 };
+  c.rcvReady = { fx: 1750, fy: -150, fz: 620, zoom: -1750, rotY: 40, rotX: -14 };
+  if (cfg.modem === "receiver") c.final = { ...c.rcvReady, zoom: c.rcvReady.zoom - 120 };
+  else if (cfg.extension) c.final = { ...c.window, zoom: c.window.zoom - 150 };
+  else if (cfg.direct && !back) c.final = { fx: 800, fy: 160, fz: FRONT_Z - 160, zoom: -560, rotY: FRONT_Y, rotX: RX };
+  else c.final = overview;
   return c;
 }
 const portCam = (x) => ({ fx: x + 40, fy: PORT_Y + 10, fz: 110, zoom: 900, rotY: BACK_Y, rotX: RX });
@@ -406,21 +436,52 @@ function routerQuads(style) {
 
 // Wall with a window to the right of the router. It faces -x, so it is only seen in
 // the front and window shots; skipped entirely when it faces away from the camera.
+// The wall has an opening for the window and the glass is see-through, so things
+// mounted outside (the 5G Receiver) show behind it.
+export const WINDOW = { w: 900, top: -820, bottom: DESK - 40, frame: 30 };
 function wallQuads(cam, zc, opacity) {
   if (eye(cam)[0] > WALL.x) return [];
   const u = [0, 0, 1], v = [0, 1, 0];
-  const out = [quad("wall", [WALL.x, WALL.y0, WALL.z0], u, v, WALL.z1 - WALL.z0, DESK - WALL.y0, { gradient: [[0, "#E4E7EC"], [1, "#D9DDE3"]] })];
-  // Window: glass with the frame and the middle bar drawn on it.
-  const w = 900, top = -820, bottom = DESK - 40, h = bottom - top;
-  out.push(quad("window", [WALL.x - 4, top, zc - w / 2], u, v, w, h, {
-    gradient: [[0, "#9CC9F0"], [0.55, "#D6ECFB"], [1, "#F4FAFE"]],
-    stroke: "#FFFFFF",
-    strokeW: 28,
-    dots: [{ x: w / 2 - 9, y: 0, w: 18, h, fill: "#FFFFFF" }, { x: 0, y: h * 0.38, w, h: 14, fill: "#FFFFFF" }],
-  }));
+  const { w, top, bottom, frame: t } = WINDOW;
+  const z0 = zc - w / 2 - t, z1 = zc + w / 2 + t, y0 = top - t, y1 = bottom + t;
+  const wall = { fill: "#DFE2E7" };
+  // Wall pieces around the opening, cut into tiles: Chrome's CSS 3D sometimes leaves
+  // very large planes unpainted.
+  const piece = (key, za, zb, ya, yb) => {
+    const nz = Math.ceil((zb - za) / 900), ny = Math.ceil((yb - ya) / 900);
+    const tiles = [];
+    for (let i = 0; i < nz; i++) {
+      for (let j = 0; j < ny; j++) {
+        const a = za + ((zb - za) * i) / nz, b = ya + ((yb - ya) * j) / ny;
+        tiles.push(quad(`${key}-${i}-${j}`, [WALL.x, b, a], u, v, (zb - za) / nz, (yb - ya) / ny, wall));
+      }
+    }
+    return tiles;
+  };
+  const out = [
+    ...piece("wall-left", WALL.z0, z0, WALL.y0, DESK),
+    ...piece("wall-right", z1, WALL.z1, WALL.y0, DESK),
+    ...piece("wall-top", z0, z1, WALL.y0, y0),
+    ...piece("wall-bottom", z0, z1, y1, DESK),
+    quad("window-glass", [WALL.x + 2, top, zc - w / 2], u, v, w, bottom - top, {
+      gradient: [[0, "rgba(140,195,240,0.4)"], [0.55, "rgba(205,232,250,0.28)"], [1, "rgba(240,248,254,0.22)"]],
+    }),
+  ];
+  // Frame and the two glazing bars, slightly in front of the glass.
+  const white = { fill: "#FFFFFF", stroke: "#D5DAE0" };
+  const bar = (key, za, zb, ya, yb) => quad(key, [WALL.x - 2, ya, za], u, v, zb - za, yb - ya, white);
+  const h = bottom - top;
+  out.push(
+    bar("frame-left", z0, z0 + t, y0, y1),
+    bar("frame-right", z1 - t, z1, y0, y1),
+    bar("frame-top", z0, z1, y0, top),
+    bar("frame-bottom", z0, z1, bottom, y1),
+    bar("bar-v", zc - 9, zc + 9, top, bottom),
+    bar("bar-h", zc - w / 2, zc + w / 2, top + h * 0.38, top + h * 0.38 + 14),
+  );
   // Always the farthest thing in view: renderers draw this layer first (CSS gets a
   // separate layer, which also keeps Chrome's depth sorting away from the huge plane).
-  for (const q of out) Object.assign(q, { opacity, layer: "back" });
+  for (const q of out) Object.assign(q, { opacity: q.opacity * opacity, layer: "back" });
   return out;
 }
 
@@ -433,20 +494,20 @@ function panelQuad(key, side, x, y, w, h, face, opacity = 1) {
 
 // ---- moving parts -----------------------------------------------------------------
 
-function ethernetPlug(x, gap, color) {
-  const pose = { x: 0, y: 0, z: 0 };
-  const y = PORT_Y + 2;
+// RJ45 plug pointing to -z into a socket whose face is at z = face (back panel: 0).
+function ethernetPlug(x, gap, color, { key = "eth", y = PORT_Y + 2, face = 0, boot: bootColor = color } = {}) {
+  const pose = { x: 0, y: 0, z: face };
   const plastic = { fill: "rgba(232,236,240,0.82)", stroke: "rgba(150,160,170,0.9)" };
   const contacts = { ...plastic, dots: [{ x: 4, y: 4, w: 22, h: 8, fill: "#C9A23A", stripes: true }] };
-  const boot = (k) => ({ fill: shadeRGB(color, k) });
+  const boot = (k) => ({ fill: shadeRGB(bootColor, k) });
   return [
-    ...box("eth-body", pose, x, y, Math.max(0, gap - 100), gap + 20, 58, 44, {
+    ...box(`${key}-body`, pose, x, y, Math.max(0, gap - 100), gap + 20, 58, 44, {
       front: plastic, top: plastic, right: contacts, left: plastic, bottom: plastic,
     }),
-    ...box("eth-latch", pose, x, y - 27, Math.max(0, gap - 55), gap + 15, 22, 10, {
+    ...box(`${key}-latch`, pose, x, y - 27, Math.max(0, gap - 55), gap + 15, 22, 10, {
       front: plastic, top: plastic, right: plastic, left: plastic,
     }),
-    ...box("eth-boot", pose, x, y, gap + 20, gap + 110, 52, 40, {
+    ...box(`${key}-boot`, pose, x, y, gap + 20, gap + 110, 52, 40, {
       front: boot(0.05), top: boot(0), right: boot(0.12), left: boot(0.12), bottom: boot(0.25),
     }),
   ];
@@ -469,19 +530,23 @@ function usbPlug(key, pose, inserted) {
 }
 
 // Stick in its own frame: plug points to -z, collar at z = 0..30, body behind it.
-function stick(pose, inserted, led) {
+function stick(pose, inserted, led, vector) {
   const s = STICK;
   const dark = "#2A2C31";
-  // Photos cropped by the corner radius on both sides, so the rounded edges aren't doubled.
-  const kf = 268 / s.h, ke = 106 / s.w;
-  const front = {
-    fill: dark,
-    img: { media: "stickFront", sx: 136 + s.r * kf, sy: 240, sw: 268 - 2 * s.r * kf, sh: 655, rot: 90 },
-    // The photo's LED slit (270, 749), in face pixels of the turned photo.
-    dots: led > 0 ? [{ x: 86, y: 75 - s.r - 6, w: 4, h: 12, fill: "#5EC8FF", glow: `rgba(94,200,255,${led})`, glowSize: 6 + 6 * led }] : [],
-  };
-  // Edge photo with the LTE1/LTE2 antenna caps.
-  const edge = { fill: dark, img: { media: "stickEdge", sx: 167 + s.r * ke, sy: 215, sw: 106 - 2 * s.r * ke, sh: 677, rot: 90 } };
+  // LED slit (photo pixel (270, 749)), in face pixels of the wide face.
+  const dots = led > 0 ? [{ x: 86, y: 75 - s.r - 6, w: 4, h: 12, fill: "#5EC8FF", glow: `rgba(94,200,255,${led})`, glowSize: 6 + 6 * led }] : [];
+  let front, edge;
+  if (vector) {
+    // Vector redraw (vector/ik41-*.svg), drawn at the faces' own size.
+    front = { fill: dark, img: { media: "stickFrontVector", sx: 0, sy: 0, sw: 378, sh: 114, rot: 0 }, dots, res: 3 };
+    edge = { fill: dark, img: { media: "stickEdgeVector", sx: 0, sy: 0, sw: 378, sh: 23, rot: 0 }, res: 3 };
+  } else {
+    // Photos cropped by the corner radius on both sides, so the rounded edges aren't doubled.
+    const kf = 268 / s.h, ke = 106 / s.w;
+    front = { fill: dark, img: { media: "stickFront", sx: 136 + s.r * kf, sy: 240, sw: 268 - 2 * s.r * kf, sh: 655, rot: 90 }, dots };
+    // Edge photo with the LTE1/LTE2 antenna caps.
+    edge = { fill: dark, img: { media: "stickEdge", sx: 167 + s.r * ke, sy: 215, sw: 106 - 2 * s.r * ke, sh: 677, rot: 90 } };
+  }
   return [
     ...usbPlug("stick-plug", pose, inserted),
     ...roundedPrism("stick-collar", pose, 0, s.collar, s.collarW, s.collarH, 14, 2, "#2E3035"),
@@ -508,6 +573,72 @@ function dock(pose, color) {
   ];
 }
 
+// ---- 5G Receiver ------------------------------------------------------------------
+
+// Outdoor unit (vector/receiver-front.svg on its inside face), hung on the outside of
+// the window; PoE adapter on the desk inside. Sizes are stylised to suit the scene.
+const RCV = { w: 240, h: 340, d: 50, r: 30 };
+const POE = { x: 2780, z: 1000, w: 240, h: 140, d: 200 };
+const POE_FACE = POE.z + POE.d / 2;
+const POE_PORTS = { lan: POE.x - POE.w / 2 + 68, poe: POE.x - POE.w / 2 + 172, y: DESK - POE.h + 74 };
+
+function receiver(pose, led) {
+  // ry = 90 turns the prism's axis to +x: its near cap faces into the room.
+  const front = {
+    img: { media: "receiverFront", sx: 0, sy: 0, sw: RCV.w, sh: RCV.h, rot: 0 },
+    res: 2,
+    dots: led > 0 ? [{ x: 195.5, y: 25.5, w: 9, h: 9, fill: "#46F08A", glow: `rgba(70,240,138,${led})`, glowSize: 10 }] : [],
+  };
+  return roundedPrism("rcv", { ...pose, ry: 90 }, 0, RCV.d, RCV.w, RCV.h, RCV.r, 3, "#E9ECF0", { near: front });
+}
+
+// Bracket arms from the window frame to the unit.
+function bracket(cy, cz) {
+  const white = { fill: "#F1F3F6" }, shade = { fill: "#D9DDE3" };
+  const arm = (key, y) => box(key, { x: 0, y: 0, z: 0 }, WALL.x + 20, y, cz - 70, cz + 70, 40, 16, {
+    top: white, bottom: shade, front: white, back: shade, left: white, right: white,
+  });
+  return [...arm("rcv-arm-top", cy - RCV.h / 2 + 50), ...arm("rcv-arm-bottom", cy + RCV.h / 2 - 50)];
+}
+
+function poeAdapter(drop) {
+  const white = (k) => ({ fill: shadeRGB("#F4F6F8", k), radius: 6 });
+  return [
+    ...box("poe-shadow", { x: 0, y: 0, z: 0 }, POE.x, DESK, POE.z - POE.d, POE.z + POE.d, POE.w * 1.6, 0, { top: { shadow: true, ground: true } }),
+    ...box("poe", { x: 0, y: 0, z: 0 }, POE.x, DESK - POE.h / 2 - drop, POE.z - POE.d / 2, POE.z + POE.d / 2, POE.w, POE.h, {
+      front: { fill: "#F4F6F8", radius: 6, img: { media: "poeFront", sx: 0, sy: 0, sw: 120, sh: 70, rot: 0 }, res: 2 },
+      top: white(-0.3), left: white(0.08), right: white(0.12), back: white(0.15),
+    }),
+  ];
+}
+
+// Flat cable: from the unit down the outside of the window, under the sash, down the
+// wall inside and along the desk into the adapter's POE/WAN socket.
+function flatCablePts(cy, cz, gap) {
+  const x0 = WALL.x + 65, sill = WINDOW.bottom + WINDOW.frame - 4;
+  const end = [POE_PORTS.poe, POE_PORTS.y + 2, POE_FACE + gap + 110];
+  const pts = [[x0, cy + RCV.h / 2, cz]];
+  line(pts, [x0, sill - 40, cz], 6);
+  cubic(pts, pts[pts.length - 1], [x0, sill, cz], [x0, sill, cz], [WALL.x + 10, sill, cz], 4);
+  line(pts, [WALL.x - 18, sill, cz], 2);
+  cubic(pts, pts[pts.length - 1], [WALL.x - 24, sill + 6, cz], [WALL.x - 24, DESK - 6, cz], [WALL.x - 60, DESK - 6, cz + 30], 5);
+  cubic(pts, pts[pts.length - 1], [WALL.x - 200, DESK - 6, cz + 200], [end[0], DESK - 6, end[2] + 300], [end[0], DESK - 6, end[2] + 140], 14);
+  cubic(pts, pts[pts.length - 1], [end[0], DESK - 6, end[2] + 60], [end[0], end[1], end[2] + 60], end, 6);
+  return pts;
+}
+
+// Ethernet cable from the router's port 4 along the desk to the adapter's LAN socket.
+function wanCablePts(x, gapRouter, gapPoe) {
+  const yd = DESK - 15;
+  const s = [x, PORT_Y + 2, gapRouter + 110];
+  const e = [POE_PORTS.lan, POE_PORTS.y + 2, POE_FACE + gapPoe + 110];
+  const pts = [s];
+  cubic(pts, s, [x, s[1], s[2] + 160], [x, yd, s[2] + 120], [x + 60, yd, s[2] + 320], 12);
+  cubic(pts, pts[pts.length - 1], [x + 700, yd, s[2] + 620], [e[0] - 300, yd, e[2] + 420], [e[0], yd, e[2] + 160], 24);
+  cubic(pts, pts[pts.length - 1], [e[0], yd, e[2] + 60], [e[0], e[1], e[2] + 60], e, 6);
+  return pts;
+}
+
 // ---- 2D overlays -------------------------------------------------------------------
 
 // Cartoon hand gripping the stick, in world-sized units around the grip point:
@@ -531,10 +662,13 @@ export function frameState(t, cfg) {
   const tl = timeline(cfg);
   // Local time in a step, or null if the step is off or hasn't started yet.
   const L = (name) => (tl.at[name] === undefined || t < tl.at[name] ? null : t - tl.at[name]);
-  const side = cfg.usbPort;
+  const rcv = cfg.modem === "receiver";
+  // The 5G Receiver goes to port 4 on the back; its window is on the back side.
+  const side = rcv ? "back" : cfg.usbPort;
   const usb = USB[side];
   const C = cams(side, cfg);
-  const portN = clamp(Math.round(cfg.port) || 1, 1, 5);
+  // Port 4 is taken by the receiver, so the LAN cable moves to port 1 then.
+  const portN = rcv && Math.round(cfg.port) === 4 ? 1 : clamp(Math.round(cfg.port) || 1, 1, 5);
   const port = PORTS[portN - 1];
   const accent = cfg.accentColor;
   const fadeOut = 1 - easeInCubic(prog(t, tl.holdEnd, tl.holdEnd + 0.8));
@@ -558,6 +692,10 @@ export function frameState(t, cfg) {
   move(L("extPlug"), 0, 1.2, C.dock);
   move(L("extRouter"), 0, 1.0, C.plug);
   move(L("window"), 0, 1.4, C.window);
+  move(L("rcvMount"), 0, 1.2, C.rcvMount);
+  move(L("rcvPoe"), 0, 1.2, C.rcvPoe);
+  move(L("rcvWan"), 0, 1.0, portCam(PORTS[3].x));
+  move(L("rcvReady"), 0, 1.4, C.rcvReady);
   move(L("done"), 0, 1.0, C.final);
 
   const quads = [...ROUTER[cfg.panelStyle]];
@@ -653,12 +791,48 @@ export function frameState(t, cfg) {
     stickIns = USB_PLUG.len;
   }
 
-  if (stickPose) quads.push(...stick(stickPose, stickIns, stickLed));
+  if (stickPose) quads.push(...stick(stickPose, stickIns, stickLed, vector));
   if (dockPose) quads.push(...dock(dockPose, cfg.usbCableColor));
   if (male) {
     quads.push(...extensionMale(male.pose, male.ins, cfg.usbCableColor));
     cables.push(["ext-cable", extensionCablePts(male.pose, dockPose), 10, cfg.usbCableColor, 1]);
   }
+  // 5G Receiver: on the window, flat cable into the PoE adapter, adapter to port 4.
+  const lm = L("rcvMount"), lp = L("rcvPoe"), lwan = L("rcvWan"), lrd = L("rcvReady");
+  const rcvZ = winZ + 200, rcvY = -380;
+  if (lm !== null && lm >= 0.8) {
+    for (const q of bracket(rcvY, rcvZ)) quads.push({ ...q, layer: "outside" });
+    // Slides down onto the bracket and clicks in.
+    const drop = travel(lm, 1.0, 2.4, 420, 14);
+    let led = 0;
+    if (lrd !== null) led = lrd < 1.8 ? (Math.floor(lrd * 6) % 2 ? 0.2 : 1) : 1; // flashes, then steady
+    for (const q of receiver({ x: WALL.x + 40, y: rcvY - drop, z: rcvZ }, led)) quads.push({ ...q, layer: "outside" });
+  }
+  if (lp !== null && lp >= 0.3) {
+    quads.push(...poeAdapter((1 - easeOutCubic(prog(lp, 0.3, 0.8))) * 400));
+    if (lp >= 0.8) {
+      const gap = travel(lp, 1.2, 2.6, 300, 12);
+      quads.push(...ethernetPlug(POE_PORTS.poe, gap, "#F2F4F6", { key: "flat", y: POE_PORTS.y, face: POE_FACE, boot: "#2F6FD8" }));
+      cables.push(["flat-cable", flatCablePts(rcvY, rcvZ, gap), 6, "#F2F4F6", 1]);
+    }
+  }
+  if (lwan !== null) {
+    const gap = travel(lwan, 1.0, 2.5, 520, 14);
+    const wanX = PORTS[3].x;
+    quads.push(...ethernetPlug(wanX, gap, cfg.cableColor, { key: "wan" }));
+    quads.push(...ethernetPlug(POE_PORTS.lan, 0, cfg.cableColor, { key: "lan", y: POE_PORTS.y, face: POE_FACE }));
+    cables.push(["wan-cable", wanCablePts(wanX, gap, 0), 15, cfg.cableColor, 1]);
+    const hl = pulse(lwan, 0.5, 2.7);
+    if (hl > 0) quads.push(panelQuad("hl-wan", "back", wanX - 40, 88, 80, 72, outline(accent), 0.35 + 0.65 * hl));
+    ripple(quads, "rp-wan", "back", wanX, PORT_Y, prog(lwan, 2.7, 3.2), accent);
+    if (lwan >= 2.9 && Math.floor((lwan - 2.9) * 8) % 6 !== 3) {
+      const [x, y, w, h] = PORTS[3].led;
+      quads.push(vector
+        ? panelQuad("led-wan", "back", x - 12, y - 12, w + 24, h + 24, sprite("ledGreen"))
+        : panelQuad("led-wan", "back", x, y, w, h, { fill: cfg.ledColor, radius: 2, glow: cfg.ledColor }));
+    }
+  }
+
   // Front LEDs: power always on, Mobile Internet while the stick is connected.
   const frontLed = (key, name, color, media) => {
     if (vector) {
@@ -673,8 +847,14 @@ export function frameState(t, cfg) {
   if (mobileLed) frontLed("led-mobile", "mobile", cfg.ledColor, "guideGreen");
   frontLed("led-power", "power", "#F4F6F8", "guideWhite");
 
-  if (lw !== null || (cfg.extension && L("done") !== null)) quads.push(...wallQuads(cam, winZ, lw === null ? 1 : easeOutCubic(prog(lw, 0, 0.8))));
-  for (const [key, pts, r, color, opacity] of cables) quads.push(...cable(key, pts, r, color, cam, opacity));
+  const wallFrom = rcv ? lm : lw;
+  if (wallFrom !== null || ((rcv || (cfg.extension && tl.at.window !== undefined)) && L("done") !== null)) {
+    quads.push(...wallQuads(cam, winZ, wallFrom === null ? 1 : easeOutCubic(prog(wallFrom, 0, 0.8))));
+  }
+  for (const [key, pts, r, color, opacity] of cables) {
+    // Cable outside the window belongs to the outside layer, behind the glass.
+    for (const q of cable(key, pts, r, color, cam, opacity)) quads.push(q.o[0] > WALL.x + 1 ? { ...q, layer: "outside" } : q);
+  }
 
   if (lw !== null && stickPose) {
     // Hand: comes in, holds the stick while carrying it, then leaves.
@@ -690,6 +870,14 @@ export function frameState(t, cfg) {
     overlays.push({ type: "label", x: clamp(s[0], 260, WIDTH - 260), y: clamp(s[1] - 30, 150, 560), text: cfg.cableLabel, opacity: a * fadeOut });
   }
 
+  // Shown with the flat cable, but not during the close-up on port 4.
+  if (rcv && lp !== null && lp >= 1.6 && (lwan === null || lrd !== null)) {
+    const pts = flatCablePts(rcvY, rcvZ, 0);
+    const s = project(cam, pts[Math.floor(pts.length * 0.55)]);
+    const a = easeOutCubic(prog(lp, 1.6, 2.1));
+    overlays.push({ type: "label", x: clamp(s[0], 260, WIDTH - 260), y: clamp(s[1] - 30, 150, 560), text: cfg.flatCableLabel, opacity: a * fadeOut });
+  }
+
   // Captions, numbered in the order of the enabled steps.
   const steps = [
     ["ethernet", cfg.stepEthernet.split("{port}").join(String(portN)), 0.3, ACT.ethernet],
@@ -697,6 +885,10 @@ export function frameState(t, cfg) {
     ["extPlug", cfg.stepExtension, 0.3, ACT.extPlug],
     ["extRouter", cfg.stepExtensionRouter.split("{usb}").join(usb.name), 0.2, ACT.extRouter],
     ["window", cfg.stepWindow, 0.2, ACT.window],
+    ["rcvMount", cfg.stepMount, 0.3, ACT.rcvMount],
+    ["rcvPoe", cfg.stepPoe, 0.3, ACT.rcvPoe],
+    ["rcvWan", cfg.stepWan, 0.2, ACT.rcvWan],
+    ["rcvReady", cfg.stepReady, 0.2, ACT.rcvReady],
   ].filter(([name]) => tl.at[name] !== undefined);
   const captions = steps.map(([name, text, a, dur], i) => {
     const l = L(name) ?? -1;

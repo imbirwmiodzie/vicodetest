@@ -35,7 +35,7 @@ const renderQuad = (q: Quad) => {
           <Img src={im.src} style={im.img} />
         </div>
       ) : null}
-      {q.face.dots?.map((d, i) => <div key={i} style={dotStyle(d)} />)}
+      {q.face.dots?.map((d, i) => <div key={i} style={dotStyle(d, q.face.res)} />)}
     </div>
   );
 };
@@ -48,13 +48,13 @@ export const RouterSetup: React.FC<RouterConfig> = (cfg) => {
   return (
     <div style={layerStyles.root}>
       <div style={{ ...layerStyles.stage, opacity: st.opacity }}>
-        {/* The wall gets its own layer behind everything (see router-scene.js). */}
-        <div style={{ ...layerStyles.world, transform: worldTransform(st.cam) }}>
-          {st.quads.filter((q) => q.layer === "back").map(renderQuad)}
-        </div>
-        <div style={{ ...layerStyles.world, transform: worldTransform(st.cam) }}>
-          {st.quads.filter((q) => q.layer !== "back").map(renderQuad)}
-        </div>
+        {/* Outside the window, then the wall, then everything else: separate layers in
+            that order (see router-scene.js). */}
+        {[(q: Quad) => q.layer === "outside", (q: Quad) => q.layer === "back", (q: Quad) => !q.layer].map((keep, i) => (
+          <div key={i} style={{ ...layerStyles.world, transform: worldTransform(st.cam) }}>
+            {st.quads.filter(keep).map(renderQuad)}
+          </div>
+        ))}
       </div>
       {st.overlays.map((o) =>
         o.type === "hand" ? (

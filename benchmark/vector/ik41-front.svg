@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 114" width="378" height="114">
+  <defs>
+    <linearGradient id="ik" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A3D43"/><stop offset="0.5" stop-color="#2D2F34"/><stop offset="1" stop-color="#26282C"/>
+    </linearGradient>
+    <linearGradient id="ik-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.07"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="378" height="114" fill="url(#ik)"/>
+  <rect width="378" height="114" fill="url(#ik-sheen)"/>
+  <!-- cap seam near the plug end -->
+  <path d="M352 0 V114" stroke="#1E2023" stroke-width="1.5"/>
+  <text x="257" y="57" font-size="34" font-weight="800" letter-spacing="2" text-anchor="middle" dominant-baseline="central"
+    fill="#8E9299" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">TCL</text>
+  <!-- LED slit -->
+  <rect x="85" y="51" width="5" height="12" rx="2.5" fill="#15161A"/>
+</svg>

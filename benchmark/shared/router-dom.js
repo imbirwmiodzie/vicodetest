@@ -2,7 +2,7 @@
 // plain-DOM renderer (used by HyperFrames; Remotion maps the same helpers to JSX).
 // Every quad is one element with a matrix3d transform inside a preserve-3d world, so
 // the browser sorts them in depth (the router hides what is behind it). The wall sits
-// in its own world behind the main one.
+// in its own world behind the main one, and things outside the window behind that.
 import { HAND, MEDIA, VIEW, WIDTH, HEIGHT, cross3, cssWorld } from "./router-scene.js";
 
 const SHADOW = "radial-gradient(closest-side, rgba(0,0,0,0.28), rgba(0,0,0,0.12) 60%, rgba(0,0,0,0))";
@@ -75,15 +75,16 @@ export function faceImage(q) {
   };
 }
 
-export const dotStyle = (d) => ({
+// R: the face's `res` (its children are laid out that many times larger).
+export const dotStyle = (d, R = 1) => ({
   position: "absolute",
-  left: d.x,
-  top: d.y,
-  width: d.w,
-  height: d.h,
-  borderRadius: Math.min(d.w, d.h) / 2,
-  background: d.stripes ? `repeating-linear-gradient(90deg, ${d.fill} 0 2px, transparent 2px 4px)` : d.fill,
-  boxShadow: d.glow ? `0 0 ${d.glowSize ?? 10}px ${(d.glowSize ?? 10) / 2}px ${d.glow}` : undefined,
+  left: d.x * R,
+  top: d.y * R,
+  width: d.w * R,
+  height: d.h * R,
+  borderRadius: (Math.min(d.w, d.h) / 2) * R,
+  background: d.stripes ? `repeating-linear-gradient(90deg, ${d.fill} 0 ${2 * R}px, transparent ${2 * R}px ${4 * R}px)` : d.fill,
+  boxShadow: d.glow ? `0 0 ${(d.glowSize ?? 10) * R}px ${((d.glowSize ?? 10) / 2) * R}px ${d.glow}` : undefined,
 });
 
 export const handTransform = (o) => `translate(${f(o.x)} ${f(o.y)}) scale(${f(o.s)})`;
@@ -180,8 +181,10 @@ const el = (tag, style, parent) => {
 export function createDomRenderer(root) {
   Object.assign(root.style, px(layerStyles.root));
   const stage = el("div", layerStyles.stage, root);
+  const outsideWorld = el("div", layerStyles.world, stage);
   const backWorld = el("div", layerStyles.world, stage);
   const world = el("div", layerStyles.world, stage);
+  const layerOf = { outside: outsideWorld, back: backWorld };
   const svg = document.createElementNS(SVGNS, "svg");
   svg.setAttribute("width", String(WIDTH));
   svg.setAttribute("height", String(HEIGHT));
@@ -219,13 +222,13 @@ export function createDomRenderer(root) {
 
   return function render(st) {
     stage.style.opacity = String(st.opacity);
-    world.style.transform = backWorld.style.transform = worldTransform(st.cam);
+    world.style.transform = backWorld.style.transform = outsideWorld.style.transform = worldTransform(st.cam);
 
     const seen = new Set();
     for (const q of st.quads) {
       seen.add(q.key);
       let rec = quads.get(q.key);
-      if (!rec) quads.set(q.key, (rec = { e: el("div", null, q.layer === "back" ? backWorld : world), sig: "" }));
+      if (!rec) quads.set(q.key, (rec = { e: el("div", null, layerOf[q.layer] ?? world), sig: "" }));
       set(rec.e, quadStyle(q));
       const sig = JSON.stringify([q.face.img, q.face.dots, q.w, q.h]);
       if (sig !== rec.sig) {
@@ -238,7 +241,7 @@ export function createDomRenderer(root) {
           img.src = im.src;
           img.alt = "";
         }
-        for (const d of q.face.dots ?? []) el("div", dotStyle(d), rec.e);
+        for (const d of q.face.dots ?? []) el("div", dotStyle(d, q.face.res), rec.e);
       }
     }
     for (const [k, rec] of quads) if (!seen.has(k)) hide(rec.e);

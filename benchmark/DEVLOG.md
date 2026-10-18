@@ -133,3 +133,18 @@
 - Canvas seams fixed along the way: triangles grown by offsetting each edge outwards (not from the centre), base
   colour painted for all pieces before the image (it tinted the overlaps), and plain opaque faces get a hairline in
   their own colour (anti-aliasing gaps between the stick's facets).
+
+## Vector USB stick, 5G Receiver option
+- IK41 redrawn as vector faces (vector/ik41-front.svg with logo text and LED slit, ik41-edge.svg with the LTE caps);
+  used with `panelStyle: "vector"`.
+- The Allegro listing for the Nokia unit returns 403 to scripted access (curl and headless Chromium), and so does
+  nokia.com, so its photos could not be used. The Centro Business guide's own "5G Receiver" installation (CB3 + FMR)
+  shows the window-mounted receiver, its flat cable, the PoE adapter (LAN, POE/WAN) and port 4 (WAN); the receiver
+  and adapter were redrawn after those pictures (vector/receiver-front.svg, poe-front.svg).
+- `modem: "receiver"` replaces the stick steps with: mount the receiver outside the window, flat cable under the window
+  into the PoE adapter, adapter LAN to port 4, receiver LED flashes then glows green. A LAN cable on port 4 moves to 1.
+- The wall now has a real opening and see-through glass. Chrome left some large wall planes unpainted, so the wall is
+  tiled, and things outside the window (receiver, bracket, outside part of the cable) get their own layer drawn before
+  the wall layer (CSS: a third preserve-3d world; canvas: rank -1).
+- Canvas: gradient-only faces (glass, cables) are drawn as one polygon with a screen-space gradient; the triangle grid
+  doubled up the see-through colours where pieces overlap.

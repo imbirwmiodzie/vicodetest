@@ -4,7 +4,8 @@ Two animations, each built with all three tools:
 
 - **Centro Business 3.0 setup** (`*/dist-demo/router.html`): Ethernet cable into a LAN port,
   the TCL LinkKey IK41 into the front (or back) USB port, then the stick plugged into a USB
-  extension cable, the cable into the router, and a hand carrying the stick to a window.
+  extension cable, the cable into the router, and a hand carrying the stick to a window. Or, with
+  `modem: "receiver"`, a 5G Receiver mounted outside the window and connected via a PoE adapter to port 4.
   The scene lives in `shared/` (timeline, geometry, camera) so all three play the same animation;
   Remotion and HyperFrames draw it with CSS 3D, Revideo projects it onto its canvas.
 - **Status card** (`*/dist-demo/`): the benchmark animation from `PLAN.md`.
@@ -39,8 +40,8 @@ The script downloads the product photos, installs and builds the three demos, an
 
 They belong to Swisscom and TCL/KOMSA and are not committed to this repo. The router panels are
 also available as a clean vector redraw (`vector/`, committed, made from measured positions:
-`node vector/build-panels.mjs` regenerates the SVGs and the lit-LED sprites); the USB stick still
-uses the photos.
+`node vector/build-panels.mjs` regenerates the SVGs and the lit-LED sprites), and so are the USB stick,
+the 5G Receiver and its PoE adapter (redrawn after the guide's 5G Receiver installation pictures).
 
 ## Live config
 
@@ -57,7 +58,8 @@ Router demo (`config/router.json`):
 | `direct` | `false` leaves out plugging the stick straight into the router |
 | `extension` | `false` leaves out the extension cable and the window |
 | `usbPort` | `"front"` (USB 3.0) or `"back"` (USB 2.0); used by both USB steps (`{usb}` in the texts) |
-| `panelStyle` | `"vector"` (default: the clean redraw in `vector/`) or `"photo"` (the guide's photos) for the router's back and front panels |
+| `modem` | `"stick"` (TCL IK41 USB stick, default) or `"receiver"` (5G Receiver on the outside of the window, flat cable to a PoE adapter, adapter to port 4 WAN) |
+| `panelStyle` | `"vector"` (default: the clean redraws in `vector/`) or `"photo"` (the photos) for the router panels and the USB stick |
 | `step*`, `done`, `cableLabel`, `title` | caption texts; `cableLabel` is shown along the extension cable |
 | `cableColor`, `usbCableColor`, `ledColor`, `accentColor` | colours |
 | `speed`, `loop` | playback speed, loop or play once |

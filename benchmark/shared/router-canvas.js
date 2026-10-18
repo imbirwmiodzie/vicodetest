@@ -47,7 +47,7 @@ function drawQuads(ctx, base, cam, quads, images, alpha) {
     const c = at(q, q.w / 2, q.h / 2);
     return planes.some(([n, d]) => n[0] * c[0] + n[1] * c[1] + n[2] * c[2] > d + 0.5);
   };
-  const rank = (q) => (q.layer === "back" ? 0 : q.ground ? 1 : q.solid ? 3 : inFront(q) ? 4 : 2);
+  const rank = (q) => (q.layer === "outside" ? -1 : q.layer === "back" ? 0 : q.ground ? 1 : q.solid ? 3 : inFront(q) ? 4 : 2);
   for (const item of list) item.rank = rank(item.q);
   list.sort((a, b) => a.rank - b.rank || a.depth - b.depth);
   for (const { q, ss } of list) {
@@ -70,6 +70,20 @@ function drawQuads(ctx, base, cam, quads, images, alpha) {
         ctx.lineWidth = face.stroke ? 1 : 0.9;
         ctx.stroke();
       }
+    } else if (face.gradient && !face.img && !face.radius) {
+      // Gradient-only faces (glass, cable strips) as one polygon with the gradient laid
+      // from the top edge to the bottom edge on screen: no overlapping pieces, which
+      // would double up where the colours are see-through.
+      const top = [(ss[0][0] + ss[1][0]) / 2, (ss[0][1] + ss[1][1]) / 2];
+      const bottom = [(ss[3][0] + ss[2][0]) / 2, (ss[3][1] + ss[2][1]) / 2];
+      const g = ctx.createLinearGradient(top[0], top[1], bottom[0], bottom[1]);
+      for (const [stop, c] of face.gradient) g.addColorStop(stop, c);
+      ctx.setTransform(base);
+      ctx.beginPath();
+      ss.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+      ctx.closePath();
+      ctx.fillStyle = g;
+      ctx.fill();
     } else if (face.img || face.gradient || face.shadow || big) {
       drawGrid(ctx, base, cam, q, images);
     } else {

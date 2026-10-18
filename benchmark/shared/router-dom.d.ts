@@ -4,7 +4,7 @@ export const layerStyles: { root: Style; stage: Style; world: Style; svg: Style 
 export function worldTransform(cam: Cam): string;
 export function quadStyle(q: Quad): Style;
 export function faceImage(q: Quad): { src: string; wrap: Style; img: Style } | null;
-export function dotStyle(d: Dot): Style;
+export function dotStyle(d: Dot, R?: number): Style;
 export function handTransform(o: Extract<Overlay, { type: "hand" }>): string;
 export const HAND_SHAPES: { d: string; fill: string; stroke?: string }[];
 export function labelStyle(o: Extract<Overlay, { type: "label" }>): Style;

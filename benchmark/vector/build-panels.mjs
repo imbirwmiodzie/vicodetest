@@ -243,4 +243,84 @@ fs.writeFileSync(path.join(DIR, "led-green.svg"), sprite(ledW + 2 * lm, ledH + 2
 for (const color of ["white", "green", "blue"]) {
   fs.writeFileSync(path.join(DIR, `guide-${color}.svg`), sprite(guideW + 2 * gm, guideH + 2 * gm, lightGuide(gm + guideW, gm, gm, gm + guideH, color)));
 }
-console.log("wrote cb3-back.svg, cb3-front.svg, cb3-back-lit.svg, cb3-front-lit.svg and the lit-LED sprites");
+
+// ---- TCL LinkKey IK41 (USB stick) ----------------------------------------------------
+// Faces of the stick body as the animation maps them: the wide face (378 x 114, plug end
+// on the right) with logo and LED slit, and the narrow edge (378 x 23) with the two
+// antenna-socket caps. Positions measured on the KOMSA photos.
+const stickFront = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 114" width="378" height="114">
+  <defs>
+    <linearGradient id="ik" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A3D43"/><stop offset="0.5" stop-color="#2D2F34"/><stop offset="1" stop-color="#26282C"/>
+    </linearGradient>
+    <linearGradient id="ik-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.07"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="378" height="114" fill="url(#ik)"/>
+  <rect width="378" height="114" fill="url(#ik-sheen)"/>
+  <!-- cap seam near the plug end -->
+  <path d="M352 0 V114" stroke="#1E2023" stroke-width="1.5"/>
+  <text x="257" y="57" font-size="34" font-weight="800" letter-spacing="2" text-anchor="middle" dominant-baseline="central"
+    fill="#8E9299" ${FONT}>TCL</text>
+  <!-- LED slit -->
+  <rect x="85" y="51" width="5" height="12" rx="2.5" fill="#15161A"/>
+</svg>
+`;
+const stickEdge = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 23" width="378" height="23">
+  <defs>
+    <linearGradient id="ike" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2C31"/><stop offset="0.5" stop-color="#34373D"/><stop offset="1" stop-color="#2A2C31"/>
+    </linearGradient>
+  </defs>
+  <rect width="378" height="23" fill="url(#ike)"/>
+  <path d="M352 0 V23" stroke="#1E2023" stroke-width="1.5"/>
+  ${[[90, "LTE1"], [251, "LTE2"]].map(([u, label]) => `
+  <rect x="${u - 14}" y="3" width="28" height="17" rx="3" fill="#24262A" stroke="#4A4D54" stroke-width="1"/>
+  <text x="${u}" y="11.5" font-size="7" text-anchor="middle" dominant-baseline="central" fill="#7D828A" ${FONT}>${label}</text>`).join("")}
+</svg>
+`;
+fs.writeFileSync(path.join(DIR, "ik41-front.svg"), stickFront());
+fs.writeFileSync(path.join(DIR, "ik41-edge.svg"), stickEdge());
+
+// ---- 5G Receiver (outdoor unit), its bracket and the PoE adapter ----------------------
+// Redrawn after the Centro Business guide's "5G Receiver" installation pictures: a white
+// rounded unit with raised vertical ribs and a status LED, and a white PoE adapter with
+// a LAN and a blue POE/WAN socket.
+const receiverFront = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 340" width="240" height="340">
+  <defs>
+    <linearGradient id="rx" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBFCFD"/><stop offset="1" stop-color="#E2E6EB"/>
+    </linearGradient>
+    <linearGradient id="rib" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E9ECF0"/><stop offset="0.5" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D9DDE3"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="340" rx="30" fill="url(#rx)"/>
+  <rect x="1" y="1" width="238" height="338" rx="29" fill="none" stroke="#C9CED6" stroke-width="2"/>
+  ${[0, 1, 2, 3].map((i) => `<rect x="${44 + i * 40}" y="64" width="32" height="236" rx="16" fill="url(#rib)" stroke="#CDD2D9" stroke-width="1.2"/>`).join("")}
+  <!-- status LED (unlit) -->
+  <circle cx="200" cy="30" r="4.5" fill="#B9C0C8" stroke="#9AA2AC" stroke-width="1"/>
+</svg>
+`;
+const poeFront = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="120" height="70">
+  <defs>
+    <linearGradient id="poe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4E8EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="70" rx="6" fill="url(#poe)"/>
+  <rect x="0.5" y="0.5" width="119" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
+  <text x="34" y="16" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>LAN</text>
+  <text x="86" y="16" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>POE/WAN</text>
+  <!-- LAN socket (silver) and POE/WAN socket (blue) -->
+  <rect x="17" y="22" width="34" height="30" rx="2" fill="#C5CAD1" stroke="#8E959E" stroke-width="1"/>
+  <path d="M27 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#2A2C30"/>
+  <rect x="69" y="22" width="34" height="30" rx="2" fill="#2F6FD8" stroke="#1F4FA0" stroke-width="1"/>
+  <path d="M79 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#14233E"/>
+</svg>
+`;
+fs.writeFileSync(path.join(DIR, "receiver-front.svg"), receiverFront());
+fs.writeFileSync(path.join(DIR, "poe-front.svg"), poeFront());
+
+console.log("wrote the CB3 panels, lit-LED sprites, IK41, 5G Receiver and PoE adapter drawings");

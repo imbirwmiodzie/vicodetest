@@ -6,6 +6,12 @@ export type RouterConfig = {
   extension: boolean;
   usbPort: "front" | "back";
   panelStyle: "vector" | "photo";
+  modem: "stick" | "receiver";
+  stepMount: string;
+  stepPoe: string;
+  stepWan: string;
+  stepReady: string;
+  flatCableLabel: string;
   stepEthernet: string;
   stepDirect: string;
   stepExtension: string;
@@ -35,7 +41,7 @@ export type Face = {
   dots?: Dot[];
   res?: number;
 };
-export type Quad = { key: string; o: Vec3; u: Vec3; v: Vec3; w: number; h: number; face: Face; opacity: number; cull: boolean; ground?: boolean; layer?: "back"; solid?: "router" };
+export type Quad = { key: string; o: Vec3; u: Vec3; v: Vec3; w: number; h: number; face: Face; opacity: number; cull: boolean; ground?: boolean; layer?: "back" | "outside"; solid?: "router" };
 export type Overlay =
   | { type: "hand"; x: number; y: number; s: number; opacity: number }
   | { type: "label"; x: number; y: number; text: string; opacity: number };
@@ -54,7 +60,8 @@ export const WIDTH: number;
 export const HEIGHT: number;
 export const MAX_DURATION_S: number;
 export const MEDIA: Record<
-  "router" | "routerFront" | "stickFront" | "stickEdge" | "backVector" | "frontVector" | "ledGreen" | "guideWhite" | "guideGreen",
+  | "router" | "routerFront" | "stickFront" | "stickEdge" | "backVector" | "frontVector" | "ledGreen" | "guideWhite" | "guideGreen"
+  | "stickFrontVector" | "stickEdgeVector" | "receiverFront" | "poeFront",
   { src: string; w: number; h: number }
 >;
 export const DEFAULTS: RouterConfig;
