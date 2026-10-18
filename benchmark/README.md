@@ -20,6 +20,13 @@ One more, HyperFrames only for now:
   router the other way round; and the router protected by a per-device limit. Each case lists its side
   effects. The scene is `shared/conntrack-scene.js`; the composition itself is a 2.6 KB HTML file.
   Addresses are from the documentation ranges, timeouts are the Linux defaults.
+- **Analogies** (`hyperframes/dist-demo/kitchen.html`, `cars.html`): the same four cases told as everyday
+  stories, with the same layout so they can be compared with the router demo. Kitchen: the order rail at the
+  pass is the table, every order is one ticket until the dish is served, a prankster guest orders dishes nobody
+  eats, prank phone orders come in from outside. Cars: a Park & Ride is the table, every trip parks one car
+  until the traveller is back, a prankster tows in junk cars, cars from other towns take the spaces from
+  outside. An intro lists what stands for what; each caption has a second line saying what it means in the
+  router. Scene: `shared/analogy-scene.js` (both themes share the simulation).
 
 ## Run on your PC
 
@@ -84,5 +91,9 @@ Connection table demo (`config/conntrack.json`):
 | `perHostLimit` | connections per device allowed in the protected case |
 | `site`, `title` | the site Alice opens, the title |
 | `speed`, `loop` | playback speed, loop or play once |
+
+Analogy demos (`config/kitchen.json`, `config/cars.json`): the same fields as the connection table demo;
+`site` is Alice's dish / destination, `tableSize` 8-24 (rail clips / parking spaces), `perHostLimit` 2-8
+(per table / per household).
 
 The router animation's length follows the enabled steps (12.9 s with no extension, 24.7 s with everything).

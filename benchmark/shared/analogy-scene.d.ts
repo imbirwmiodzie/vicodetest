@@ -1,0 +1,24 @@
+export type Theme = "kitchen" | "cars";
+export type AnalogyConfig = {
+  title: string;
+  site: string;
+  tableSize: number;
+  perHostLimit: number;
+  normal: boolean;
+  outbound: boolean;
+  inbound: boolean;
+  mitigation: boolean;
+  speed: number;
+  loop: boolean;
+};
+export type Timeline = { at: Record<string, number>; duration: number; holdEnd: number };
+export type Scene = { theme: Theme; cfg: AnalogyConfig; tl: Timeline; cases: unknown[] };
+export const WIDTH: number;
+export const HEIGHT: number;
+export const THEME_NAMES: Theme[];
+export const MAX_DURATION_S: number;
+export function defaults(theme: Theme): AnalogyConfig;
+export function normalize(theme: Theme, raw: unknown): AnalogyConfig;
+export function timeline(cfg: AnalogyConfig): Timeline;
+export function buildScene(theme: Theme, cfg: AnalogyConfig): Scene;
+export function createRenderer(svg: SVGSVGElement, scene: Scene): (t: number) => void;

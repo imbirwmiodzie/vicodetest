@@ -1,0 +1,12 @@
+{
+  "title": "When the kitchen's order rail is full",
+  "site": "Pizza",
+  "tableSize": 16,
+  "perHostLimit": 4,
+  "normal": true,
+  "outbound": true,
+  "inbound": true,
+  "mitigation": true,
+  "speed": 1,
+  "loop": true
+}

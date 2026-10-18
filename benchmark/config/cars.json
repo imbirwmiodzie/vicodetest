@@ -1,0 +1,12 @@
+{
+  "title": "When the Park & Ride is full",
+  "site": "City centre",
+  "tableSize": 24,
+  "perHostLimit": 4,
+  "normal": true,
+  "outbound": true,
+  "inbound": true,
+  "mitigation": true,
+  "speed": 1,
+  "loop": true
+}

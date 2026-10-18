@@ -171,3 +171,13 @@
   drawing, LAN ports on the left, WAN (198.51.100.7) on the right, packets run through a lane and the conntrack
   check (drops happen there). The intro zooms the front drawing to the shell's width before it opens.
 - Host labels (name, role, LAN IP) moved to the right of the icons; the site shows its address and port.
+
+## Kitchen and car park analogies (HyperFrames)
+- `shared/analogy-scene.js` with two themes on the conntrack demo's layout and simulation: kitchen (order rail at
+  the pass, waiter = conntrack check, tickets with number / table / dish / state / minutes left) and cars (Park &
+  Ride, barrier = check, top-down cars in numbered spaces with plate / state / time left). Unanswered connections
+  map to orders nobody confirms and cars parked without a train trip; inbound attacks to prank phone orders and
+  cars from other towns, which come in below the kitchen / city box.
+- 3.2 s intro card lists what stands for what; captions have a second line "In the router: …".
+- Compositions `kitchen.html` / `cars.html` (2.9 KB each, 50.7 s); one demo page script `demo/analogy.ts` reads the
+  theme from `<body data-theme>`.

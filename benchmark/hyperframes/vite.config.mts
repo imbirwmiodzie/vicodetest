@@ -10,11 +10,14 @@ const compositionFiles = [
   "index.html",
   "router.html",
   "conntrack.html",
+  "kitchen.html",
+  "cars.html",
   "vendor/gsap.min.js",
   "vendor/hyperframe.runtime.iife.js",
   "vendor/router-scene.js",
   "vendor/router-dom.js",
   "vendor/conntrack-scene.js",
+  "vendor/analogy-scene.js",
 ];
 const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg", ".svg": "image/svg+xml" };
 
@@ -31,6 +34,8 @@ export default defineConfig({
         main: path.resolve(here, "demo/index.html"),
         router: path.resolve(here, "demo/router.html"),
         conntrack: path.resolve(here, "demo/conntrack.html"),
+        kitchen: path.resolve(here, "demo/kitchen.html"),
+        cars: path.resolve(here, "demo/cars.html"),
       },
     },
   },
