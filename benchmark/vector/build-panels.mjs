@@ -311,8 +311,11 @@ const poeFront = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120
   </defs>
   <rect width="120" height="70" rx="6" fill="url(#poe)"/>
   <rect x="0.5" y="0.5" width="119" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
-  <text x="34" y="16" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>LAN</text>
-  <text x="86" y="16" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>POE/WAN</text>
+  <!-- power LED (unlit; the animation lights it) -->
+  <circle cx="9" cy="8" r="2.6" fill="#C3C9D0" stroke="#9AA2AC" stroke-width="0.6"/>
+  <text x="14" y="10" font-size="5.5" fill="#59606A" ${FONT}>Power</text>
+  <text x="34" y="18" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>LAN</text>
+  <text x="86" y="18" font-size="8" text-anchor="middle" fill="#59606A" ${FONT}>POE/WAN</text>
   <!-- LAN socket (silver) and POE/WAN socket (blue) -->
   <rect x="17" y="22" width="34" height="30" rx="2" fill="#C5CAD1" stroke="#8E959E" stroke-width="1"/>
   <path d="M27 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#2A2C30"/>
@@ -320,6 +323,38 @@ const poeFront = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120
   <path d="M79 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#14233E"/>
 </svg>
 `;
+// Side of the PoE adapter with the power inlet (figure-8, like the guide's power cable).
+const poeSide = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70" width="100" height="70">
+  <defs>
+    <linearGradient id="poes" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F8FA"/><stop offset="1" stop-color="#DDE1E6"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="70" rx="6" fill="url(#poes)"/>
+  <rect x="0.5" y="0.5" width="99" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
+  <rect x="17" y="26" width="26" height="18" rx="9" fill="#C7CCD3" stroke="#9AA2AC" stroke-width="1"/>
+  <path d="M22 30 h16 a5 5 0 0 1 0 10 h-16 a5 5 0 0 1 0 -10 z" fill="#2A2C30"/>
+  <text x="30" y="55" font-size="6" text-anchor="middle" fill="#59606A" ${FONT}>100-240V~</text>
+</svg>
+`;
+// Swiss wall socket (type T13): white plate, hexagonal recess, three contacts.
+const wallSocket = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3E7EC"/>
+    </linearGradient>
+    <radialGradient id="recess" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#E9ECF0"/><stop offset="1" stop-color="#C9CED5"/>
+    </radialGradient>
+  </defs>
+  <rect width="160" height="160" rx="14" fill="url(#plate)"/>
+  <rect x="1" y="1" width="158" height="158" rx="13" fill="none" stroke="#C5CAD1" stroke-width="2"/>
+  <path d="M58 38 H102 L122 64 V96 L102 122 H58 L38 96 V64 Z" fill="url(#recess)" stroke="#AEB4BC" stroke-width="2"/>
+  <circle cx="60" cy="76" r="6" fill="#33363B"/><circle cx="100" cy="76" r="6" fill="#33363B"/><circle cx="80" cy="96" r="6" fill="#33363B"/>
+</svg>
+`;
+fs.writeFileSync(path.join(DIR, "poe-side.svg"), poeSide());
+fs.writeFileSync(path.join(DIR, "wall-socket.svg"), wallSocket());
 fs.writeFileSync(path.join(DIR, "receiver-front.svg"), receiverFront());
 fs.writeFileSync(path.join(DIR, "poe-front.svg"), poeFront());
 

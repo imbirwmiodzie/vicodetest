@@ -15,6 +15,7 @@
   "cableLabel": "USB extension cable: up to 10 m",
   "stepMount": "Mount the 5G Receiver on the outside of the window",
   "stepPoe": "Run the flat cable under the window to the PoE adapter (POE/WAN)",
+  "stepPower": "Plug the PoE adapter's power cable into the wall socket",
   "stepWan": "Connect the PoE adapter (LAN) to port 4 (WAN) of the router",
   "stepReady": "The 5G Receiver flashes green, then glows steadily: ready",
   "flatCableLabel": "Flat cable: 3 m or 10 m",

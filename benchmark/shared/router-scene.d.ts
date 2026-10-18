@@ -9,6 +9,7 @@ export type RouterConfig = {
   modem: "stick" | "receiver";
   stepMount: string;
   stepPoe: string;
+  stepPower: string;
   stepWan: string;
   stepReady: string;
   flatCableLabel: string;
@@ -61,7 +62,7 @@ export const HEIGHT: number;
 export const MAX_DURATION_S: number;
 export const MEDIA: Record<
   | "router" | "routerFront" | "stickFront" | "stickEdge" | "backVector" | "frontVector" | "ledGreen" | "guideWhite" | "guideGreen"
-  | "stickFrontVector" | "stickEdgeVector" | "receiverFront" | "poeFront",
+  | "stickFrontVector" | "stickEdgeVector" | "receiverFront" | "poeFront" | "poeSide" | "wallSocket",
   { src: string; w: number; h: number }
 >;
 export const DEFAULTS: RouterConfig;

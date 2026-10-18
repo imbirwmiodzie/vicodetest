@@ -58,7 +58,7 @@ Router demo (`config/router.json`):
 | `direct` | `false` leaves out plugging the stick straight into the router |
 | `extension` | `false` leaves out the extension cable and the window |
 | `usbPort` | `"front"` (USB 3.0) or `"back"` (USB 2.0); used by both USB steps (`{usb}` in the texts) |
-| `modem` | `"stick"` (TCL IK41 USB stick, default) or `"receiver"` (5G Receiver on the outside of the window, flat cable to a PoE adapter, adapter to port 4 WAN) |
+| `modem` | `"stick"` (TCL IK41 USB stick, default) or `"receiver"` (5G Receiver on the outside of the window, flat cable to a PoE adapter, adapter powered from the wall socket, adapter to port 4 WAN) |
 | `panelStyle` | `"vector"` (default: the clean redraws in `vector/`) or `"photo"` (the photos) for the router panels and the USB stick |
 | `step*`, `done`, `cableLabel`, `title` | caption texts; `cableLabel` is shown along the extension cable |
 | `cableColor`, `usbCableColor`, `ledColor`, `accentColor` | colours |

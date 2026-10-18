@@ -31,6 +31,8 @@ export const MEDIA = {
   stickEdgeVector: { src: "/vector/ik41-edge.svg", w: 378, h: 23 },
   receiverFront: { src: "/vector/receiver-front.svg", w: 240, h: 340 },
   poeFront: { src: "/vector/poe-front.svg", w: 120, h: 70 },
+  poeSide: { src: "/vector/poe-side.svg", w: 100, h: 70 },
+  wallSocket: { src: "/vector/wall-socket.svg", w: 160, h: 160 },
 };
 
 export const DEFAULTS = {
@@ -50,6 +52,7 @@ export const DEFAULTS = {
   cableLabel: "USB extension cable: up to 10 m",
   stepMount: "Mount the 5G Receiver on the outside of the window",
   stepPoe: "Run the flat cable under the window to the PoE adapter (POE/WAN)",
+  stepPower: "Plug the PoE adapter's power cable into the wall socket",
   stepWan: "Connect the PoE adapter (LAN) to port 4 (WAN) of the router",
   stepReady: "The 5G Receiver flashes green, then glows steadily: ready",
   flatCableLabel: "Flat cable: 3 m or 10 m",
@@ -65,7 +68,7 @@ export const DEFAULTS = {
 const COLOR_KEYS = ["cableColor", "usbCableColor", "ledColor", "accentColor"];
 const TEXT_KEYS = [
   "title", "stepEthernet", "stepDirect", "stepExtension", "stepExtensionRouter", "stepWindow", "cableLabel",
-  "stepMount", "stepPoe", "stepWan", "stepReady", "flatCableLabel", "done",
+  "stepMount", "stepPoe", "stepPower", "stepWan", "stepReady", "flatCableLabel", "done",
 ];
 const BOOL_KEYS = ["ethernet", "direct", "extension", "loop"];
 
@@ -92,12 +95,12 @@ const ACT = {
   // USB stick: straight into the router, onto the extension cable, to the window.
   direct: 4.2, extPlug: 3.8, extRouter: 3.4, window: 4.6,
   // 5G Receiver: on the window, flat cable to the PoE adapter, adapter to port 4, ready.
-  rcvMount: 4.0, rcvPoe: 3.8, rcvWan: 3.8, rcvReady: 3.2,
+  rcvMount: 4.0, rcvPoe: 3.8, rcvPower: 3.8, rcvWan: 3.8, rcvReady: 3.2,
   done: 2.8, outro: 1.4,
 };
 // Longest possible animation (every step on), e.g. for a fixed-length composition.
 export const MAX_DURATION_S =
-  ACT.intro + ACT.ethernet + Math.max(ACT.direct + ACT.extPlug + ACT.extRouter + ACT.window, ACT.rcvMount + ACT.rcvPoe + ACT.rcvWan + ACT.rcvReady) + ACT.done + ACT.outro;
+  ACT.intro + ACT.ethernet + Math.max(ACT.direct + ACT.extPlug + ACT.extRouter + ACT.window, ACT.rcvMount + ACT.rcvPoe + ACT.rcvPower + ACT.rcvWan + ACT.rcvReady) + ACT.done + ACT.outro;
 
 // Start time of each enabled step, total duration and where loop:false stops.
 export function timeline(cfg) {
@@ -117,6 +120,7 @@ export function timeline(cfg) {
   add("window", stick && cfg.extension);
   add("rcvMount", !stick);
   add("rcvPoe", !stick);
+  add("rcvPower", !stick);
   add("rcvWan", !stick);
   add("rcvReady", !stick);
   add("done", true);
@@ -395,6 +399,7 @@ function cams(side, cfg) {
   };
   c.rcvMount = { fx: 2800, fy: -330, fz: 380, zoom: -1150, rotY: 62, rotX: -10 };
   c.rcvPoe = { fx: 2700, fy: -60, fz: 760, zoom: -1450, rotY: 50, rotX: -14 };
+  c.rcvPower = { fx: 2780, fy: 40, fz: 1150, zoom: -650, rotY: 50, rotX: -16 };
   c.rcvReady = { fx: 1750, fy: -150, fz: 620, zoom: -1750, rotY: 40, rotX: -14 };
   if (cfg.modem === "receiver") c.final = { ...c.rcvReady, zoom: c.rcvReady.zoom - 120 };
   else if (cfg.extension) c.final = { ...c.window, zoom: c.window.zoom - 150 };
@@ -601,15 +606,59 @@ function bracket(cy, cz) {
   return [...arm("rcv-arm-top", cy - RCV.h / 2 + 50), ...arm("rcv-arm-bottom", cy + RCV.h / 2 - 50)];
 }
 
-function poeAdapter(drop) {
+function poeAdapter(drop, powered) {
   const white = (k) => ({ fill: shadeRGB("#F4F6F8", k), radius: 6 });
+  // Power LED next to "Power" on the front (face pixels; the drawing is at 2x).
+  const led = powered ? [{ x: 13, y: 11, w: 10, h: 10, fill: "#46F08A", glow: "rgba(70,240,138,0.9)", glowSize: 8 }] : [];
   return [
     ...box("poe-shadow", { x: 0, y: 0, z: 0 }, POE.x, DESK, POE.z - POE.d, POE.z + POE.d, POE.w * 1.6, 0, { top: { shadow: true, ground: true } }),
     ...box("poe", { x: 0, y: 0, z: 0 }, POE.x, DESK - POE.h / 2 - drop, POE.z - POE.d / 2, POE.z + POE.d / 2, POE.w, POE.h, {
-      front: { fill: "#F4F6F8", radius: 6, img: { media: "poeFront", sx: 0, sy: 0, sw: 120, sh: 70, rot: 0 }, res: 2 },
-      top: white(-0.3), left: white(0.08), right: white(0.12), back: white(0.15),
+      front: { fill: "#F4F6F8", radius: 6, img: { media: "poeFront", sx: 0, sy: 0, sw: 120, sh: 70, rot: 0 }, res: 2, dots: led },
+      // Side facing into the room, with the power inlet.
+      left: { fill: "#ECEFF2", radius: 6, img: { media: "poeSide", sx: 0, sy: 0, sw: 100, sh: 70, rot: 0 }, res: 2 },
+      top: white(-0.3), right: white(0.12), back: white(0.15),
     }),
   ];
+}
+
+// Power: figure-8 connector into the adapter's side inlet, cable along the desk to a
+// Swiss plug in the wall socket next to the window.
+const INLET = { x: POE.x - POE.w / 2, y: DESK - POE.h + 70, z: POE.z - POE.d / 2 + 60 };
+const SOCKET = { y: DESK - 120, z: 1360, size: 160 };
+
+function wallSocket() {
+  const s = SOCKET.size;
+  return quad("wall-socket", [WALL.x - 1, SOCKET.y - s / 2, SOCKET.z - s / 2], [0, 0, 1], [0, 1, 0], s, s,
+    { fill: "#F4F6F8", radius: 14, img: { media: "wallSocket", sx: 0, sy: 0, sw: 160, sh: 160, rot: 0 }, res: 2 });
+}
+
+// Figure-8 connector, pointing +x into the inlet; gap = distance still to go.
+function powerConnector(gap) {
+  const white = (k) => ({ fill: shadeRGB("#F2F4F6", k) });
+  const x1 = INLET.x - gap, x0 = x1 - 56;
+  return box("pwr-conn", { x: 0, y: 0, z: 0 }, (x0 + x1) / 2, INLET.y, INLET.z - 22, INLET.z + 22, x1 - x0, 30, {
+    front: white(0), back: white(0.15), top: white(-0.3), bottom: white(0.25), left: white(0.08),
+  });
+}
+
+// Swiss plug, pointing +x into the wall socket.
+function powerPlug(gap) {
+  const white = (k) => ({ fill: shadeRGB("#F7F8FA", k), radius: 8 });
+  const x1 = WALL.x - 1 - gap, x0 = x1 - 64;
+  return box("pwr-plug", { x: 0, y: 0, z: 0 }, (x0 + x1) / 2, SOCKET.y + 6, SOCKET.z - 32, SOCKET.z + 32, x1 - x0, 86, {
+    front: white(0), back: white(0.15), top: white(-0.3), bottom: white(0.25), left: white(0.05),
+  });
+}
+
+function powerCablePts(gapConn, gapPlug) {
+  const yd = DESK - 7;
+  const s = [INLET.x - gapConn - 56, INLET.y, INLET.z];
+  const e = [WALL.x - 1 - gapPlug - 64, SOCKET.y + 30, SOCKET.z];
+  const pts = [s];
+  cubic(pts, s, [s[0] - 60, s[1], s[2]], [s[0] - 80, yd, s[2] + 20], [s[0] - 70, yd, s[2] + 160], 8);
+  cubic(pts, pts[pts.length - 1], [s[0] - 40, yd, s[2] + 420], [e[0] - 260, yd, e[2] + 80], [e[0] - 120, yd, e[2]], 16);
+  cubic(pts, pts[pts.length - 1], [e[0] - 40, yd, e[2]], [e[0] - 70, e[1], e[2]], e, 8);
+  return pts;
 }
 
 // Flat cable: from the unit down the outside of the window, under the sash, down the
@@ -694,6 +743,7 @@ export function frameState(t, cfg) {
   move(L("window"), 0, 1.4, C.window);
   move(L("rcvMount"), 0, 1.2, C.rcvMount);
   move(L("rcvPoe"), 0, 1.2, C.rcvPoe);
+  move(L("rcvPower"), 0, 1.1, C.rcvPower);
   move(L("rcvWan"), 0, 1.0, portCam(PORTS[3].x));
   move(L("rcvReady"), 0, 1.4, C.rcvReady);
   move(L("done"), 0, 1.0, C.final);
@@ -798,23 +848,33 @@ export function frameState(t, cfg) {
     cables.push(["ext-cable", extensionCablePts(male.pose, dockPose), 10, cfg.usbCableColor, 1]);
   }
   // 5G Receiver: on the window, flat cable into the PoE adapter, adapter to port 4.
-  const lm = L("rcvMount"), lp = L("rcvPoe"), lwan = L("rcvWan"), lrd = L("rcvReady");
+  const lm = L("rcvMount"), lp = L("rcvPoe"), lpw = L("rcvPower"), lwan = L("rcvWan"), lrd = L("rcvReady");
+  const powered = lpw !== null && lpw >= 3.1;
   const rcvZ = winZ + 200, rcvY = -380;
   if (lm !== null && lm >= 0.8) {
     for (const q of bracket(rcvY, rcvZ)) quads.push({ ...q, layer: "outside" });
     // Slides down onto the bracket and clicks in.
     const drop = travel(lm, 1.0, 2.4, 420, 14);
+    // Starts flashing green once the adapter has power, glows steadily once ready.
     let led = 0;
-    if (lrd !== null) led = lrd < 1.8 ? (Math.floor(lrd * 6) % 2 ? 0.2 : 1) : 1; // flashes, then steady
+    if (lrd !== null && lrd >= 1.8) led = 1;
+    else if (powered) led = Math.floor(t * 6) % 2 ? 0.2 : 1;
     for (const q of receiver({ x: WALL.x + 40, y: rcvY - drop, z: rcvZ }, led)) quads.push({ ...q, layer: "outside" });
   }
   if (lp !== null && lp >= 0.3) {
-    quads.push(...poeAdapter((1 - easeOutCubic(prog(lp, 0.3, 0.8))) * 400));
+    quads.push(...poeAdapter((1 - easeOutCubic(prog(lp, 0.3, 0.8))) * 400, powered));
     if (lp >= 0.8) {
       const gap = travel(lp, 1.2, 2.6, 300, 12);
       quads.push(...ethernetPlug(POE_PORTS.poe, gap, "#F2F4F6", { key: "flat", y: POE_PORTS.y, face: POE_FACE, boot: "#2F6FD8" }));
       cables.push(["flat-cable", flatCablePts(rcvY, rcvZ, gap), 6, "#F2F4F6", 1]);
     }
+  }
+  if (lm !== null) quads.push(wallSocket());
+  if (lpw !== null && lpw >= 0.5) {
+    // Connector into the adapter's side, then the plug into the wall socket.
+    const gapConn = travel(lpw, 0.6, 1.6, 260, 8), gapPlug = travel(lpw, 1.8, 2.9, 280, 10);
+    quads.push(...powerConnector(gapConn), ...powerPlug(gapPlug));
+    cables.push(["pwr-cable", powerCablePts(gapConn, gapPlug), 7, "#F0F2F5", 1]);
   }
   if (lwan !== null) {
     const gap = travel(lwan, 1.0, 2.5, 520, 14);
@@ -870,8 +930,8 @@ export function frameState(t, cfg) {
     overlays.push({ type: "label", x: clamp(s[0], 260, WIDTH - 260), y: clamp(s[1] - 30, 150, 560), text: cfg.cableLabel, opacity: a * fadeOut });
   }
 
-  // Shown with the flat cable, but not during the close-up on port 4.
-  if (rcv && lp !== null && lp >= 1.6 && (lwan === null || lrd !== null)) {
+  // Shown in the flat-cable step and the final shots (not over the power and port steps).
+  if (rcv && lp !== null && lp >= 1.6 && (lpw === null || lrd !== null)) {
     const pts = flatCablePts(rcvY, rcvZ, 0);
     const s = project(cam, pts[Math.floor(pts.length * 0.55)]);
     const a = easeOutCubic(prog(lp, 1.6, 2.1));
@@ -887,6 +947,7 @@ export function frameState(t, cfg) {
     ["window", cfg.stepWindow, 0.2, ACT.window],
     ["rcvMount", cfg.stepMount, 0.3, ACT.rcvMount],
     ["rcvPoe", cfg.stepPoe, 0.3, ACT.rcvPoe],
+    ["rcvPower", cfg.stepPower, 0.3, ACT.rcvPower],
     ["rcvWan", cfg.stepWan, 0.2, ACT.rcvWan],
     ["rcvReady", cfg.stepReady, 0.2, ACT.rcvReady],
   ].filter(([name]) => tl.at[name] !== undefined);

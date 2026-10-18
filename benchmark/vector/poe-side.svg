@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70" width="100" height="70">
+  <defs>
+    <linearGradient id="poes" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F8FA"/><stop offset="1" stop-color="#DDE1E6"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="70" rx="6" fill="url(#poes)"/>
+  <rect x="0.5" y="0.5" width="99" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
+  <rect x="17" y="26" width="26" height="18" rx="9" fill="#C7CCD3" stroke="#9AA2AC" stroke-width="1"/>
+  <path d="M22 30 h16 a5 5 0 0 1 0 10 h-16 a5 5 0 0 1 0 -10 z" fill="#2A2C30"/>
+  <text x="30" y="55" font-size="6" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">100-240V~</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3E7EC"/>
+    </linearGradient>
+    <radialGradient id="recess" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#E9ECF0"/><stop offset="1" stop-color="#C9CED5"/>
+    </radialGradient>
+  </defs>
+  <rect width="160" height="160" rx="14" fill="url(#plate)"/>
+  <rect x="1" y="1" width="158" height="158" rx="13" fill="none" stroke="#C5CAD1" stroke-width="2"/>
+  <path d="M58 38 H102 L122 64 V96 L102 122 H58 L38 96 V64 Z" fill="url(#recess)" stroke="#AEB4BC" stroke-width="2"/>
+  <circle cx="60" cy="76" r="6" fill="#33363B"/><circle cx="100" cy="76" r="6" fill="#33363B"/><circle cx="80" cy="96" r="6" fill="#33363B"/>
+</svg>

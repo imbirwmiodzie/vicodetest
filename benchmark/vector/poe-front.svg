@@ -6,8 +6,11 @@
   </defs>
   <rect width="120" height="70" rx="6" fill="url(#poe)"/>
   <rect x="0.5" y="0.5" width="119" height="69" rx="5.5" fill="none" stroke="#C9CED6" stroke-width="1"/>
-  <text x="34" y="16" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">LAN</text>
-  <text x="86" y="16" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">POE/WAN</text>
+  <!-- power LED (unlit; the animation lights it) -->
+  <circle cx="9" cy="8" r="2.6" fill="#C3C9D0" stroke="#9AA2AC" stroke-width="0.6"/>
+  <text x="14" y="10" font-size="5.5" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Power</text>
+  <text x="34" y="18" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">LAN</text>
+  <text x="86" y="18" font-size="8" text-anchor="middle" fill="#59606A" font-family="'Frutiger', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">POE/WAN</text>
   <!-- LAN socket (silver) and POE/WAN socket (blue) -->
   <rect x="17" y="22" width="34" height="30" rx="2" fill="#C5CAD1" stroke="#8E959E" stroke-width="1"/>
   <path d="M27 26 h14 v3 h4 v19 h-22 v-19 h4 z" fill="#2A2C30"/>

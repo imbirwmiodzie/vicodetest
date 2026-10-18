@@ -148,3 +148,7 @@
   the wall layer (CSS: a third preserve-3d world; canvas: rank -1).
 - Canvas: gradient-only faces (glass, cables) are drawn as one polygon with a screen-space gradient; the triangle grid
   doubled up the see-through colours where pieces overlap.
+- Receiver: new step "rcvPower": figure-8 power connector into the PoE adapter's side inlet (vector/poe-side.svg),
+  cable along the desk to a Swiss plug in a wall socket next to the window (vector/wall-socket.svg). Afterwards the
+  adapter's Power LED glows green and the receiver starts flashing (as in the guide); it glows steadily once ready.
+  HyperFrames composition length raised to the new maximum (27.3 s).
