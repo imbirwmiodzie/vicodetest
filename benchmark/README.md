@@ -10,6 +10,15 @@ Two animations, each built with all three tools:
   Remotion and HyperFrames draw it with CSS 3D, Revideo projects it onto its canvas.
 - **Status card** (`*/dist-demo/`): the benchmark animation from `PLAN.md`.
 
+One more, HyperFrames only for now:
+
+- **Connection table full** (`hyperframes/dist-demo/conntrack.html`): a 2D network diagram with LAN
+  hosts (Alice, Bob on a video call, Mallory's infected PC), the router with its connection (conntrack /
+  NAT) table drawn as slots, and the internet (the site, attackers). Cases: normal use; Mallory floods
+  the internet and fills the table, so Alice's page doesn't load; attackers on the internet flood the
+  router the other way round; and the router protected by a per-device limit. Each case lists its side
+  effects. The scene is `shared/conntrack-scene.js`; the composition itself is a 2.6 KB HTML file.
+
 ## Run on your PC
 
 Needs Node.js 20.19+ or 22.13+ (with npm) and curl.
@@ -64,4 +73,14 @@ Router demo (`config/router.json`):
 | `cableColor`, `usbCableColor`, `ledColor`, `accentColor` | colours |
 | `speed`, `loop` | playback speed, loop or play once |
 
-The animation's length follows the enabled steps (12.9 s with no extension, 24.7 s with everything).
+Connection table demo (`config/conntrack.json`):
+
+| Field | Effect |
+|---|---|
+| `normal`, `outbound`, `inbound`, `mitigation` | `false` leaves out that case (normal use, flood from the LAN, flood from the internet, protected) |
+| `tableSize` | slots in the drawn table, 16-48 in steps of 8 |
+| `perHostLimit` | connections per device allowed in the protected case |
+| `site`, `title` | the site Alice opens, the title |
+| `speed`, `loop` | playback speed, loop or play once |
+
+The router animation's length follows the enabled steps (12.9 s with no extension, 24.7 s with everything).

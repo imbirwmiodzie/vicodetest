@@ -1,0 +1,22 @@
+export type ConntrackConfig = {
+  title: string;
+  site: string;
+  tableSize: number;
+  perHostLimit: number;
+  normal: boolean;
+  outbound: boolean;
+  inbound: boolean;
+  mitigation: boolean;
+  speed: number;
+  loop: boolean;
+};
+export type Scene = { cfg: ConntrackConfig; tl: Timeline; cases: unknown[] };
+export type Timeline = { at: Record<string, number>; duration: number; holdEnd: number };
+export const WIDTH: number;
+export const HEIGHT: number;
+export const DEFAULTS: ConntrackConfig;
+export const MAX_DURATION_S: number;
+export function normalize(raw: unknown): ConntrackConfig;
+export function timeline(cfg: ConntrackConfig): Timeline;
+export function buildScene(cfg: ConntrackConfig): Scene;
+export function createRenderer(svg: SVGSVGElement, scene: Scene, routerImage: string): (t: number) => void;

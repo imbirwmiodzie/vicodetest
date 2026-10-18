@@ -152,3 +152,14 @@
   cable along the desk to a Swiss plug in a wall socket next to the window (vector/wall-socket.svg). Afterwards the
   adapter's Power LED glows green and the receiver starts flashing (as in the guide); it glows steadily once ready.
   HyperFrames composition length raised to the new maximum (27.3 s).
+
+## Connection table demo (HyperFrames)
+- New scene `shared/conntrack-scene.js`, plain SVG instead of 3D: LAN hosts, the router (vector/cb3-back.svg) with
+  its connection table as slots, and the internet. buildScene() simulates every packet of the enabled cases once
+  (arrival order decides slot or drop; per-device limit in the protected case), render(t) draws any moment, so the
+  player can seek freely. The static diagram is built once and rebuilt when the config changes.
+- Cases: normal (one connection = one slot), flood from the LAN (Mallory fills the table, Alice gets
+  "This site can't be reached", Bob's open call keeps working), flood from the internet (table and line full, calls
+  stutter), protected (Mallory capped at `perHostLimit`, Alice's page loads). Each has a side-effects list.
+- `hyperframes/conntrack.html` is the composition (2.6 KB, 49.5 s = every case); the demo page has its own small
+  editor and plays the config's part with range-end, like the router demo.

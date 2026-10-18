@@ -1,0 +1,12 @@
+{
+  "title": "When the router's connection table is full",
+  "site": "example.com",
+  "tableSize": 32,
+  "perHostLimit": 8,
+  "normal": true,
+  "outbound": true,
+  "inbound": true,
+  "mitigation": true,
+  "speed": 1,
+  "loop": true
+}

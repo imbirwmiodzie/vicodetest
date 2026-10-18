@@ -9,23 +9,29 @@ const benchmarkDir = path.resolve(here, "..");
 const compositionFiles = [
   "index.html",
   "router.html",
+  "conntrack.html",
   "vendor/gsap.min.js",
   "vendor/hyperframe.runtime.iife.js",
   "vendor/router-scene.js",
   "vendor/router-dom.js",
+  "vendor/conntrack-scene.js",
 ];
 const TYPES: Record<string, string> = { ".json": "application/json", ".png": "image/png", ".jpeg": "image/jpeg", ".svg": "image/svg+xml" };
 
 export default defineConfig({
   root: "demo",
   base: "./",
-  // The router demo page imports the shared editor from ../shared.
+  // The demo pages import the shared scenes and editor from ../shared.
   server: { fs: { allow: [benchmarkDir] } },
   build: {
     outDir: "../dist-demo",
     emptyOutDir: true,
     rollupOptions: {
-      input: { main: path.resolve(here, "demo/index.html"), router: path.resolve(here, "demo/router.html") },
+      input: {
+        main: path.resolve(here, "demo/index.html"),
+        router: path.resolve(here, "demo/router.html"),
+        conntrack: path.resolve(here, "demo/conntrack.html"),
+      },
     },
   },
   plugins: [
