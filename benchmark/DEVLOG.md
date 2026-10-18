@@ -163,3 +163,11 @@
   stutter), protected (Mallory capped at `perHostLimit`, Alice's page loads). Each has a side-effects list.
 - `hyperframes/conntrack.html` is the composition (2.6 KB, 49.5 s = every case); the demo page has its own small
   editor and plays the config's part with range-end, like the router demo.
+- Table redone as a real NAT table: proto, LAN side, router WAN, remote, state, timeout (Linux defaults: SYN_SENT
+  120 s, ESTABLISHED 5 days, SYN_RECV 60 s, UDP stream 120 s; 30 s for unanswered ones when protected), ticking down.
+  More entries than fit: the first 3 (the connections that were there before), "⋮ N more entries", the newest 7.
+  The last dropped connection is shown under the table (Alice's stay longer).
+- The router is drawn opened up instead of the back panel: dark shell titled "Inside the router" with the front
+  drawing, LAN ports on the left, WAN (198.51.100.7) on the right, packets run through a lane and the conntrack
+  check (drops happen there). The intro zooms the front drawing to the shell's width before it opens.
+- Host labels (name, role, LAN IP) moved to the right of the icons; the site shows its address and port.

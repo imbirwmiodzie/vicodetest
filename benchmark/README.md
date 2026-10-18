@@ -13,11 +13,13 @@ Two animations, each built with all three tools:
 One more, HyperFrames only for now:
 
 - **Connection table full** (`hyperframes/dist-demo/conntrack.html`): a 2D network diagram with LAN
-  hosts (Alice, Bob on a video call, Mallory's infected PC), the router with its connection (conntrack /
-  NAT) table drawn as slots, and the internet (the site, attackers). Cases: normal use; Mallory floods
+  hosts (Alice, Bob on a video call, Mallory's infected PC), the router opened up ("inside the router": LAN
+  ports, the conntrack check, the NAT table with protocol, LAN IP:port, router WAN IP:port, remote IP:port,
+  state and a ticking timeout), and the internet (the site, attackers). Cases: normal use; Mallory floods
   the internet and fills the table, so Alice's page doesn't load; attackers on the internet flood the
   router the other way round; and the router protected by a per-device limit. Each case lists its side
   effects. The scene is `shared/conntrack-scene.js`; the composition itself is a 2.6 KB HTML file.
+  Addresses are from the documentation ranges, timeouts are the Linux defaults.
 
 ## Run on your PC
 
